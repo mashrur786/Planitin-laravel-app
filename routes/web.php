@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'RestaurantsController@search');
+
+Route::post('restaurants/result', [
+
+    'as' => 'result',
+    'uses' => 'RestaurantsController@result'
+
+]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
