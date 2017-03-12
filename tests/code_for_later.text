@@ -1,0 +1,23 @@
+
+ //restaurant faker
+ $faker =  \Faker\Factory::create();
+
+        foreach(range(1,20) as $x){
+
+            $restaurant->create([
+
+                'email' => $faker->unique()->email,
+                'business_name' => $faker->company,
+                'description' => $faker->sentence(10),
+                'cuisine' => $faker->word,
+                'business_phone1' => $faker->e164PhoneNumber,
+                'business_phone2' => $faker->e164PhoneNumber,
+                'address' => $faker->secondaryAddress,
+                'street' => $faker->streetName,
+                'town' => $faker->city,
+                'county' => $faker->state,
+                'postcode' => $faker->postcode,
+                'website' => $faker->safeEmailDomain,
+                'contact_name' => $faker->name,
+                'contact_phone' => $faker->e164PhoneNumber,
+            ]);

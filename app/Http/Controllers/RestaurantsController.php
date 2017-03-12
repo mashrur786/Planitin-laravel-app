@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Restaurant;
 
 class RestaurantsController extends Controller
 {
@@ -15,11 +16,17 @@ class RestaurantsController extends Controller
     }
 
 
-    public function result(Request $request){
+    public function result(Request $request, Restaurant $restaurant){
 
-        //
+
+
+
         $postcode =  $request->postcode;
         return $postcode;
+
+
+
+
 
     }
 
