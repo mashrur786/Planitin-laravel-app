@@ -7,28 +7,40 @@ use App\Restaurant;
 
 class RestaurantsController extends Controller
 {
+    public function welcome(){
 
-    public function search(){
-
-        //
-        return view('restaurants.search');
+        return view('restaurants.welcome');
 
     }
 
+    public function search(Request $request, Restaurant $restaurant){
 
-    public function result(Request $request, Restaurant $restaurant){
+        $term =  $request->term;
+        return view('restaurants.result')->with('term', $term);
 
+    }
 
+    public function autocompleteSearch(Request $request, Restaurant $restaurant){
 
+        $term =   $request->input('term');
+        $data = array();
 
-        $postcode =  $request->postcode;
-        return $postcode;
+        $results = $restaurant->where('business_name', 'LIKE', '%'.$term .'%')
+                                ->orWhere('postcode', 'LIKE', '%'.$term.'%')
+                                ->orWhere('cuisine', 'LIKE', '%'.$term.'%')
+                                ->take(5)->get();
 
+        foreach ($results as $result){
 
+            $data[] = [ 'id' => $result->id, 'value' => $result->cuisine . ' - ' . $result->business_name . ' ' . $result->postcode];
+        }
+
+        return response()->json($data);
 
 
 
     }
+
 
     /**
      * Display a listing of the resource.

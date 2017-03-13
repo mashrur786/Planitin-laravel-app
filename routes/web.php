@@ -11,14 +11,24 @@
 |
 */
 
-Route::get('/', 'RestaurantsController@search');
+Route::get('/', [
+    'as' => 'welcome',
+    'uses' => 'RestaurantsController@welcome'
+]);
 
-Route::post('restaurants/result', [
+Route::post('restaurants/search', [
+    'as' => 'restaurants.search',
+    'uses' => 'RestaurantsController@search'
+]);
 
-    'as' => 'result',
-    'uses' => 'RestaurantsController@result'
+Route::get('restaurants/autocompleteSearch/', [
+
+    'as' => 'restaurants.autocompleteSearch',
+    'uses' => 'RestaurantsController@autocompleteSearch'
 
 ]);
+
+
 
 Auth::routes();
 

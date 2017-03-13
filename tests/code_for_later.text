@@ -21,3 +21,9 @@
                 'contact_name' => $faker->name,
                 'contact_phone' => $faker->e164PhoneNumber,
             ]);
+
+
+$queries = DB::table('restaurants')
+            ->where('business_name', 'LIKE', '%'.$term.'%')
+            ->orWhere('postcode', 'LIKE', '%'.$term.'%')
+            ->take(5)->get();
