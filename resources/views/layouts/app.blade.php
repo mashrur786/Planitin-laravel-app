@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-
+    @yield('style')
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([

@@ -22,17 +22,12 @@
     <script>
 
         $(function(){
-            $('#term').autocomplete({
-                source: '{{ route('restaurants.autocompleteSearch') }}',
+            $("#term").autocomplete({
+                source: "{{ route("restaurants.autocompleteSearch") }}",
                 minLength: 3,
-                response: function(event, ui) {
-
-                    console.log(ui.content);
-                    if (ui.content.length === 0) {
-                        console.log('no respose');
-                    } else {
-                        console.log(ui.content);
-                    }
+                select: function( event, ui ) {
+                    console.log(ui);
+                    $(this).after( "<input type='hidden' name='id' value='"+ ui.item.id +"' >" );
 
                 }
             });

@@ -15,8 +15,11 @@ class RestaurantsController extends Controller
 
     public function search(Request $request, Restaurant $restaurant){
 
-        $term =  $request->term;
-        return view('restaurants.result')->with('term', $term);
+        $id =  $request->id;
+        $restaurant_info = $restaurant->where('id', $id)->first();
+
+
+        return view('restaurants.result')->with('restaurant_info', $restaurant_info);
 
     }
 
