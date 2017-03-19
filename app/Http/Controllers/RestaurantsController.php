@@ -16,10 +16,18 @@ class RestaurantsController extends Controller
     public function search(Request $request, Restaurant $restaurant){
 
         $id =  $request->id;
-        $restaurant_info = $restaurant->where('id', $id)->first();
+
+        if($id){
+            $restaurant_info = $restaurant->where('id', $id)->first();
 
 
-        return view('restaurants.result')->with('restaurant_info', $restaurant_info);
+            return view('restaurants.result')->with('restaurant_info', $restaurant_info);
+
+        } else {
+
+            return redirect('restaurants');
+
+        }
 
     }
 
@@ -50,10 +58,15 @@ class RestaurantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Restaurant $restaurant)
     {
-        //
 
+        $restaurants =  $restaurant->all();
+
+        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+
+
+        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines ]);
     }
 
     /**

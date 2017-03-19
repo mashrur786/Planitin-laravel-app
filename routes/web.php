@@ -29,6 +29,14 @@ Route::get('restaurants/autocompleteSearch/', [
 ]);
 
 
+Route::get('restaurants/', [
+
+    'as' => 'restaurants',
+    'uses' => 'RestaurantsController@index'
+
+]);
+
+
 
 Auth::routes();
 

@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container res-search-auto">
         <div class="row">
             <div class="col-md-8 col col-md-offset-2">
                 <form action="{{ route('restaurants.search') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input id="term" name="term" type="text" class="form-control" placeholder="Search for...">
+                        <input id="term" name="term" type="text" class="form-control" placeholder="Search for restaurants by name, cuisine or postcode...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go!</button>
+                        <button class="btn btn-default" type="submit"> Search </button>
                     </span>
                     </div><!-- /input-group -->
                 </form>
