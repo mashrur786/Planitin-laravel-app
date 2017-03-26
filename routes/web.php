@@ -16,6 +16,20 @@ Route::get('/', [
     'uses' => 'RestaurantsController@welcome'
 ]);
 
+Route::get('restaurants/', [
+
+    'as' => 'restaurants',
+    'uses' => 'RestaurantsController@index'
+
+]);
+
+Route::post('restaurants/sort', [
+
+    'as' => 'restaurants.sort',
+    'uses' => 'RestaurantsController@sort'
+
+]);
+
 Route::post('restaurants/search', [
     'as' => 'restaurants.search',
     'uses' => 'RestaurantsController@search'
@@ -29,12 +43,7 @@ Route::get('restaurants/autocompleteSearch/', [
 ]);
 
 
-Route::get('restaurants/', [
 
-    'as' => 'restaurants',
-    'uses' => 'RestaurantsController@index'
-
-]);
 
 
 

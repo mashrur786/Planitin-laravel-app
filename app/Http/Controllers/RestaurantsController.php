@@ -31,6 +31,18 @@ class RestaurantsController extends Controller
 
     }
 
+    /* Return a sorted result */
+    public function sort(Request $request, Restaurant $restaurant){
+
+        $filter_name = $request->filter_name;
+        $filter_val = $request->filter_val;
+
+        $results = $restaurant->where($filter_name, '=',$filter_val)->get();
+
+        return $results;
+
+    }
+
     public function autocompleteSearch(Request $request, Restaurant $restaurant){
 
         $term =   $request->input('term');
@@ -65,8 +77,9 @@ class RestaurantsController extends Controller
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
 
-
         return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines ]);
+
+
     }
 
     /**

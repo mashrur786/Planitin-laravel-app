@@ -15,7 +15,7 @@
                     <div class="panel-body">
                         @foreach ($cuisines as $cuisine)
                             <div class="checkbox">
-                                <label><input type="checkbox" value="{{ ucfirst(trans($cuisine->cuisine))  }}"> {{ ucfirst(trans($cuisine->cuisine))  }}</label>
+                                <label><input data-filter-name="cuisine" class="filter" type="checkbox" value="{{ ucfirst(trans($cuisine->cuisine))  }}"> {{ ucfirst(trans($cuisine->cuisine))  }}</label>
                             </div>
                         @endforeach
 
@@ -70,7 +70,7 @@
                 </div>
 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 restaurant-item">
                 @foreach ($data as $restaurant)
 
                     <div class="panel panel-default  panel--styled">
@@ -109,12 +109,73 @@
             </div>
         </div>
     </div>
-
-
+    <script>
+        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
+        var url = '{{ route('restaurants.sort') }}';
+    </script>
 @endsection
 {{-- Script--}}
 @section('script')
     <script>
+
+        $(document).on('click', '.filter', function(){
+
+           var filterVal = $(this).val();
+           var filterName = $(this).data('filter-name');
+
+
+            $.ajax({
+                method:'POST',
+                url: url,
+                data: { 'filter_name' : filterName,'filter_val' : filterVal, _token: token}
+            }).done(function(data){
+
+                $(".restaurant-item").empty();
+                var output;
+
+                $.each(data, function(index, value) {
+
+
+
+                    output += "<div class='panel panel-default  panel--styled'>"
+
+                        + "<div class='panel-body'>"
+                        + "<div class='col-md-12 panelTop'>"
+                        + "<div class='col-md-4'>"
+                        + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
+                        + "</div>"
+                        + "<div class='col-md-8'>"
+                        + "<small>" + value.cuisine + "</small>"
+                        + "<h4>" + value.business_name + "</h4>"
+                        + "<p>" +  value.description + "</p>"
+                        + "</div>"
+                        + "</div>"
+
+                        + "<div class='col-md-12 panelBottom'>"
+                        + "<div class='col-md-4 text-center'>"
+
+                        + "<label class='switch'>"
+
+                        + "<input type='checkbox'>"
+                        + "<div class='slider round'></div>"
+                        + "</label>"
+                        + "</div>"
+                        + "<div class='col-md-4 text-left'>"
+                        + "<span class='tel'>" + value.business_phone1 + "</span>"
+                        + "</div>"
+                        + "<div class='col-md-4'>"
+                        + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>";
+
+
+                });
+
+                $(".restaurant-item").append(output);
+            });
+        });
 
         $(document).on('click', '.panel-heading span.clickable', function(e){
             var $this = $(this);
