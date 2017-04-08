@@ -88,10 +88,11 @@
     </header>
     <main>
         @yield('content')
+        <div class="clearfix"></div>
     </main>
     <footer class="footer navbar-fixed-bottom">
         <div class="container">
-            <p class="text-muted">Planitin</p>
+            <p>Planitin</p>
         </div>
     </footer>
 

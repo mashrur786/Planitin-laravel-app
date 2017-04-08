@@ -34,12 +34,29 @@ class RestaurantsController extends Controller
     /* Return a sorted result */
     public function sort(Request $request, Restaurant $restaurant){
 
-        $filter_name = $request->filter_name;
-        $filter_val = $request->filter_val;
 
-        $results = $restaurant->where($filter_name, '=',$filter_val)->get();
+
+        $filters = $request->filters;
+        $cuisines = [];
+
+        foreach($filters as $filter){
+
+
+            if($filter["filterName"] == "cuisine"){
+
+               $cuisines[] = $filter["filterValue"];
+
+            }
+
+
+        }
+
+         $results = $restaurant->whereIn("cuisine", $cuisines)
+                                ->orderBy("business_name", "asc")
+                                ->get();
 
         return $results;
+
 
     }
 

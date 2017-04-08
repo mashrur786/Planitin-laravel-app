@@ -24,12 +24,24 @@ nav {
 
 .navbar-default {
 
-  background: #070503;
+  background: #3398ab;
+
+
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #ffffff;
 
 }
 
 
-main container {
+main  {
+
+    margin-bottom: 100px;
 
 }
 
@@ -43,7 +55,7 @@ Restaurants Card Styles
 }
 
 .panel-heading span {
-  margin-top: -20px;
+  margin-top: -25px;
   font-size: 15px;
 }
 
@@ -70,7 +82,8 @@ Restaurants Card Styles
 
 .footer {
 
-  background: #070503
+  background: #3398ab;
+
 
 }
 

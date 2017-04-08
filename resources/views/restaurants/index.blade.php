@@ -118,64 +118,93 @@
 @section('script')
     <script>
 
-        $(document).on('click', '.filter', function(){
 
-           var filterVal = $(this).val();
-           var filterName = $(this).data('filter-name');
+        $(function(){
 
+            $('.filter').on('click', function(){
 
-            $.ajax({
-                method:'POST',
-                url: url,
-                data: { 'filter_name' : filterName,'filter_val' : filterVal, _token: token}
-            }).done(function(data){
+                var filters = [];
 
-                $(".restaurant-item").empty();
-                var output;
+                $('.filter').each(function(){
 
-                $.each(data, function(index, value) {
+                    if($(this).prop('checked')){
+
+                        var  filterValue = $(this).val() ,
+                             filterName = $(this).data('filter-name');
 
 
+                        var filter = {};
+                        filter.filterValue = filterValue;
+                        filter.filterName = filterName;
 
-                    output += "<div class='panel panel-default  panel--styled'>"
-
-                        + "<div class='panel-body'>"
-                        + "<div class='col-md-12 panelTop'>"
-                        + "<div class='col-md-4'>"
-                        + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
-                        + "</div>"
-                        + "<div class='col-md-8'>"
-                        + "<small>" + value.cuisine + "</small>"
-                        + "<h4>" + value.business_name + "</h4>"
-                        + "<p>" +  value.description + "</p>"
-                        + "</div>"
-                        + "</div>"
-
-                        + "<div class='col-md-12 panelBottom'>"
-                        + "<div class='col-md-4 text-center'>"
-
-                        + "<label class='switch'>"
-
-                        + "<input type='checkbox'>"
-                        + "<div class='slider round'></div>"
-                        + "</label>"
-                        + "</div>"
-                        + "<div class='col-md-4 text-left'>"
-                        + "<span class='tel'>" + value.business_phone1 + "</span>"
-                        + "</div>"
-                        + "<div class='col-md-4'>"
-                        + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
-                        + "</div>"
-                        + "</div>"
-                        + "</div>"
-                        + "</div>";
+                        filters.push(filter);
 
 
-                });
 
-                $(".restaurant-item").append(output);
+                    }// eof if
+
+                }); //eof each
+
+                 $.ajax({
+
+                        method:'POST',
+                        url: url,
+                        data: { filters : filters , _token: token}
+
+                    }).done(function(data){
+
+                         console.log(data);
+                         $(".restaurant-item").empty();
+
+                    $.each(data, function(index, value) {
+
+
+                         var   output = "<div class='panel panel-default  panel--styled'>"
+
+                                    + "<div class='panel-body'>"
+                                    + "<div class='col-md-12 panelTop'>"
+                                    + "<div class='col-md-4'>"
+                                    + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
+                                    + "</div>"
+                                    + "<div class='col-md-8'>"
+                                    + "<small>" + value.cuisine + "</small>"
+                                    + "<h4>" + value.business_name + "</h4>"
+                                    + "<p>" +  value.description + "</p>"
+                                    + "</div>"
+                                    + "</div>"
+
+                                    + "<div class='col-md-12 panelBottom'>"
+                                    + "<div class='col-md-4 text-center'>"
+
+                                    + "<label class='switch'>"
+
+                                    + "<input type='checkbox'>"
+                                    + "<div class='slider round'></div>"
+                                    + "</label>"
+                                    + "</div>"
+                                    + "<div class='col-md-4 text-left'>"
+                                    + "<span class='tel'>" + value.business_phone1 + "</span>"
+                                    + "</div>"
+                                    + "<div class='col-md-4'>"
+                                    + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
+                                    + "</div>"
+                                    + "</div>"
+                                    + "</div>"
+                                    + "</div>";
+
+
+                                    $(".restaurant-item").append(output);
+
+
+                         }); //eof foreach
+
+                     });
+
             });
+
+
         });
+
 
         $(document).on('click', '.panel-heading span.clickable', function(e){
             var $this = $(this);
