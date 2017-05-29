@@ -167,6 +167,8 @@ return [
          * Package Service Providers...
          */
 
+	    PhpConsole\Laravel\ServiceProvider::class,
+
         //
 
         /*

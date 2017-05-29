@@ -7,7 +7,13 @@
                 <form action="{{ route('restaurants.search') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input id="term" name="term" type="text" class="form-control" placeholder="Search for restaurants by name, cuisine or postcode...">
+                        <select name="res_type" class="selectpicker">
+                            <option value="restaurant">Restaurants</option>
+                            <option value="takeaway">Takeaways</option>
+                            <option value="cafe">Cafés & Bars</option>
+                            <option value="dessert">Dessert Parlours</option>
+                        </select>
+                        <input name="location" type="text" class="form-control" placeholder="Search for restaurants by name, cuisine or postcode...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"> Search </button>
                     </span>
@@ -21,7 +27,7 @@
 @section('script')
     <script>
 
-        $(function(){
+   /*     $(function(){
             $("#term").autocomplete({
                 source: "{{ route("restaurants.autocompleteSearch") }}",
                 minLength: 3,
@@ -32,7 +38,7 @@
                 }
             });
 
-        });//end of function
+        });//end of function*/
 
     </script>
 @endsection

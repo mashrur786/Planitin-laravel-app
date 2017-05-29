@@ -3,6 +3,8 @@
 {{-- Content--}}
 @section('content')
     <div class="container">
+
+        @foreach($restaurants_info as $restaurant_info)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default  panel--styled">
@@ -44,6 +46,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 @endsection
 {{-- Script--}}

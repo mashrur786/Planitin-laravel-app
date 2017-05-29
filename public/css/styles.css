@@ -41,8 +41,18 @@ nav {
 
 main  {
 
-    margin-bottom: 100px;
+    padding-bottom: 70px;
 
+}
+
+/*----------------------
+welcome/Search Page
+----------------------*/
+
+
+.bootstrap-select {
+
+    min-width: 150px;
 }
 
 
