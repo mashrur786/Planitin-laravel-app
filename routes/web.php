@@ -30,6 +30,13 @@ Route::post('restaurants/sort', [
 
 ]);
 
+Route::post('restaurants/sortById', [
+
+    'as' => 'restaurants.sortById',
+    'uses' => 'RestaurantsController@sortById'
+
+]);
+
 Route::post('restaurants/search', [
     'as' => 'restaurants.search',
     'uses' => 'RestaurantsController@search'

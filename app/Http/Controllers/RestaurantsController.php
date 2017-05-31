@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Restaurant;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
+use Illuminate\Support\Facades\Log;
+
 
 class RestaurantsController extends Controller
 {
@@ -37,6 +38,18 @@ class RestaurantsController extends Controller
 
     }
 
+    /* returns */
+    public function sortById(Request $request, Restaurant $restaurant){
+
+        $id = $request->id;
+
+        $result = $restaurant->where("id", $id)->firstOrFail();
+
+        return $result;
+
+
+    }
+
     /* Return a sorted result made via ajax */
     public function sort(Request $request, Restaurant $restaurant){
 
@@ -52,6 +65,7 @@ class RestaurantsController extends Controller
         $cuisines = [];
         $types = [];
 
+
         foreach($filters as $filter){
 
             if($filter["filterName"] == "cuisine"){
@@ -64,7 +78,6 @@ class RestaurantsController extends Controller
             }
 
         }
-
 
        if(empty($types)){
 
@@ -93,7 +106,6 @@ class RestaurantsController extends Controller
 
         }
 
-
         //$results = DB::select($query);
 
         /*
@@ -102,19 +114,20 @@ class RestaurantsController extends Controller
                                 ->orderBy("business_name", "asc")
                                 ->toSql();*/
 
-
-
     }
 
 
     /* Autocomplete search at welcome screen */
     public function autocompleteSearch(Request $request, Restaurant $restaurant){
 
-        $res_name =   $request->resName;
+
+        //$resName =   $request->resName;
+        $resName =    $request->term;
+        //log::info('restaurant_name_ajax: '. $request);
 
         $data = array();
 
-        $results = $restaurant->where('business_name', 'LIKE', '%'.  $res_name  . '%')->take(5)->get();
+        $results = $restaurant->where('business_name', 'LIKE', '%'.  $resName  . '%')->take(5)->get();
 
         foreach ($results as $result) {
 

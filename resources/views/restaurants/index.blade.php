@@ -96,7 +96,7 @@
 @section('script')
     <script>
         //function for restaurent name auto search
-         var filters = [];
+
         $(function(){
 
             $("#res-name").autocomplete({
@@ -104,25 +104,24 @@
                 source: "{{ route("restaurants.autocompleteSearch") }}",
                 minLength: 3,
                 select: function( event, ui ) {
+
                     //$(this).after( "<input type='hidden' name='id' value='"+ ui.item.id +"' >" );
 
-                    var filter = {};
-                    filter.filterName = 'res-name';
-                    filter.filterValue = ui.item.id ;
-                    filters.push(filter);
+
+                    var id = ui.item.id ;
 
                     $.ajax({
 
                         method:'POST',
-                        url: url,
-                        data: { filters : filters , _token: token },
+                        url: '{{ route('restaurants.sortById') }}',
+                        data: { 'id' : id , _token: token },
                         //success
                         success: function(data) {
 
-                           // console.log(data);
+                            console.log(data);
                             $(".restaurant-item").empty();
 
-                            $.each(data, function(index, value) {
+
 
                                 var   output = "<div class='panel panel-default  panel--styled'>"
 
@@ -132,9 +131,9 @@
                                     + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
                                     + "</div>"
                                     + "<div class='col-md-8'>"
-                                    + "<small>" + value.cuisine + "</small>"
-                                    + "<h4>" + value.business_name + "</h4>"
-                                    + "<p>" +  value.description + "</p>"
+                                    + "<small>" + data.cuisine + "</small>"
+                                    + "<h4>" + data.business_name + "</h4>"
+                                    + "<p>" +  data.description + "</p>"
                                     + "</div>"
                                     + "</div>"
 
@@ -148,7 +147,7 @@
                                     + "</label>"
                                     + "</div>"
                                     + "<div class='col-md-4 text-left'>"
-                                    + "<span class='tel'>" + value.business_phone1 + "</span>"
+                                    + "<span class='tel'>" + data.business_phone1 + "</span>"
                                     + "</div>"
                                     + "<div class='col-md-4'>"
                                     + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
@@ -157,7 +156,7 @@
                                     + "</div>"
                                     + "</div>";
                                     $(".restaurant-item").append(output);
-                         }); //eof foreach
+
 
                         },
                         //error
