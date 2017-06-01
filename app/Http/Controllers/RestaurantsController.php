@@ -65,7 +65,6 @@ class RestaurantsController extends Controller
         $cuisines = [];
         $types = [];
 
-
         foreach($filters as $filter){
 
             if($filter["filterName"] == "cuisine"){
