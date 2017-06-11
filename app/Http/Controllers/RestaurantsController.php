@@ -122,7 +122,7 @@ class RestaurantsController extends Controller
 
         //$resName =   $request->resName;
         $resName =    $request->term;
-        //log::info('restaurant_name_ajax: '. $request);
+        log::info('restaurant_name_ajax: '. $request);
 
         $data = array();
 
@@ -148,8 +148,9 @@ class RestaurantsController extends Controller
         $restaurants =  $restaurant->all();
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        $types = $restaurant->select('type')->groupBy('type')->get();
 
-        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines ]);
+        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types ]);
 
 
     }
@@ -161,7 +162,7 @@ class RestaurantsController extends Controller
      */
     public function create()
     {
-        //
+        return view('restaurants.add');
     }
 
     /**

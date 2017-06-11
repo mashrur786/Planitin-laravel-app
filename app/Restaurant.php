@@ -13,9 +13,9 @@ class Restaurant extends Model
 
         'email',
         'business_name',
-        'description',
-        'cuisine',
         'type',
+        'cuisine',
+        'description',
         'business_phone1',
         'business_phone2',
         'address',

@@ -49,6 +49,8 @@ Route::get('restaurants/autocompleteSearch/', [
 
 ]);
 
+Route::get('restaurants/add', 'RestaurantsController@create');
+
 
 
 
