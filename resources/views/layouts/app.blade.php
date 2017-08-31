@@ -29,6 +29,7 @@
     </script>
 </head>
 <body>
+
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -87,6 +88,7 @@
         </nav>
     </header>
     <main>
+        @include('partials.messages')
         @yield('content')
         <div class="clearfix"></div>
     </main>

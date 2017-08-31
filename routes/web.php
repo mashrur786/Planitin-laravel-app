@@ -11,6 +11,8 @@
 |
 */
 
+
+/* Restaurants routes */
 Route::get('/', [
     'as' => 'welcome',
     'uses' => 'RestaurantsController@welcome'
@@ -22,6 +24,15 @@ Route::get('restaurants/', [
     'uses' => 'RestaurantsController@index'
 
 ]);
+
+
+Route::post('restaurants/store', [
+    'as' => 'restaurants.store',
+    'uses' => 'RestaurantsController@store'
+    ]);
+
+Route::get('restaurants/add', 'RestaurantsController@create');
+
 
 Route::post('restaurants/sort', [
 
@@ -49,13 +60,11 @@ Route::get('restaurants/autocompleteSearch/', [
 
 ]);
 
-Route::get('restaurants/add', 'RestaurantsController@create');
-
-
-
-
-
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+//requirement routes
+Route::resource('requirements', 'RequirementController', ['except' => ['create']]);

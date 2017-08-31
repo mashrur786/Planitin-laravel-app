@@ -26,7 +26,7 @@ class RestaurantsController extends Controller
 
         $restaurants = $restaurant->where('postcode', '=',  $location)
                                    ->orWhere('area', '=', $location)
-                                   ->where('type', '=' , $type)
+                                   ->orWhere('type', '=' , $type)
                                    ->get();
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
@@ -122,7 +122,7 @@ class RestaurantsController extends Controller
 
         //$resName =   $request->resName;
         $resName =    $request->term;
-        log::info('restaurant_name_ajax: '. $request);
+        //log::info('restaurant_name_ajax: '. $request);
 
         $data = array();
 
@@ -162,6 +162,7 @@ class RestaurantsController extends Controller
      */
     public function create()
     {
+        //add a new restaurant
         return view('restaurants.add');
     }
 
@@ -173,7 +174,12 @@ class RestaurantsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //store a new restaurant
+        //dd($request->all());
+        Restaurant::create($request->all());
+
+
+        return redirect('/restaurants');
     }
 
     /**

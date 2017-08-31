@@ -9,24 +9,13 @@ class Restaurant extends Model
     //
     protected $table = 'restaurants';
 
-    protected $fillable = [
+    protected $guarded = ['id'];
 
-        'email',
-        'business_name',
-        'type',
-        'cuisine',
-        'description',
-        'business_phone1',
-        'business_phone2',
-        'address',
-        'street',
-        'area',
-        'town',
-        'county',
-        'postcode',
-        'website',
-        'contact_name',
-        'contact_phone'
-    ];
+    // Relationship
+     public function requirements(){
+
+        return $this->belongsToMany('App\Requirement', 'requirement_restaurant');
+
+    }
 
 }
