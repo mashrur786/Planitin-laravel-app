@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Requirement;
 use Illuminate\Http\Request;
 use App\Restaurant;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
@@ -163,7 +164,9 @@ class RestaurantsController extends Controller
     public function create()
     {
         //add a new restaurant
-        return view('restaurants.add');
+        $requirements = Requirement::all();
+
+        return view('restaurants.add')->withRequirements($requirements);
     }
 
     /**
@@ -174,10 +177,29 @@ class RestaurantsController extends Controller
      */
     public function store(Request $request)
     {
+        $restaurant = new Restaurant;
         //store a new restaurant
-        //dd($request->all());
-        Restaurant::create($request->all());
+        //Restaurant::create($request->all());
+        $restaurant->email = $request->email;
+        $restaurant->business_name = $request->business_name;
+        $restaurant->type = $request->type;
+        $restaurant->cuisine = $request->cuisine;
+        $restaurant->description = $request->description;
+        $restaurant->business_phone1 = $request->business_phone1;
+        $restaurant->business_phone2 = $request->business_phone2;
+        $restaurant->address = $request->address;
+        $restaurant->street = $request->street;
+        $restaurant->area = $request->area;
+        $restaurant->town = $request->town;
+        $restaurant->county = $request->county;
+        $restaurant->postcode = $request->postcode;
+        $restaurant->website = $request->website;
+        $restaurant->contact_name = $request->contact_name;
+        $restaurant->contact_phone = $request->contact_phone;
 
+        $restaurant->save();
+        
+        $restaurant->requirements()->sync($request->requirements, false);
 
         return redirect('/restaurants');
     }

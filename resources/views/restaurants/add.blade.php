@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('style')
+    <link rel="stylesheet" href="/css/select2.css">
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -15,22 +18,34 @@
                     </div>
                      <div class="form-group">
                         <label for="">Business Name</label>
-                        <input type="text" class="form-control" required placeholder="" name="business_name">
+                        <input type="text" class="form-control" required placeholder="Business Name" name="business_name">
                     </div>
                      <div class="form-group">
                         <label for="">Business Type</label><br>
                         <select name="type" class="selectpicker">
-                            <option> Restaurant/ Dine-in </option>
-                            <option> Takeaway/ Fast-food </option>
-                            <option>Café</option>
+                            <option> Restaurant / Dine-in </option>
+                            <option> Takeaway / Fast-food </option>
+                            <option> Café </option>
                             <option> Drinks </option>
-                            <option > Dessert/ treats </option>
+                            <option > Dessert / treats </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Cuisine</label><br>
                         <input class="form-control" name="cuisine" type="text" required placeholder="Cuisine">
                     </div>
+
+                    <div class="form-group">
+                        <label for="id_label_multiple">Select or Create Requirement
+                            <br>
+                            <select class="select2-multiple form-control" multiple="multiple" name="requirements[]">
+                               @foreach($requirements as $requirement)
+                                    <option value="{{ $requirement->id }}"> {{  $requirement->name }}</option>
+                               @endforeach
+                            </select>
+                        </label>
+                    </div>
+
 
                      <div class="form-group">
                         <label for="">Description</label>
@@ -88,4 +103,14 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+    <script  type="text/javascript" src="/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".select2-multiple").select2(
+            {
+                placeholder: "Select a Requirement"
+            }
+        );
+    </script>
 @endsection

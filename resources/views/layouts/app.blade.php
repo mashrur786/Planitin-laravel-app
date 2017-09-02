@@ -18,9 +18,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    @yield('style')
     {{-- Main CSS--}}
     <link rel="stylesheet" href="/css/styles.css">
-    @yield('style')
+
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
