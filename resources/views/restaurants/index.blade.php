@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <small>{{ ucfirst(trans($restaurant->cuisine))  }}</small>
-                                    <h4>{{ $restaurant->business_name }}</h4>
+                                    <h4><a href="/restaurants/{{ $restaurant->id }}">{{ $restaurant->business_name }}</a></h4>
                                     <p>{{ $restaurant->description }}</p>
                                 </div>
                             </div>

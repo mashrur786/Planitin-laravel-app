@@ -31,9 +31,14 @@ Route::post('restaurants/store', [
     'uses' => 'RestaurantsController@store'
     ]);
 
-Route::get('restaurants/add', 'RestaurantsController@create');
+Route::get('restaurants/add', 'RestaurantsController@create')->middleware('auth:admin');
 
+Route::get('restaurants/{restaurant}', [
 
+    'as' => 'restaurants.show',
+    'uses' => 'RestaurantsController@show'
+
+]);
 Route::post('restaurants/sort', [
 
     'as' => 'restaurants.sort',
@@ -60,9 +65,32 @@ Route::get('restaurants/autocompleteSearch/', [
 
 ]);
 
+/* admin routes*/
+Route::group(['prefix' => 'admin'],function(){
+
+    Route::get('login', [
+    'as' => 'admin.login',
+    'uses' => 'Auth\AdminLoginController@showLoginForm'
+    ]);
+
+    Route::post('login', [
+    'as' => 'admin.login.submit',
+    'uses' => 'Auth\AdminLoginController@login'
+    ]);
+
+    Route::get('/', [
+        'as' => 'admin.dashboard',
+        'uses' =>'Admin\AdminController@index'
+    ]);
+
+});
+
+
 
 Auth::routes();
 
+
+/* User routes */
 Route::get('/home', 'HomeController@index');
 
 

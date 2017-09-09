@@ -155,7 +155,6 @@ class RestaurantsController extends Controller
 
 
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -213,6 +212,9 @@ class RestaurantsController extends Controller
     public function show($id)
     {
         //
+        return view('restaurants.show', ['restaurant' => Restaurant::findOrFail($id)]);
+
+
     }
 
     /**
@@ -224,6 +226,7 @@ class RestaurantsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -247,5 +250,6 @@ class RestaurantsController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }
