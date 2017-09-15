@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Restaurant;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 use Illuminate\Support\Facades\Log;
+use Postcode;
+
 
 
 class RestaurantsController extends Controller
@@ -20,15 +22,22 @@ class RestaurantsController extends Controller
     public function search(Request $request, Restaurant $restaurant){
 
        //dd($request);
-
+        $regex = '/^(?:gir(?: *0aa)?|[a-pr-uwyz](?:[a-hk-y]?[0-9]+|[0-9][a-hjkstuw]|[a-hk-y][0-9][abehmnprv-y])(?: *[0-9][abd-hjlnp-uw-z]{2})?)$/';
         $location =  $request->location;
+
+        if(preg_match($regex, $location)){
+            $postcode = $location;
+            $data = Postcode::wardsByOutcode($postcode);
+            dd($data);
+        };
+
+
         $type = $request->res_type;
 
-
-        $restaurants = $restaurant->where('postcode', '=',  $location)
-                                   ->orWhere('area', '=', $location)
-                                   ->orWhere('type', '=' , $type)
+        $restaurants = $restaurant->Where('area', '=', $location)
+                                   ->Where('type', '=' , $type)
                                    ->get();
+
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
         $res_type = $restaurant->select('type')->groupBy('type')->get();

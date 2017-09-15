@@ -168,6 +168,7 @@ return [
          */
 
 	    PhpConsole\Laravel\ServiceProvider::class,
+        Codescheme\Postcodes\PostcodeServiceProvider::class,
 
         //
 
@@ -227,6 +228,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Postcode' => Codescheme\Postcodes\Facades\Postcode::class,
 
     ],
 

@@ -96,3 +96,10 @@ Route::get('/home', 'HomeController@index');
 
 //requirement routes
 Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
+
+// testing
+/*Route::get('/postcode', function(){
+    $data = Postcode::postcodeLookup('n15 6jd');
+    print_r($data);
+    return null;
+});*/
