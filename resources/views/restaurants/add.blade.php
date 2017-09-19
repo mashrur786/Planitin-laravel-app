@@ -80,8 +80,10 @@
                         <input class="form-control" type="text" name="county">
                     </div>
                     <div class="form-group">
-                        <label for="">Postcode</label>
-                        <input class="form-control" type="text" name="postcode">
+                        <label for="">Outcode</label>
+                        <input class="form-control" type="text" name="outcode">
+                        <label for="">Incode</label>
+                        <input class="form-control" type="text" name="incode">
                     </div>
                     <div class="form-group">
                         <label for="">Website Address</label>

@@ -18,7 +18,7 @@ Route::get('/', [
     'uses' => 'RestaurantsController@welcome'
 ]);
 
-Route::get('restaurants/', [
+Route::get('restaurants', [
 
     'as' => 'restaurants',
     'uses' => 'RestaurantsController@index'
@@ -33,12 +33,6 @@ Route::post('restaurants/store', [
 
 Route::get('restaurants/add', 'RestaurantsController@create')->middleware('auth:admin');
 
-Route::get('restaurants/{restaurant}', [
-
-    'as' => 'restaurants.show',
-    'uses' => 'RestaurantsController@show'
-
-]);
 Route::post('restaurants/sort', [
 
     'as' => 'restaurants.sort',
@@ -58,12 +52,30 @@ Route::post('restaurants/search', [
     'uses' => 'RestaurantsController@search'
 ]);
 
+/*
+ * Keep this route top of any route with ::get restaurants/{anything}/
+ * Otherwise 'restaurants/autocompleteSearch/ will never be reached
+ */
 Route::get('restaurants/autocompleteSearch/', [
 
     'as' => 'restaurants.autocompleteSearch',
     'uses' => 'RestaurantsController@autocompleteSearch'
 
 ]);
+
+Route::get('restaurants/{restaurant}', [
+
+    'as' => 'restaurants.show',
+    'uses' => 'RestaurantsController@show'
+
+]);
+
+/* Campaign Routes */
+Route::resource('campaigns', 'CampaignController', ['only' => [
+    'index', 'show'
+]]);
+
+
 
 /* admin routes*/
 Route::group(['prefix' => 'admin'],function(){
@@ -83,16 +95,26 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' =>'Admin\AdminController@index'
     ]);
 
+    Route::get('users', [
+
+        'as' => 'admin.users',
+        'uses' => 'User\UserController@index'
+    ]);
+
+    Route::get('campaigns', [
+
+        'as' => 'admin.campaigns',
+        'uses' => 'CampaignController@index'
+    ]);
+
 });
 
 
-
+//auth routes automatically put by laravel
 Auth::routes();
-
 
 /* User routes */
 Route::get('/home', 'HomeController@index');
-
 
 //requirement routes
 Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
@@ -102,4 +124,9 @@ Route::resource('requirements', 'RequirementController', ['except' => ['create']
     $data = Postcode::postcodeLookup('n15 6jd');
     print_r($data);
     return null;
+});*/
+
+/*Route::get('/logs', function(){
+
+    Illuminate\Support\Facades\Log::info('restaurant_name_ajax: '. 'route');
 });*/

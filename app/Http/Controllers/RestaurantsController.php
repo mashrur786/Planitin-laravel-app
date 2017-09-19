@@ -21,26 +21,43 @@ class RestaurantsController extends Controller
 
     public function search(Request $request, Restaurant $restaurant){
 
-       //dd($request);
+       $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        $res_type = $restaurant->select('type')->groupBy('type')->get();
+
+        //set Regex for uk postcode
         $regex = '/^(?:gir(?: *0aa)?|[a-pr-uwyz](?:[a-hk-y]?[0-9]+|[0-9][a-hjkstuw]|[a-hk-y][0-9][abehmnprv-y])(?: *[0-9][abd-hjlnp-uw-z]{2})?)$/';
+
+        //get user location & restaurant type
         $location =  $request->location;
-
-        if(preg_match($regex, $location)){
-            $postcode = $location;
-            $data = Postcode::wardsByOutcode($postcode);
-            dd($data);
-        };
-
-
         $type = $request->res_type;
 
-        $restaurants = $restaurant->Where('area', '=', $location)
-                                   ->Where('type', '=' , $type)
-                                   ->get();
+        //check if the location given is a postcode
+        if(preg_match($regex, strtolower($location))){
+
+           //the the postcode and get nearest postcode within within 3 miles radius.
+            $data = Postcode::wardsByOutcode($location);
+
+            //get outcodes of all the nearest postcodes
+            $postcodes = [];
+            foreach($data->result as $postcode){
+                 $postcodes[] = $postcode->outcode;
+            }
+
+            //
+            $restaurants = $restaurant->whereIn('outcode', $postcodes)
+                                        ->Where('type', '=' , $type)
+                                        ->get();
 
 
-        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
-        $res_type = $restaurant->select('type')->groupBy('type')->get();
+        } else{
+
+            $restaurants = $restaurant->Where('area', '=', $location)
+                                        ->Where('type', '=' , $type)
+                                        ->get();
+
+
+        };
+
 
 
         return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines, 'types' => $res_type ]);
@@ -82,6 +99,7 @@ class RestaurantsController extends Controller
                 $cuisines[] = $filter["filterValue"];
 
             } else {
+
                 $types[] = $filter["filterValue"];
 
             }
@@ -126,13 +144,12 @@ class RestaurantsController extends Controller
     }
 
 
-    /* Autocomplete search at welcome screen */
+    /* Auto-complete search at welcome screen */
     public function autocompleteSearch(Request $request, Restaurant $restaurant){
-
 
         //$resName =   $request->resName;
         $resName =    $request->term;
-        //log::info('restaurant_name_ajax: '. $request);
+        Log::info('restaurant_name_ajax: '. $resName);
 
         $data = array();
 
@@ -200,14 +217,16 @@ class RestaurantsController extends Controller
         $restaurant->area = $request->area;
         $restaurant->town = $request->town;
         $restaurant->county = $request->county;
-        $restaurant->postcode = $request->postcode;
+        $restaurant->outcode = $request->outcode;
+        $restaurant->incode = $request->incode;
         $restaurant->website = $request->website;
         $restaurant->contact_name = $request->contact_name;
         $restaurant->contact_phone = $request->contact_phone;
 
         $restaurant->save();
-        
-        $restaurant->requirements()->sync($request->requirements, false);
+
+        $requirements = ($request->requirements ?: []);
+        $restaurant->requirements()->sync($requirements, false);
 
         return redirect('/restaurants');
     }

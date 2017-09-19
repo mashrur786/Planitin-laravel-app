@@ -51,7 +51,8 @@
 
             </div>
             <div class="col-md-8 restaurant-item">
-                @foreach ($data as $restaurant)
+                @if(!$data->isEmpty())
+                    @foreach ($data as $restaurant)
 
                     <div class="panel panel-default  panel--styled">
                         <div class="panel-body">
@@ -62,6 +63,8 @@
                                 <div class="col-md-8">
                                     <small>{{ ucfirst(trans($restaurant->cuisine))  }}</small>
                                     <h4><a href="/restaurants/{{ $restaurant->id }}">{{ $restaurant->business_name }}</a></h4>
+                                    <label for="">Address</label>
+                                    <p>{{ $restaurant->outcode . ' ' . $restaurant->incode }}</p>
                                     <p>{{ $restaurant->description }}</p>
                                 </div>
                             </div>
@@ -83,7 +86,19 @@
                         </div>
                     </div>
 
-                @endforeach
+                    @endforeach
+                @else
+
+                <div class="alert alert-danger">
+                    <strong>Oosp!!</strong> We didn't find any restuarants, please try again !!
+                </div>
+                    <a href="{{ route('welcome') }}">
+                        <button type="button" class="btn btn-info btn-lg"><< Back</button>
+                    </a>
+
+
+                @endif
+
             </div>
         </div>
     </div>
@@ -101,12 +116,11 @@
 
             $("#res-name").autocomplete({
 
-                source: "{{ route("restaurants.autocompleteSearch") }}",
+                source: "{{ URL::route('restaurants.autocompleteSearch') }}",
                 minLength: 3,
                 select: function( event, ui ) {
 
                     //$(this).after( "<input type='hidden' name='id' value='"+ ui.item.id +"' >" );
-
 
                     var id = ui.item.id ;
 
@@ -120,8 +134,6 @@
 
                             console.log(data);
                             $(".restaurant-item").empty();
-
-
 
                                 var   output = "<div class='panel panel-default  panel--styled'>"
 

@@ -18,4 +18,10 @@ class Restaurant extends Model
 
     }
 
+    public function campaigns(){
+
+        return $this->hasMany(Campaign::class);
+
+    }
+
 }

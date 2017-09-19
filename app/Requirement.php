@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Requirement extends Model
 {
     // //
-    protected $table = 'Requirements';
+    protected $table = 'requirements';
 
     protected $guarded = ['id'];
 
