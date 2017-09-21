@@ -107,6 +107,15 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'CampaignController@index'
     ]);
 
+    Route::get('/campaigns/create', 'CampaignController@create');
+
+    Route::post('campaigns', [
+
+        'as' => 'admin.campaigns',
+        'uses' => 'CampaignController@store'
+    ]);
+
+
 });
 
 

@@ -34,6 +34,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    @yield('styles')
+
 </head>
 
 <body>
@@ -246,7 +248,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>{{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i>{{ Auth::user()->name }} ( {{ Auth::user()->role }} ) <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -323,7 +325,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Admin Dashboard</h1>
+                    <h3 class="page-header">Admin Dashboard | @yield('page-title')</h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -351,6 +353,8 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/backend/dist/js/sb-admin-2.js"></script>
+
+    @yield('scripts')
 
 </body>
 

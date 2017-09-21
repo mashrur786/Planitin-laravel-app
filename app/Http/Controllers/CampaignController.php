@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Restaurant;
 use App\Campaign;
 use Illuminate\Http\Request;
 
 class CampaignController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +32,8 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        //
-        dd('create');
+        $restaurants = Restaurant::all();
+        return view('campaigns.create')->with('restaurants', $restaurants);
     }
 
     /**
@@ -40,6 +45,18 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         //
+        $campaing = new Campaign;
+        //store a new restaurant
+        //Restaurant::create($request->all());
+        $campaing->restaurant_id = $request->restaurant_id ;
+        $campaing->title = $request->title ;
+        $campaing->description = $request->description ;
+        $campaing->expires = $request->expires ;
+
+        $campaing->save();
+
+
+        return redirect('/admin/campaigns');
     }
 
     /**
