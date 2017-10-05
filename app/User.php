@@ -26,4 +26,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function isSubscribed($restaurant_id){
+
+        if($this->restaurants()->whereIn('restaurant_id', $restaurant_id)->first())
+            return true;
+
+
+        return false;
+
+    }
+
+      public function restaurants(){
+
+        return $this->belongsToMany('App\Restaurant', 'restaurant_user')->withTimestamps();
+
+    }
+
+
+
 }

@@ -1,19 +1,33 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6 col-md-offset-3">
             @if(request()->session()->has('success'))
                 <div class="alert alert-success">
-                <strong>Success: {{ request()->session()->get('success') }}</strong>
-                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+               <span class="glyphicon glyphicon-ok"></span> <strong>Success Message</strong>
+                <hr class="message-inner-separator">
+                <p>  {{ request()->session()->get('success') }} </p>
+            </div>
+
+            @elseif(request()->session()->has('error'))
+                <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+               <span class="glyphicon glyphicon-ok"></span> <strong>Oops!</strong>
+                <hr class="message-inner-separator">
+                <p>  {{ request()->session()->get('error') }} </p>
             @endif
 
             @if(count($errors) > 0)
 
             <div class="alert alert-danger">
-                <strong>Errors:</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <span class="glyphicon glyphicon-ok"></span> <strong>Error:</strong>
+                <hr class="message-inner-separator">
+                <ul>
                 @foreach($errors as $error)
                     <li>{{ $error }}</li>
                 @endforeach
+                </ul>
             </div>
 
             @endif

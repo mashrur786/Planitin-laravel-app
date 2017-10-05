@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Restaurant;
 use App\Campaign;
 use Illuminate\Http\Request;
+use Session;
 
 class CampaignController extends Controller
 {
@@ -22,7 +23,7 @@ class CampaignController extends Controller
         //
         $campaigns = Campaign::all();
         //dd($campaigns);
-        return view('campaigns.index')->with('campaigns', $campaigns);
+        return view('admins.campaigns.index')->with('campaigns', $campaigns);
     }
 
     /**
@@ -33,7 +34,7 @@ class CampaignController extends Controller
     public function create()
     {
         $restaurants = Restaurant::all();
-        return view('campaigns.create')->with('restaurants', $restaurants);
+        return view('admins.campaigns.create')->with('restaurants', $restaurants);
     }
 
     /**
@@ -68,6 +69,9 @@ class CampaignController extends Controller
     public function show($id)
     {
         //
+        $campaign = Campaign::find($id);
+
+        return view('admins.campaigns.show')->withCampaign($campaign);
     }
 
     /**
@@ -79,6 +83,8 @@ class CampaignController extends Controller
     public function edit($id)
     {
         //
+        $campaign = Campaign::find($id);
+        return view('admins.campaigns.edit')->withCampaign($campaign);
     }
 
     /**
@@ -91,6 +97,19 @@ class CampaignController extends Controller
     public function update(Request $request, $id)
     {
         //
+         //
+        $campaing = Campaign::find($id);
+        //store a new restaurant
+        //Restaurant::create($request->all());
+        //$campaing->restaurant_id = $request->restaurant_id ;
+        $campaing->title = $request->title ;
+        $campaing->description = $request->description ;
+        $campaing->expires = $request->expires ;
+
+        $campaing->save();
+
+
+        return redirect('/admin/campaigns');
     }
 
     /**
@@ -102,5 +121,14 @@ class CampaignController extends Controller
     public function destroy($id)
     {
         //
+        $campaign = Campaign::find($id);
+
+        $campaign->delete();
+
+        Session::flash('success', 'Campaign deleted');
+        //Session::flash();
+
+        return redirect()->route('admin.campaigns');
+
     }
 }

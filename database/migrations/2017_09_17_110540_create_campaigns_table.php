@@ -21,6 +21,7 @@ class CreateCampaignsTable extends Migration
             $table->dateTime('expires');
             $table->timestamps();
         });
+
     }
 
     /**

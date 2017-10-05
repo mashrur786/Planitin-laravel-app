@@ -103,11 +103,11 @@ class RequirementController extends Controller
     public function destroy($id)
     {
         $requirement = Requirement::find($id);
-        //$requirement->$restaurants()->detach();
+        //$requirement->restaurants->detach(); //works without this
         $requirement->delete();
 
         Session::flash('success', 'requirement deleted');
-        //Session::flash();
+
 
         return redirect()->route('requirements.index');
     }

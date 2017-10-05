@@ -52,6 +52,7 @@ Route::post('restaurants/search', [
     'uses' => 'RestaurantsController@search'
 ]);
 
+
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/
  * Otherwise 'restaurants/autocompleteSearch/ will never be reached
@@ -69,6 +70,16 @@ Route::get('restaurants/{restaurant}', [
     'uses' => 'RestaurantsController@show'
 
 ]);
+
+Route::get('restaurants/{restaurant}/subscribe', [
+    'as' => 'restaurants.subscribe',
+    'uses' => 'RestaurantsController@subscribe'
+])->middleware('auth');
+
+Route::get('restaurants/{restaurant}/unsubscribe', [
+    'as' => 'restaurants.unsubscribe',
+    'uses' => 'RestaurantsController@unsubscribe'
+])->middleware('auth');
 
 /* Campaign Routes */
 Route::resource('campaigns', 'CampaignController', ['only' => [
@@ -115,6 +126,28 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'CampaignController@store'
     ]);
 
+    Route::get('campaigns/{campaign}', [
+
+        'as' => 'admin.campaigns.show',
+        'uses' => 'CampaignController@show'
+    ]);
+    Route::get('campaigns/{campaign}/edit', [
+        'as' => 'admin.campaigns.edit',
+        'uses' =>'CampaignController@edit'
+
+    ]);
+
+    Route::put('campaigns/{campaign}', [
+        'as' => 'admin.campaigns.update',
+        'uses' =>'CampaignController@update'
+
+    ]);
+
+    Route::delete('campaigns/{campaign}', [
+        'as' => 'admin.campaigns.destroy',
+        'uses' =>'CampaignController@destroy'
+
+    ]);
 
 });
 
@@ -127,6 +160,8 @@ Route::get('/home', 'HomeController@index');
 
 //requirement routes
 Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
+
+
 
 // testing
 /*Route::get('/postcode', function(){

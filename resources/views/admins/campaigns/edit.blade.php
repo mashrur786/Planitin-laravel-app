@@ -9,29 +9,27 @@
             min-height: 200px;
         }
     </style>
+@endsection
 
-@endsection
 @section('page-title')
-    Create Campaigns
+    Edit Campaigns
 @endsection
+
 @section('content')
-    <div class="row">
+
         <div class="col-md-8">
-            <form id="campaign" method="POST" action="{{ route('admin.campaigns') }}">
+            <form id="campaign" method="POST" action="{{ route('admin.campaigns.update', $campaign->id ) }}">
                 {{ csrf_field() }}
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
-                    <label for="">Select Restaurant / Business</label><br>
-                    <select name="restaurant_id" class="selectpicker form-control">
-                        @foreach($restaurants as $restaurant)
-                        <option value="{{ $restaurant->id }}"> {{ $restaurant->business_name }} </option>
-                        @endforeach
-                    </select>
+                    <label for="">Restaurant / Business</label><br>
+                    <input class="form-control" type="text" name="restaurant_id" placeholder="{{ $campaign->restaurant->business_name }}" readonly>
                 </div>
 
                 <div class="form-group">
                     <div class="form-group">
                         <label for="">Title</label>
-                        <input type="text" class="form-control" required placeholder="title.." name="title">
+                        <input type="text" class="form-control" required value="{{ isset($campaign->title) ? $campaign->title : old('title') }}" name="title">
                     </div>
                 </div>
                 <div class="form-group">
@@ -47,17 +45,17 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="">Expiry Date</label>
-                        <input placeholder="Year-month-day hour:Minutes:Second" data-date-format="yyyy-mm-dd hh:ii:ss" class="form_datetime form-control" name="expires" size="16" type="text" value="">
+                        <input data-date-format="yyyy-mm-dd hh:ii:ss" class="form_datetime form-control" name="expires" size="16" type="text" value="{{ isset($campaign->expires) ? $campaign->expires : old('expires') }}">
 
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Create</button>
+                    <button class="btn btn-primary" type="submit">Edit</button>
                 </div>
 
             </form>
         </div>
-    </div>
+
 
 @endsection
 
@@ -70,34 +68,34 @@
     <script type="text/javascript">
 
         /* Quill editor */
+        $(function() {
 
-        var editor = new Quill('#ql-editor', {
-            theme : 'snow',
-            placeholder: 'Description...'
+            var editor = new Quill('#ql-editor', {
+                theme : 'snow',
+                placeholder: 'Description...'
+            });
+
+            editor.clipboard.dangerouslyPasteHTML('{!! $campaign->description !!}');
+
+            editor.on('text-change', function(delta, oldDelta, source) {
+                var content = editor.getContents();
+                content = quillGetHTML(content);
+                $('input[name="description"]').val(content);
+            });
+
+             /*date picker */
+            $(".form_datetime").datetimepicker({
+                format: "yyyy-mm-dd hh:ii:ss"
+            });
+
         });
 
-        editor.on('text-change', function(delta, oldDelta, source) {
-            var content = editor.getContents();
-            content = quillGetHTML(content);
-            $('input[name="description"]').val(content);
-
-
-        });
 
         function quillGetHTML(inputDelta) {
             var tempCont = document.createElement("div");
             (new Quill(tempCont)).setContents(inputDelta);
             return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
         }
-
-        /*date picker */
-        $(".form_datetime").datetimepicker({
-            format: "yyyy-mm-dd hh:ii:ss"
-        });
-
-
-
-
 
 
 

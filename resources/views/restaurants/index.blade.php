@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 
     <div class="container">
@@ -50,39 +51,38 @@
                 </div>
 
             </div>
-            <div class="col-md-8 restaurant-item">
+            <div class="col-md-8">
                 @if(!$data->isEmpty())
                     @foreach ($data as $restaurant)
 
-                    <div class="panel panel-default  panel--styled">
+                    <div class="panel panel-default panel--styled restaurant-item">
                         <div class="panel-body">
                             <div class="col-md-12 panelTop">
                                 <div class="col-md-4">
-                                    <img class="img-responsive" src="http://placehold.it/350x350" alt=""/>
+                                    <img class="img-responsive" src="http://placehold.it/150x150" alt=""/>
                                 </div>
                                 <div class="col-md-8">
-                                    <small>{{ ucfirst(trans($restaurant->cuisine))  }}</small>
-                                    <h4><a href="/restaurants/{{ $restaurant->id }}">{{ $restaurant->business_name }}</a></h4>
-                                    <label for="">Address</label>
-                                    <p>{{ $restaurant->outcode . ' ' . $restaurant->incode }}</p>
-                                    <p>{{ $restaurant->description }}</p>
+                                    <span class="label label-primary">{{ ucfirst(trans($restaurant->cuisine))  }}</span>
+                                    <h3><a href="/restaurants/{{ $restaurant->id }}">{{ ucwords($restaurant->business_name) }}</a></h3>
+                                    <div class="address">
+                                        <p>{{ $restaurant->address }}, {{ $restaurant->street }}, {{ $restaurant->town }}
+                                            <br>
+                                            {{ $restaurant->outcode . ' ' . $restaurant->incode }}
+                                        </p>
+                                    </div>
+                                     @if(!$restaurant->campaigns->isEmpty())
+                                        <div class="campaing-item">
+                                        @foreach($restaurant->campaigns as $key => $value)
+                                            @if ($loop->first)
+                                            {{ $value->title }} <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-success">Get Deals</button></a>
+                                            @endif
+                                        @endforeach
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
 
-                            <div class="col-md-12 panelBottom">
-                                <div class="col-md-4 text-center">
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <div class="slider round"></div>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 text-left">
-                                    <span class="tel">{{ $restaurant->business_phone1 }}</span>
-                                </div>
-                                <div class="col-md-4">
-                                    <div id="stars-existing" class="starrr" data-rating='4'></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -110,8 +110,15 @@
 {{-- Script--}}
 @section('script')
     <script>
-        //function for restaurent name auto search
 
+
+
+        $(document).on('click','.switch>input', function(){
+
+        });
+
+
+        //function for restaurent name auto search
         $(function(){
 
             $("#res-name").autocomplete({
@@ -160,9 +167,6 @@
                                     + "</div>"
                                     + "<div class='col-md-4 text-left'>"
                                     + "<span class='tel'>" + data.business_phone1 + "</span>"
-                                    + "</div>"
-                                    + "<div class='col-md-4'>"
-                                    + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
                                     + "</div>"
                                     + "</div>"
                                     + "</div>"

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Requirement;
 use Illuminate\Http\Request;
 use App\Restaurant;
+use Session;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 use Illuminate\Support\Facades\Log;
 use Postcode;
+use Auth;
 
 
 
@@ -241,6 +243,53 @@ class RestaurantsController extends Controller
     {
         //
         return view('restaurants.show', ['restaurant' => Restaurant::findOrFail($id)]);
+
+
+    }
+
+    /**
+     * Subscribe a authenticated user to specified restaurant.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function subscribe($id){
+        //
+        $user = Auth::user();
+
+        $restaurant = Restaurant::find($id);
+
+        try {
+            $restaurant->users()->attach($user->id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            Session::flash('error', 'You are already subscribed');
+            return redirect('/home');
+        }
+
+         Session::flash('success', 'You are now subscribed');
+
+         return redirect('/home');
+
+
+    }
+
+      /**
+     * unSubscribe a authenticated user for specified restaurant.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function unsubscribe($id){
+        //
+        $user = Auth::user();
+
+        $restaurant = Restaurant::find($id);
+        $restaurant->users()->detach($user->id);
+
+
+         Session::flash('success', 'You are now unsubscribed');
+
+         return redirect('/home');
 
 
     }

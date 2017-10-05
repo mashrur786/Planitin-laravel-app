@@ -329,7 +329,13 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            @yield('content')
+            <div class="row">
+                @include('partials.messages')
+            </div>
+            <div class="row">
+                @yield('content')
+            </div>
+
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->

@@ -102,6 +102,10 @@ Restaurants Card Styles
 /*----------------------
 Restaurants Card Styles
 ----------------------*/
+
+.address p {
+    text-transform: capitalize!important;
+}
 .panel.panel--styled {
   background: #F4F2F3;
 }
@@ -132,6 +136,8 @@ span.tel {
   font-size: 24px;
   color: #6c6769;
 }
+
+
 
 /* The switch - the box around the slider */
 .switch {

@@ -2,6 +2,7 @@
 @section('page-title')
     Campaigns
 @endsection
+
 @section('content')
     <a href="{{ action('CampaignController@create') }}">
         <button class="btn btn-primary pull-right">
@@ -14,10 +15,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>#</th>
+                <th>Campaign</th>
                 <th>Restaurant</th>
-                <th>Title</th>
-                <th>Description</th>
+                <th>Created</th>
                 <th>Expires</th>
                 <th></th>
             </tr>
@@ -26,18 +26,19 @@
 
             @foreach($campaigns as $campaign)
                 <tr>
-                    <td>{{ $campaign->id }}</td>
+                    <td><a href="{{ route('admin.campaigns.show',$campaign->id ) }}">{{ $campaign->title }}</a></td>
                     <td>{{ $campaign->restaurant->business_name }}</td>
-                    <td>{{ $campaign->title }}</td>
-                    <td>{{ strip_tags($campaign->description) }}</td>
+                    <td>{{ $campaign->created_at->toDateString() }}</td>
                     <td>{{ $campaign->expires->diffForHumans() }}</td>
                     <td>
-                        <button class="btn btn-sm btn-warning">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
+
+                        <a href="{{ route('admin.campaigns.edit', $campaign->id) }}">
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                <i class="fa fa-edit"></i>
+
+                            </button>
+
+                        </a>
                     </td>
                 </tr>
             @endforeach
