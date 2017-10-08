@@ -33,16 +33,23 @@ class User extends Authenticatable
         if($this->restaurants()->whereIn('restaurant_id', $restaurant_id)->first())
             return true;
 
-
         return false;
 
     }
 
-      public function restaurants(){
+    public function restaurants(){
 
         return $this->belongsToMany('App\Restaurant', 'restaurant_user')->withTimestamps();
 
     }
+
+    public function campaigns(){
+
+        return $this->belongsToMany('App\Campaign', 'campaign_user', 'user_id', 'campaign_id')
+            ->withPivot('code', 'redeem', 'created_At', 'updated_at');
+
+    }
+
 
 
 

@@ -3,7 +3,9 @@
 @section('style')
     <style>
 
-
+.inline {
+    display: inline;
+}
 .card {
     padding-top: 20px;
     margin: 0 0 20px 0;
@@ -24,18 +26,6 @@
     box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
 }
 
-.card .card-heading {
-    padding: 0 20px;
-    margin: 0;
-}
-
-.card .card-heading.simple {
-    font-size: 20px;
-    font-weight: 300;
-    color: #777;
-    border-bottom: 1px solid #e5e5e5;
-}
-
 .card .card-heading.image img {
     display: inline-block;
     width: 46px;
@@ -48,10 +38,6 @@
     border-radius: 50%;
 }
 
-.card .card-heading.image .card-heading-header {
-    display: inline-block;
-    vertical-align: top;
-}
 
 .card .card-heading.image .card-heading-header h3 {
     margin: 0;
@@ -65,36 +51,10 @@
     color: #999999;
 }
 
-.card .card-body {
-    padding: 0 20px;
-    margin-top: 20px;
-}
-
-.card .card-media {
-    padding: 0 20px;
-    margin: 0 -14px;
-}
 
 .card .card-media img {
     max-width: 100%;
     max-height: 100%;
-}
-
-.card .card-actions {
-    min-height: 30px;
-    padding: 0 20px 20px 20px;
-    margin: 20px 0 0 0;
-}
-
-.card .card-comments {
-    padding: 20px;
-    margin: 0;
-    background-color: #f8f8f8;
-}
-
-.card .card-comments .comments-collapse-toggle {
-    padding: 0;
-    margin: 0 20px 12px 20px;
 }
 
 .card .card-comments .comments-collapse-toggle a,
@@ -105,57 +65,6 @@
     color: #999;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.card-comments .media-heading {
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.card.people {
-    position: relative;
-    display: inline-block;
-    width: 170px;
-    height: 300px;
-    padding-top: 0;
-    margin-left: 20px;
-    overflow: hidden;
-    vertical-align: top;
-}
-
-.card.people:first-child {
-    margin-left: 0;
-}
-
-.card.people .card-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 170px;
-    height: 150px;
-    background-color: #ffffff;
-}
-
-.card.people .card-top.green {
-    background-color: #53a93f;
-}
-
-.card.people .card-top.blue {
-    background-color: #427fed;
-}
-
-.card.people .card-info {
-    position: absolute;
-    top: 150px;
-    display: inline-block;
-    width: 100%;
-    height: 101px;
-    overflow: hidden;
-    background: #ffffff;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .card.people .card-info .title {
@@ -176,20 +85,6 @@
     line-height: 16px;
     color: #737373;
     text-overflow: ellipsis;
-}
-
-.card.people .card-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: inline-block;
-    width: 100%;
-    padding: 10px 20px;
-    line-height: 29px;
-    text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .card.hovercard {
@@ -315,6 +210,13 @@
 }
 
 /* coupon */
+.coupon-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .coupon {
     border: 3px dashed #bcbcbc;
     border-radius: 10px;
@@ -328,27 +230,14 @@
 
 }
 
-.coupon #head {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    min-height: 56px;
+.well.code {
+    height:60px;
+    max-width: 400px;
+    margin: 20px auto;
+    font-size: 2.2em;
+    padding: 10px;
+    font-weight:300;
 }
-
-.coupon #footer {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-#title .visible-xs {
-    font-size: 12px;
-}
-
-.coupon #title img {
-    font-size: 30px;
-    height: 30px;
-    margin-top: 5px;
-}
-
 @media screen and (max-width: 500px) {
     .coupon #title img {
         height: 15px;
@@ -360,25 +249,6 @@
     margin-top: 5px;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-.coupon-img {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 0;
-}
-
-.items {
-    margin: 15px 0;
-}
-
-.usd, .cents {
-    font-size: 20px;
-}
-
-.number {
-    font-size: 40px;
-    font-weight: 700;
 }
 
 sup {
@@ -406,31 +276,6 @@ sup {
     padding-right: 5px;
 }
 
-.disclosure {
-    padding-top: 15px;
-    font-size: 11px;
-    color: #bcbcbc;
-    text-align: center;
-}
-
-.coupon-code {
-    color: #333333;
-    font-size: 11px;
-}
-
-.exp {
-    color: #f34235;
-}
-
-.print {
-    font-size: 14px;
-    float: right;
-}
-
-
-
-
-
 /**** MEDIA QUERIES ****/
 @media only screen and (max-width: 991px) {
     #property-listings .property-listing {
@@ -454,7 +299,6 @@ sup {
 
 @endsection
 @section('content')
-
 
 <div class="container">
     <div class="row">
@@ -520,40 +364,63 @@ sup {
 
 
                                     <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                        <li>4,820 SqFt</li>
+                                        <li>{{ $restaurant->address }}</li>
 
                                         <li style="list-style: none">|</li>
 
-                                        <li>5 Beds</li>
+                                        <li>{{ $restaurant->street }}</li>
 
                                         <li style="list-style: none">|</li>
 
-                                        <li>5 Baths</li>
+                                        <li>{{ $restaurant->outcode }}  {{ $restaurant->incode }}</li>
                                     </ul>
 
                                     <p class="hidden-xs">
-                                        {{
-                                            $restaurant->description
-                                        }}
-                                    </p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox & Roach-Chestnut Hill
-                                    Evergreen</span>
+                                        {{ $restaurant->business_phone1 }}
+                                    </p>
+                                    <span class="fnt-smaller fnt-lighter fnt-arial">
+                                          {{ $restaurant->description }}
+                                    </span>
 
                                 </div>
                             </div>
                             <hr>
+                            <div class="coupon-wrapper">
                             @foreach($restaurant->campaigns as $campaign)
+
                                         <div class="coupon">
                                             <span class="label label-warning">{{ $campaign->expires->format('l j F Y')  }}</span>
                                             <span class="pull-right">
                                                 <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                                             </span>
-                                        <h4>{{ $campaign->title }}</h4>
-                                            <small>{!!   $campaign->description !!}</small>
-                                            <span class="pull-right">code</span>
-
+                                            <h4>{{ $campaign->title }}</h4>
+                                            <button data-toggle="modal" data-target="#{{$campaign->id}}" class="pull-right btn btn-default btn-code">Get Code</button>
                                         </div>
-
-                                        @endforeach
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="{{ $campaign->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h3 class="modal-title inline" id="exampleModalLabel">{{ $campaign->title }}</h3>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                {!! $campaign->description !!}
+                                                  <div class="well code form-control text-center"></div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <h5 class="label label-default pull-left">
+                                                    {{ $campaign->expires->format('l j F Y')  }}
+                                                </h5>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>{{-- eof modal --}}
+                             @endforeach
+                            </div>{{-- eof coupon wrapper --}}
                         </div><!-- End Listing-->
                     </div>
                     @endforeach
@@ -569,5 +436,24 @@ sup {
 @endsection
 
 @section('script')
+    <script type="text/javascript">
+        $('.btn-code').click(function(){
 
+            var container = $(this).parent('.coupon').next('.modal').find('.well.code');
+            var campaign_id = $(this).parent('.coupon').next('.modal').attr('id');
+            var CSRF_TOKEN =  '{{ \Illuminate\Support\Facades\Session::token() }}';
+
+                $.ajax({
+                    url: '{{ route('get.code') }}',
+                    method: 'POST',
+                    data: { _token: CSRF_TOKEN, 'campaign_id' : campaign_id },
+                    success: function (data) {
+                        console.log(data);
+                        container.html(data);
+                    }
+                });
+            //console.log();
+
+        })
+    </script>
 @endsection

@@ -22,4 +22,11 @@ class Campaign extends Model
     {
         return $this->belongsTo(Restaurant::class);
     }
+
+    public function users(){
+
+        return $this->belongsToMany('App\User', 'campaign_user', 'user_id', 'campaign_id')
+            ->withPivot('code', 'redeem', 'created_At', 'updated_at');;
+
+    }
 }

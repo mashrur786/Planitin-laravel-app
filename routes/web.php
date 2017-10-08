@@ -64,6 +64,10 @@ Route::get('restaurants/autocompleteSearch/', [
 
 ]);
 
+/*
+ * Keep this route bottom of any route with ::get restaurants/{anything}/
+ * Otherwise route will never be reached
+ */
 Route::get('restaurants/{restaurant}', [
 
     'as' => 'restaurants.show',
@@ -157,6 +161,13 @@ Auth::routes();
 
 /* User routes */
 Route::get('/home', 'HomeController@index');
+
+Route::post('get/code', [
+
+    'as' => 'get.code',
+    'uses' => 'User\UserController@code'
+
+]);
 
 //requirement routes
 Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
