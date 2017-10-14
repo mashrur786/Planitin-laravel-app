@@ -41,7 +41,6 @@
                     <div class="panel-body">
 
                         @foreach ($types as $type)
-
                             <div class="checkbox">
                                 <label><input data-filter-name="type" class="filter" type="checkbox" value="{{ ucfirst(trans($type->type))  }}"> {{ ucfirst(trans($type->type))  }}</label>
                             </div>
@@ -51,11 +50,11 @@
                 </div>
 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 restaurant-item">
                 @if(!$data->isEmpty())
                     @foreach ($data as $restaurant)
 
-                    <div class="panel panel-default panel--styled restaurant-item">
+                    <div class="panel panel-default panel--styled">
                         <div class="panel-body">
                             <div class="col-md-12 panelTop">
                                 <div class="col-md-4">
@@ -113,12 +112,8 @@
 
 
 
-        $(document).on('click','.switch>input', function(){
-
-        });
-
-
-        //function for restaurent name auto search
+        // bof function for restaurant name auto-complete search
+        // bof get restaurants by id
         $(function(){
 
             $("#res-name").autocomplete({
@@ -139,10 +134,10 @@
                         //success
                         success: function(data) {
 
-                            console.log(data);
+                            //console.log(data);
                             $(".restaurant-item").empty();
 
-                                var   output = "<div class='panel panel-default  panel--styled'>"
+                                var   output = "<div class='panel panel-default panel--styled'>"
 
                                     + "<div class='panel-body'>"
                                     + "<div class='col-md-12 panelTop'>"
@@ -173,7 +168,6 @@
                                     + "</div>";
                                     $(".restaurant-item").append(output);
 
-
                         },
                         //error
                         error : function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -188,10 +182,18 @@
             });
 
         });//end of function*/
+
+        // eof get restaurants by id
+        // eof function for restaurant name auto-complete search
+
+
+
+        /* bof ajax call by filter */
         $(function(){
             $('.filter').on('click', function(){
 
-                 var filters = [];
+                 var filters = []; //filter array
+
                 $('.filter').each(function(){
 
                     if($(this).prop('checked')){
@@ -207,25 +209,25 @@
                     }// eof if
 
                     //console.log('inside filters each');
-                   // console.log(filters);
+
 
                 }); //eof each
-                console.log(filters);
+                //console.log(filters);
 
                  $.ajax({
-
                         method:'POST',
                         url: url,
                         data: { filters : filters , _token: token },
                         //success
                         success: function(data) {
 
-                           // console.log(data);
+                           console.log(data);
                             $(".restaurant-item").empty();
 
                             $.each(data, function(index, value) {
 
-                                var   output = "<div class='panel panel-default  panel--styled'>"
+                               // console.log(data);
+                                var   output = "<div class='panel panel-default panel--styled'>"
 
                                     + "<div class='panel-body'>"
                                     + "<div class='col-md-12 panelTop'>"
@@ -252,7 +254,6 @@
                                     + "<span class='tel'>" + value.business_phone1 + "</span>"
                                     + "</div>"
                                     + "<div class='col-md-4'>"
-                                    + "<div id='stars-existing' class='starrr' data-rating='4'></div>"
                                     + "</div>"
                                     + "</div>"
                                     + "</div>"
@@ -273,8 +274,9 @@
 
 
         });
+        /* eof ajax call by filter */
 
-
+        /* bof filter panel slide up */
         $(document).on('click', '.panel-heading span.clickable', function(e){
             var $this = $(this);
             if(!$this.hasClass('panel-collapsed')) {
