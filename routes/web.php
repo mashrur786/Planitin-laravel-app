@@ -90,7 +90,26 @@ Route::resource('campaigns', 'CampaignController', ['only' => [
     'index', 'show'
 ]]);
 
+Route::group(['prefix' => 'partner'], function (){
 
+    Route::get('login', [
+    'as' => 'partner.login',
+    'uses' => 'Auth\PartnerLoginController@showLoginForm'
+    ]);
+
+    Route::post('login', [
+    'as' => 'partner.login.submit',
+    'uses' => 'Auth\PartnerLogInController@login'
+    ]);
+
+    Route::get('/', [
+        'as' => 'partner.dashboard',
+        'uses' =>'Partner\PartnerController@index'
+    ]);
+
+    Route::get('/redeem', 'PromotionController@redeem');
+
+});
 
 /* admin routes*/
 Route::group(['prefix' => 'admin'],function(){

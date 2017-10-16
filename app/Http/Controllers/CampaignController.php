@@ -13,6 +13,8 @@ class CampaignController extends Controller
     {
         $this->middleware('auth:admin');
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +23,11 @@ class CampaignController extends Controller
     public function index()
     {
         //
-        $campaigns = Campaign::all();
+        $campaigns = Campaign::active()->get();
+        $expired_campaigns = Campaign::expired()->get();
         //dd($campaigns);
-        return view('admins.campaigns.index')->with('campaigns', $campaigns);
+        return view('admins.campaigns.index')
+                ->with(['campaigns'=> $campaigns, 'expired_campaigns' => $expired_campaigns]);
     }
 
     /**
@@ -126,7 +130,7 @@ class CampaignController extends Controller
         $campaign->delete();
 
         Session::flash('success', 'Campaign deleted');
-        //Session::flash();
+
 
         return redirect()->route('admin.campaigns');
 

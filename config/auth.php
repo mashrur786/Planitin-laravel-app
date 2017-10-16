@@ -36,6 +36,8 @@ return [
     */
 
     'guards' => [
+
+        //users
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -46,6 +48,8 @@ return [
             'provider' => 'users',
         ],
 
+        //Admin
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -55,6 +59,19 @@ return [
             'driver' => 'token',
             'provider' => 'admins',
         ],
+
+        // Partner
+        'partner' => [
+            'driver' => 'session',
+            'provider' => 'partners',
+        ],
+
+        'partner-api' => [
+            'driver' => 'token',
+            'provider' => 'partners',
+        ],
+
+
     ],
 
     /*
@@ -75,6 +92,7 @@ return [
     */
 
     'providers' => [
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -83,6 +101,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
+        ],
+
+        'partners' => [
+            'driver' => 'eloquent',
+            'model' => App\Partner::class,
         ],
 
         // 'users' => [
@@ -117,6 +140,12 @@ return [
             'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 30,
+        ],
+
+        'partners' => [
+            'provider' => 'partners',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

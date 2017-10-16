@@ -30,6 +30,12 @@ class Restaurant extends Model
 
     }
 
+    public function partner(){
+
+        return $this->hasOne('App\Partner');
+
+    }
+
 
 
 }

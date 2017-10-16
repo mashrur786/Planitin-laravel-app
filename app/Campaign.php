@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Campaign extends Model
@@ -16,8 +17,21 @@ class Campaign extends Model
     'updated_at',
     'expires'
 ];
+    /* Scope */
+    public function scopeExpired($query)
+    {
+        $query->where('expires', '<=', Carbon::now());
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('expires', '>=', Carbon::now());
+    }
 
 
+
+
+    /* Relationship */
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);

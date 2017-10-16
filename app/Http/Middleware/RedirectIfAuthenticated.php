@@ -26,6 +26,13 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'partner':
+            if (Auth::guard($guard)->check()) {
+             return redirect()->route('partner.dashboard');
+            }
+            break;
+
+
             default:
 
                 if (Auth::guard($guard)->check()) {

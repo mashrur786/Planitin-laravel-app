@@ -230,6 +230,47 @@
 
 }
 
+.coupon.redeemed, .coupon.expired {
+    background: #d6d6d6;
+    color: #7d7d7d;
+    position: relative;
+
+}
+
+.coupon.redeemed::after{
+    content: 'Redeemed';
+}
+
+.coupon.expired::after {
+    content: 'Expired';
+}
+.coupon.redeemed::after, .coupon.expired::after{
+
+    position: absolute;
+    z-index: 111;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 33px;
+    font-size: 2em;
+    color: #eceaea;
+    background: rgba(119, 119, 119, 0.34);
+    border-radius: 6px;
+}
+
+.coupon.redeemed button, .coupon.expired button {
+    visibility: hidden;
+}
+
+.coupon.redeemed .label.label-warning , .coupon.expired .label.label-warning {
+    background-color: gray;
+    color: #a8a8a8;;
+}
+
+
+
 .well.code {
     height:60px;
     max-width: 400px;
@@ -318,7 +359,6 @@ sup {
                     <hr>
                     <div class="desc">
                         {{ Auth::user()->email }}
-
                     </div>
                     <hr>
                 </div>
@@ -387,8 +427,15 @@ sup {
                             <hr>
                             <div class="coupon-wrapper">
                             @foreach($restaurant->campaigns as $campaign)
-
-                                        <div class="coupon">
+                                        <?php
+                                            $coupon_status = '';
+                                        ?>
+                                        @if(Auth::user()->campaigns()->findOrFail($campaign->id)->pivot->redeem == 1)
+                                            <?php $coupon_status = 'redeemed' ?>
+                                        @elseif($campaign->expires <=  \Carbon\Carbon::now())
+                                            <?php $coupon_status = 'expired' ?>
+                                        @endif
+                                        <div class="coupon {{ $coupon_status }}">
                                             <span class="label label-warning">{{ $campaign->expires->format('l j F Y')  }}</span>
                                             <span class="pull-right">
                                                 <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>

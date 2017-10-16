@@ -145,7 +145,6 @@ class RestaurantsController extends Controller
 
     }
 
-
     /* Auto-complete search at welcome screen */
     public function autocompleteSearch(Request $request, Restaurant $restaurant){
 
