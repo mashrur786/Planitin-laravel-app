@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-5">
             @if(request()->session()->has('success'))
                 <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

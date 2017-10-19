@@ -37,9 +37,19 @@ class User extends Authenticatable
 
     }
 
+    public function hasCode($id){
+
+        if($this->campaigns->contains($id))
+            return true;
+
+        return false;
+
+    }
+
     public function restaurants(){
 
-        return $this->belongsToMany('App\Restaurant', 'restaurant_user')->withTimestamps();
+        return $this->belongsToMany('App\Restaurant', 'restaurant_user')
+            ->withPivot('created_At', 'updated_at', 'points');
 
     }
 
@@ -48,6 +58,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Campaign', 'campaign_user', 'user_id', 'campaign_id')
             ->withPivot('code', 'redeem', 'created_At', 'updated_at');
 
+    }
+
+    /* Accessors */
+    public function getNameAttributes($value){
+        return ucwords($value);
     }
 
 

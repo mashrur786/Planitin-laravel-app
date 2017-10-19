@@ -335,6 +335,8 @@ sup {
         max-width: 180px;
     }
 }
+        /* progress bar */
+
 
     </style>
 
@@ -385,7 +387,7 @@ sup {
                   </div>
                 </div>
 
-                    <div class="row">
+                <div class="row">
                     @foreach(Auth::user()->restaurants as $restaurant)
                     <div class="col-sm-12">
                         <!-- Begin Listing: 609 W GRAVERS LN-->
@@ -401,7 +403,6 @@ sup {
 
                                     <h4 class="media-heading">
                                       <a href="#" target="_parent">{{ $restaurant->business_name }}<small class="label label-primary pull-right">{{ $restaurant->cuisine }}</small></a></h4>
-
 
                                     <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
                                         <li>{{ $restaurant->address }}</li>
@@ -425,47 +426,70 @@ sup {
                                 </div>
                             </div>
                             <hr>
+                            <h5>Points
+                            <Span class="badge">
+                                {{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points }}
+                            </Span>
+                            </h5>
+                            <hr>
                             <div class="coupon-wrapper">
+
                             @foreach($restaurant->campaigns as $campaign)
-                                        <?php
-                                            $coupon_status = '';
-                                        ?>
-                                        @if(Auth::user()->campaigns()->findOrFail($campaign->id)->pivot->redeem == 1)
-                                            <?php $coupon_status = 'redeemed' ?>
-                                        @elseif($campaign->expires <=  \Carbon\Carbon::now())
-                                            <?php $coupon_status = 'expired' ?>
-                                        @endif
-                                        <div class="coupon {{ $coupon_status }}">
-                                            <span class="label label-warning">{{ $campaign->expires->format('l j F Y')  }}</span>
-                                            <span class="pull-right">
-                                                <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
-                                            </span>
-                                            <h4>{{ $campaign->title }}</h4>
-                                            <button data-toggle="modal" data-target="#{{$campaign->id}}" class="pull-right btn btn-default btn-code">Get Code</button>
-                                        </div>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="{{ $campaign->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h3 class="modal-title inline" id="exampleModalLabel">{{ $campaign->title }}</h3>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
-                                                {!! $campaign->description !!}
-                                                  <div class="well code form-control text-center"></div>
-                                              </div>
-                                              <div class="modal-footer">
-                                                <h5 class="label label-default pull-left">
-                                                    {{ $campaign->expires->format('l j F Y')  }}
-                                                </h5>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>{{-- eof modal --}}
+                                <?php
+                                        $coupon_status = '';
+
+                                        if(Auth::user()->hasCode($campaign->id)){
+
+                                            $coupon_status = Auth::user()->campaigns()->findOrFail($campaign->id)->pivot->redeem ;
+
+                                            if(!empty($coupon_status) && $coupon_status == 1){
+
+                                                $coupon_status = 'redeemed';
+
+                                            }elseif ($campaign->expires <=  \Carbon\Carbon::now()) {
+
+                                                 $coupon_status = 'expired';
+
+                                            } else{
+                                                $coupon_status = '';
+                                            }
+                                        }
+
+                                ?>
+
+                                <div class="coupon {{ $coupon_status }}">
+                                    <span class="label label-warning">{{ $campaign->expires->format('l j F Y')  }}</span>
+                                    <span class="pull-right">
+                                        <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
+                                    </span>
+                                    <h4>{{ $campaign->title }}</h4>
+                                    <button data-toggle="modal" data-target="#{{$campaign->id}}" class="pull-right btn btn-default btn-code">Get Code</button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{ $campaign->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h3 class="modal-title inline" id="exampleModalLabel">{{ $campaign->title }}</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        {!! $campaign->description !!}
+                                          <div class="well code form-control text-center"></div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <h5 class="label label-default pull-left">
+
+                                            {{ $campaign->expires->format('l j F Y')  }}
+                                        </h5>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>{{-- eof modal --}}
                              @endforeach
                             </div>{{-- eof coupon wrapper --}}
                         </div><!-- End Listing-->
@@ -474,16 +498,18 @@ sup {
                 </div><!-- End row -->
                 </div><!-- End container -->
             </div>
-
             {{-- X --}}
 
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('script')
+
     <script type="text/javascript">
+
         $('.btn-code').click(function(){
 
             var container = $(this).parent('.coupon').next('.modal').find('.well.code');

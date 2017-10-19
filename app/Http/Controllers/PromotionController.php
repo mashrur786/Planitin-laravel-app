@@ -14,6 +14,7 @@ class PromotionController extends Controller
 
      public function __construct()
     {
+
              $this->middleware('auth:partner');
 
     }
@@ -25,20 +26,33 @@ class PromotionController extends Controller
     public function index()
     {
         //
+        dd('test');
     }
 
 
     public function redeem(Request $request)
     {
-
         $code = $request->code;
+        $restaurant_id = '';
+        $customer_id = '';
+        $increment = 50;
 
         $campaign_user = DB::table('campaign_user')
             ->where('code', $code )->first();
 
-        $restaurant_id = Campaign::findOrFail($campaign_user->campaign_id)->restaurant_id;
+        if($campaign_user != null || !empty($campaign_user)){
 
-        //if campaign belongs to the restaurant
+            $restaurant_id = Campaign::findOrFail($campaign_user->campaign_id)->restaurant_id;
+            $customer_id = $campaign_user->user_id;
+
+
+        } else {
+            Session::flash('error', 'Invalid Code');
+            return redirect()->route('partner.dashboard');
+        }
+
+
+        //if campaign belongs to the restaurant/partner
         if($restaurant_id == Auth::guard('partner')->user()->restaurant_id){
 
             // redeem the code
@@ -50,9 +64,18 @@ class PromotionController extends Controller
             // if successfully redeemed
              if($redeem){
 
+                 //give points to the user
+                 $points_incremented = DB::table('restaurant_user')
+                     ->where('restaurant_id', $restaurant_id)
+                     ->where('user_id', $customer_id)
+                     ->increment('points', 50);
 
-                Session::flash('success', 'Promotion Code Validated');
-                return redirect()->route('partner.dashboard');
+                 if($points_incremented){
+                      //
+                    Session::flash('success', 'Promotion Code Validated');
+                    return redirect()->route('partner.dashboard');
+                 }
+
             }
 
         }

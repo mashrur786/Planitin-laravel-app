@@ -62,7 +62,8 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            //mashrur: this was done for count  total redeem count 'strict' => true,
+            'strict' => false,
             'engine' => null,
         ],
 

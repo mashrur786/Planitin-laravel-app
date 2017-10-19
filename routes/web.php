@@ -109,6 +109,12 @@ Route::group(['prefix' => 'partner'], function (){
 
     Route::get('/redeem', 'PromotionController@redeem');
 
+    Route::get('campaigns/{campaign}', [
+
+        'as' => 'partner.campaigns.show',
+        'uses' => 'CampaignController@show'
+    ]);
+
 });
 
 /* admin routes*/

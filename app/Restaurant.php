@@ -26,7 +26,8 @@ class Restaurant extends Model
 
     public function users(){
 
-        return $this->belongsToMany('App\User', 'restaurant_user')->withTimestamps();
+        return $this->belongsToMany('App\User', 'restaurant_user')
+            ->withPivot('created_At', 'updated_at', 'points');
 
     }
 

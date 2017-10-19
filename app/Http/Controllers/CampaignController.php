@@ -5,13 +5,16 @@ use App\Restaurant;
 use App\Campaign;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 class CampaignController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:admin')->except('show');
+
     }
 
 
@@ -26,8 +29,13 @@ class CampaignController extends Controller
         $campaigns = Campaign::active()->get();
         $expired_campaigns = Campaign::expired()->get();
         //dd($campaigns);
+
+
         return view('admins.campaigns.index')
-                ->with(['campaigns'=> $campaigns, 'expired_campaigns' => $expired_campaigns]);
+        ->with(['campaigns'=> $campaigns, 'expired_campaigns' => $expired_campaigns]);
+
+
+
     }
 
     /**
@@ -75,7 +83,12 @@ class CampaignController extends Controller
         //
         $campaign = Campaign::find($id);
 
-        return view('admins.campaigns.show')->withCampaign($campaign);
+        $route = explode('.',Route::currentRouteName());
+        if(in_array('admin',$route)) {
+            return view('admins.campaigns.show')->withCampaign($campaign);
+        }
+        return view('partners.campaigns.show')->withCampaign($campaign);
+
     }
 
     /**
@@ -102,15 +115,16 @@ class CampaignController extends Controller
     {
         //
          //
-        $campaing = Campaign::find($id);
+        $campaign = Campaign::find($id);
         //store a new restaurant
         //Restaurant::create($request->all());
         //$campaing->restaurant_id = $request->restaurant_id ;
-        $campaing->title = $request->title ;
-        $campaing->description = $request->description ;
-        $campaing->expires = $request->expires ;
+        $campaign->title = $request->title ;
+        $campaign->description = $request->description ;
+        $campaign->expires = $request->expires ;
+        $campaign->save();
 
-        $campaing->save();
+
 
 
         return redirect('/admin/campaigns');
@@ -133,6 +147,25 @@ class CampaignController extends Controller
 
 
         return redirect()->route('admin.campaigns');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return return total count as int
+     */
+    public static function getRedeemCount($id){
+
+        $result = DB::select( DB::raw("select COUNT(*) FROM 
+                ( SELECT `redeem` as redeemed from `campaign_user` 
+                Where `campaign_id`= :id And redeem = 1 )
+                totalRedeemed "), ['id' => $id]);
+
+        $redeemsCount = json_decode(json_encode($result), true) ;
+
+        return $redeemsCount[0]["COUNT(*)"];
 
     }
 

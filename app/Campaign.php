@@ -28,9 +28,6 @@ class Campaign extends Model
         $query->where('expires', '>=', Carbon::now());
     }
 
-
-
-
     /* Relationship */
     public function restaurant()
     {
