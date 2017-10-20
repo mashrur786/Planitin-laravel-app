@@ -52,6 +52,11 @@ Route::post('restaurants/search', [
     'uses' => 'RestaurantsController@search'
 ]);
 
+Route::post('restaurants/rate', [
+    'as' => 'restaurants.rate',
+    'uses' => 'RestaurantsController@rate'
+]);
+
 
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/

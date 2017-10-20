@@ -328,4 +328,23 @@ class RestaurantsController extends Controller
         //
 
     }
+
+    /**
+     * Rate a given restaurant.
+     *
+     * @param  Request object
+     * @return \Illuminate\Http\Response
+     */
+    public function rate(Request $request)
+    {
+        //
+        $restaurant = Restaurant::find($request->restaurant_id);
+        $user = Auth::user();
+        $rating = $restaurant->rating([
+                    'rating' => $request->rating
+                ], $user);
+
+        return $rating;
+
+    }
 }

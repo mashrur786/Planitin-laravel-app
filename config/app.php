@@ -169,6 +169,7 @@ return [
 
 	    PhpConsole\Laravel\ServiceProvider::class,
         Codescheme\Postcodes\PostcodeServiceProvider::class,
+        Ghanem\Rating\RatingServiceProvider::class,
 
         //
 

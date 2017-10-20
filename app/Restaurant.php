@@ -3,13 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Ghanem\Rating\Traits\Ratingable as Ratingable;
 
 class Restaurant extends Model
 {
-    //
+
+    use Ratingable;
     protected $table = 'restaurants';
 
     protected $guarded = ['id'];
+
+
+    public function isRated(){
+
+        return $state = ($this->sumRating() > 0) ? true : false;
+
+
+    }
 
     // Relationship
      public function requirements(){
@@ -36,6 +46,14 @@ class Restaurant extends Model
         return $this->hasOne('App\Partner');
 
     }
+
+    /*  Mutator */
+     public function getBusinessNameAttribute($value){
+        return ucwords($value);
+    }
+
+
+
 
 
 

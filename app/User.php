@@ -61,7 +61,7 @@ class User extends Authenticatable
     }
 
     /* Accessors */
-    public function getNameAttributes($value){
+    public function getNameAttribute($value){
         return ucwords($value);
     }
 
