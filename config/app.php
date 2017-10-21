@@ -170,6 +170,7 @@ return [
 	    PhpConsole\Laravel\ServiceProvider::class,
         Codescheme\Postcodes\PostcodeServiceProvider::class,
         Ghanem\Rating\RatingServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         //
 
@@ -230,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Postcode' => Codescheme\Postcodes\Facades\Postcode::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

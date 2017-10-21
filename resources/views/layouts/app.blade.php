@@ -99,16 +99,7 @@
         @yield('content')
         <div class="clearfix"></div>
     </main>
-    <footer class="footer navbar-fixed-bottom">
-        <div class="container">
-
-                <span>© Planitin 2017</span>
-                <span class="pull-right"> <a class="btn label" href="{{ route('partner.login') }}">Partners Login</a></span>
-
-            
-        </div>
-    </footer>
-
+    @include('partials.footer')
     <!-- Scripts -->
     {{-- Jquery 3.1.1 minifield --}}
     <script

@@ -10,6 +10,7 @@ use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 use Illuminate\Support\Facades\Log;
 use Postcode;
 use Auth;
+use Image;
 
 
 
@@ -173,12 +174,20 @@ class RestaurantsController extends Controller
     public function index(Restaurant $restaurant)
     {
 
+
         $restaurants =  $restaurant->all();
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
         $types = $restaurant->select('type')->groupBy('type')->get();
 
-        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types ]);
+        if($this->isAdminRequest()){
+
+            return view('admins.restaurants.index')->withRestaurants($restaurants);
+
+        } else {
+            return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types ]);
+        }
+
 
 
     }
@@ -190,9 +199,10 @@ class RestaurantsController extends Controller
     public function create()
     {
         //add a new restaurant
+
         $requirements = Requirement::all();
 
-        return view('restaurants.add')->withRequirements($requirements);
+        return view('admins.restaurants.create')->withRequirements($requirements);
     }
 
     /**
@@ -203,6 +213,7 @@ class RestaurantsController extends Controller
      */
     public function store(Request $request)
     {
+
         $restaurant = new Restaurant;
         //store a new restaurant
         //Restaurant::create($request->all());
@@ -211,6 +222,19 @@ class RestaurantsController extends Controller
         $restaurant->type = $request->type;
         $restaurant->cuisine = $request->cuisine;
         $restaurant->description = $request->description;
+        /* image store*/
+
+        if($request->hasFile('f_img')){
+            //code
+            $image = $request->file('f_img');
+            $filename = 'res_' . time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('uploads/restaurant_imgs/' . $filename);
+            Image::make($image)->resize(800,600)->save($location);
+
+            $restaurant->featured_img = $filename;
+        }
+
+
         $restaurant->business_phone1 = $request->business_phone1;
         $restaurant->business_phone2 = $request->business_phone2;
         $restaurant->address = $request->address;
@@ -229,7 +253,7 @@ class RestaurantsController extends Controller
         $requirements = ($request->requirements ?: []);
         $restaurant->requirements()->sync($requirements, false);
 
-        return redirect('/restaurants');
+        return redirect('admin.restaurants');
     }
 
     /**
@@ -302,6 +326,7 @@ class RestaurantsController extends Controller
     public function edit($id)
     {
         //
+         return view('admins.restaurants.edit', ['restaurant' => Restaurant::findOrFail($id)]);
 
     }
 

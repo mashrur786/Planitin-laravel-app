@@ -15,10 +15,38 @@ body {
   font-family: Raleway, sans-serif !important;
   color: #676767 !important;
 
+
+}
+
+body:before {
+  background: url("../images/pattern17.jpg");
+  background-size: 600px;
+  opacity: 0.111;
+  content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -999999;
+    background-position: 50% 0;
+
+
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Lato', sans-serif !important;
+  color: black;
+}
+
+hr {
+  border-color: #dae7f2;
+}
+
+.tel {
+  font-size: 1.5em;
+  line-height: 1.2em;
 }
 
 p , div, span {
@@ -26,6 +54,25 @@ p , div, span {
   color: #676767 ;
   line-height: 1.45rem ;
 
+}
+
+
+
+.btn-primary, .btn, .btn.dropdown-toggle.btn-default, .btn-default {
+  border:1px solid #008dc9 !important;
+  background: white !important;
+  color: black !important;
+
+}
+
+.glyphicon {
+  color: #1b8dc8;
+  font-weight: lighter;
+}
+
+
+.well {
+  background: white;
 }
 
 header {
@@ -40,13 +87,17 @@ nav {
 
 .navbar-default {
 
-  background: #3398ab;
-
+  background: #008dc9;
+  -webkit-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
+  border-color: transparent;
 
 }
 
 .navbar-default .navbar-brand {
     color: #ffffff;
+      padding: 10px 15px;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -54,13 +105,36 @@ nav {
 
 }
 
+.nav.navbar-nav.navbar-right > .dropdown > .dropdown-toggle > .caret {
+   color: white;
+}
+
 
 main  {
 
-    padding-bottom: 70px;
+    padding-bottom: 150px;
 
 }
 
+/* Form */
+.form-control {
+
+  border-color: #1b8dc8;
+
+}
+
+/*[hidden] {
+  display: none !important;
+}*/
+
+/* Panel */
+.panel-default {
+      border-color: #1b8dc8;
+
+}
+.panel-default>.panel-heading {
+  background: white;
+}
 /*----------------------
 welcome/Search Page
 ----------------------*/
@@ -88,30 +162,76 @@ Restaurants Card Styles
 
 
 .res-search-auto  form .input-group {
-  background: #2bb5cf;
+  background: #1b8dc8;
   padding: 20px;
   border-radius: 5px;
 }
 
-.filters ul {
+/*----------------------
+Footer
+----------------------*/
 
-  -webkit-padding-start: 0;
+footer{
+	background-color: white;
+    padding: 20px 0;
+    border-top: 10px solid #1b8dc8;
+    margin-top: 100px;
+}
+
+footer ul{
+    list-style:none;
+    margin:0 auto;
+    display:inline-block;
+      -webkit-padding-start: 0 !important;
 
 }
 
-
-.filters ul li {
-
-  list-style: none;
-
+footer ul li{
+    float:left;
 }
 
-.footer {
-
-  background: #3398ab;
-
-
+footer ul li a{
+	color: #515151;
+    padding:20px;
 }
+footer ul li a:nth-child(1){
+  padding-left: 0;
+}
+
+footer ul li a:hover{
+	color:#7dabdb;
+	text-decoration:none;
+}
+
+.footer-top{
+	padding-bottom:50px;
+}
+
+.footer-top .fa{
+    font-size:18px;
+    color: #FFF;
+    padding-right:10px;
+}
+
+.footer-top a{
+    color: #515151;
+    text-decoration:none;
+}
+
+.footer-top .col-lg-2:hover .fa , .footer-top .col-lg-2:hover a{
+    color:#7dabdb;
+}
+
+.copyright{
+    background-color:#f0f0f0;
+}
+
+.copyright p{
+	font-size:12px;
+	padding:15px 0 10px 0;
+}
+
+
 
 
 
@@ -123,7 +243,8 @@ Restaurants Card Styles
     text-transform: capitalize!important;
 }
 .panel.panel--styled {
-  background: #F4F2F3;
+  background: white;
+  border: 1px solid #1b8dc8;
 }
 .panelTop {
   padding: 30px;
@@ -222,7 +343,7 @@ input:checked + .slider:before {
 .card {
     padding-top: 20px;
     margin: 0 0 20px 0;
-    background-color: rgba(214, 224, 226, 0.2);
+    background-color: white;
     border-top-width: 0;
     border-bottom-width: 2px;
     -webkit-border-radius: 3px;
@@ -234,9 +355,7 @@ input:checked + .slider:before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
-    -moz-box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
-    box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
+   border: 1px solid #008dc9;
 }
 
 .card .card-heading.image img {
@@ -305,13 +424,13 @@ input:checked + .slider:before {
     padding-top: 0;
     overflow: hidden;
     text-align: center;
-    background-color: rgba(214, 224, 226, 0.2);
+    background-color: white;
 }
 
 .card.hovercard .cardheader {
 
-    background: -webkit-linear-gradient(135deg, rgba(23, 164, 79, 0.5) 0%, rgba(51, 122, 183, 0.7) 100%);
-
+   /* background: -webkit-linear-gradient(135deg, rgba(23, 164, 79, 0.5) 0%, rgba(51, 122, 183, 0.7) 100%);*/
+    background: #008dc9;
     background-size: cover;
     height: 135px;
 }
@@ -391,7 +510,7 @@ input:checked + .slider:before {
     box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
 }
 .brdr {
-    border: 2px solid #ededed;
+    border: 1px solid #008dc9;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -446,7 +565,15 @@ input:checked + .slider:before {
 
 }
 
-.coupon.redeemed, .coupon.expired {
+.coupon h4 {
+  margin: 25px 0;
+}
+
+.coupon.redeemed h4 , .coupon.expired h4{
+  color: #e8e8e8;
+}
+
+.coupon.redeemed,  .coupon.expired {
     background: #d6d6d6;
     color: #7d7d7d;
     position: relative;
@@ -469,7 +596,7 @@ input:checked + .slider:before {
     width: 100%;
     height: 100%;
     text-align: center;
-    padding-top: 33px;
+    padding-top: 55px;
     font-size: 2em;
     color: #eceaea;
     background: rgba(119, 119, 119, 0.34);
@@ -566,8 +693,8 @@ sup {
     .circle-progress strong {
         position: absolute;
         color: #00b0ff;
-        top: 25%;
-        left: 35%;
+        top: 40%;
+        left: 40%;
         font-size: 2.5em;
         font-weight: 300;
 

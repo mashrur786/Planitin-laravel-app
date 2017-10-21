@@ -1,5 +1,4 @@
-<div class="container">
-    <div class="row">
+
         <div class="col-md-6 col-md-offset-5">
             @if(request()->session()->has('success'))
                 <div class="alert alert-success">
@@ -32,5 +31,4 @@
 
             @endif
         </div>
-    </div>
-</div>
+

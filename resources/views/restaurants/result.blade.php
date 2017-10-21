@@ -11,7 +11,7 @@
                     <div class="panel-body">
                         <div class="col-md-12 panelTop">
                             <div class="col-md-4">
-                                <img class="img-responsive" src="http://placehold.it/350x350" alt=""/>
+                                <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
                             </div>
                             <div class="col-md-8">
                                 <small>{{ ucfirst(trans($restaurant_info->cuisine))  }}</small>

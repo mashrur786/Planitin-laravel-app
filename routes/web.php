@@ -26,13 +26,6 @@ Route::get('restaurants', [
 ]);
 
 
-Route::post('restaurants/store', [
-    'as' => 'restaurants.store',
-    'uses' => 'RestaurantsController@store'
-    ]);
-
-Route::get('restaurants/add', 'RestaurantsController@create')->middleware('auth:admin');
-
 Route::post('restaurants/sort', [
 
     'as' => 'restaurants.sort',
@@ -165,6 +158,7 @@ Route::group(['prefix' => 'admin'],function(){
         'as' => 'admin.campaigns.show',
         'uses' => 'CampaignController@show'
     ]);
+
     Route::get('campaigns/{campaign}/edit', [
         'as' => 'admin.campaigns.edit',
         'uses' =>'CampaignController@edit'
@@ -182,6 +176,47 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' =>'CampaignController@destroy'
 
     ]);
+
+
+    /* Restaurant */
+
+    Route::get('restaurants', [
+        'as' => 'admin.restaurants',
+        'uses' => 'RestaurantsController@index'
+    ]);
+
+    Route::post('restaurants', [
+        'as' => 'admin.restaurants',
+        'uses' => 'RestaurantsController@store'
+    ]);
+
+    Route::get('restaurants/create', [
+        'as' => 'admin.restaurants.create',
+        'uses' =>'RestaurantsController@create'
+
+    ]);
+
+    Route::get('restaurants/{restaurant}/edit', [
+        'as' => 'admin.restaurants.edit',
+        'uses' => 'RestaurantsController@edit'
+    ]);
+
+    Route::put('restaurants/{restaurant}', [
+        'as' => 'admin.restaurants.update',
+        'uses' => 'RestaurantsController@update'
+    ]);
+
+    Route::delete('restaurants/{restaurant}', [
+        'as' => 'admin.restaurants.destroy',
+        'uses' => 'RestaurantsController@destroy'
+    ]);
+
+    Route::get('restaurants/{restaurant}', [
+        'as' => 'admin.restaurants.show',
+        'uses' =>'RestaurantsController@show'
+
+    ]);
+
 
 });
 

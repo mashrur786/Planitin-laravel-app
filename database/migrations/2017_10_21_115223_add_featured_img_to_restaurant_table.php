@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPointsToRestaurantUserTable extends Migration
+class AddFeaturedImgToRestaurantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,10 @@ class AddPointsToRestaurantUserTable extends Migration
     public function up()
     {
         //
-        Schema::table('restaurant_user', function($table){
+        //
+        Schema::table('restaurants', function(Blueprint $table){
 
-            $table->integer('points')->dafault(0);
+            $table->string('featured_img')->nullable()->after('description');
 
         });
     }
@@ -29,9 +30,9 @@ class AddPointsToRestaurantUserTable extends Migration
     public function down()
     {
         //
-        Schema::table('restaurant_user', function($table){
+           Schema::table('restaurants', function( Blueprint$table){
 
-            $table->dropColumn('points');
+            $table->dropColumn('featured_img');
 
         });
     }

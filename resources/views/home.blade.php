@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('style')
-<!-- Latest compiled and minified CSS -->
+    <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 @endsection
 @section('content')
@@ -13,7 +13,7 @@
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/7/">
+                    <img alt="" src="http://wfarm2.dataknet.com/static/resources/icons/set112/1df88523.png">
                 </div>
                 <div class="info">
                     <div class="title">
@@ -28,7 +28,7 @@
                     <hr>
                 </div>
                 <div class="bottom">
-                    <button class="btn btn-warning">Edit</button>
+                    <button class="btn btn-primary">Settings</button>
                 </div>
             </div>
 
@@ -58,11 +58,10 @@
                         <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
                             <div class="media">
                                 <a class="pull-left" href="#" target="_parent">
-                                <img alt="image" class="img-responsive" src="https://static.pexels.com/photos/2232/vegetables-italian-pizza-restaurant.jpg"></a>
-
-                                <div class="clearfix visible-sm"></div>
-
-                                <div class="media-body fnt-smaller">
+                                    <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
+                                    <div class="clearfix visible-sm"></div>
+                                </a>
+                                    <div class="media-body fnt-smaller">
                                     <a href="#" target="_parent"></a>
 
                                     <h4 class="media-heading">
@@ -92,15 +91,19 @@
                                     <p class="tel">
                                         {{ $restaurant->business_phone1 }}
                                     </p>
-                                    <span class="fnt-smaller fnt-lighter fnt-arial">
-                                          {{ $restaurant->description }}
-                                    </span>
 
                                 </div>
-                                 <div data-value="{{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points  }}" class="circle-progress">
-                                        <strong></strong>
+                                    <div data-value="{{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points  }}" class="circle-progress">
+
+                                     <strong></strong>
                                  </div>
                             </div>
+                            <hr>
+                            <p>
+
+                              {{ $restaurant->description }}
+
+                            </p>
 
                             <hr>
                             <div class="coupon-wrapper">
@@ -135,7 +138,7 @@
                                         <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                                     </span>
                                     <h4>{{ $campaign->title }}</h4>
-                                    <button data-toggle="modal" data-target="#{{$campaign->id}}" class="pull-right btn btn-default btn-code">Get Code</button>
+                                    <button data-toggle="modal" data-target="#{{$campaign->id}}" class="btn btn-primary btn-code">Get Code</button>
                                 </div>
 
                                 <!-- Modal -->
@@ -179,9 +182,10 @@
 @endsection
 
 @section('script')
-    <script src="/js/circle-progress.min.js"></script>
+    <script type="text/javascript" src="/js/circle-progress.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         /* ratings */
         $(function(){
@@ -189,7 +193,7 @@
             $('.rateYo').each(function(){
 
 
-                var $rateYo = $(this).rateYo();
+                var $rateYo = $(this).rateYo({ratedFill: "#008dc9"});
 
                 /* set the option `onChange` */
                 $rateYo.rateYo("option", "onSet", function () {
@@ -206,7 +210,8 @@
                     method: 'POST',
                     data: { _token: CSRF_TOKEN, 'restaurant_id' : restaurant_id, 'rating' : rating},
                     success: function (data) {
-                        alert("You rated " + restaurant_name+ " " + data.rating);
+
+                        swal("Thank You!" , "You rated " + restaurant_name + " " + data.rating , "success");
 
                     }
                 });//eof ajax

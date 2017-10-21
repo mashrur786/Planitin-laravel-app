@@ -15,7 +15,7 @@
                         </select>
                         <input name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"> Search </button>
+                        <button class="btn btn-primary" type="submit"> Search </button>
                     </span>
                     </div><!-- /input-group -->
                 </form>

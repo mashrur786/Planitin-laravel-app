@@ -10,17 +10,6 @@
                 <br/>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Filter by Name</h3>
-                          <div class="panel-body">
-                              <form>
-                                  <input id="res-name" name="resName" type="text" class="form-control">
-                              </form>
-                          </div>
-
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
                         <h3 class="panel-title">Cuisine</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
@@ -50,6 +39,19 @@
                 </div>
 
             </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Filter by Name</h3>
+                          <div class="panel-body">
+                              <form>
+                                  <input id="res-name" name="resName" type="text" class="form-control">
+                              </form>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
             <div class="col-md-8 restaurant-item">
                 @if(!$data->isEmpty())
                     @foreach ($data as $restaurant)
@@ -58,7 +60,7 @@
                         <div class="panel-body">
                             <div class="col-md-12 panelTop">
                                 <div class="col-md-4">
-                                    <img class="img-responsive" src="http://placehold.it/150x150" alt=""/>
+                                    <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
                                 </div>
                                 <div class="col-md-8">
                                     <span class="label label-primary">{{ ucfirst(trans($restaurant->cuisine))  }}</span>
@@ -73,7 +75,7 @@
                                         <div class="campaing-item">
                                         @foreach($restaurant->campaigns as $key => $value)
                                             @if ($loop->first)
-                                            {{ $value->title }} <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-success">Get Deals</button></a>
+                                            {{ $value->title }} <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary">Get Deals</button></a>
                                             @endif
                                         @endforeach
                                         </div>
