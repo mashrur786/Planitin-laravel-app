@@ -113,7 +113,10 @@
                         <li><a href=""><i class="fa fa-building fa-fw"></i>Restaurants <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 <li>                            <li>
-                                    <a href="{{ route('admin.restaurants') }}">View Restaurants</a>
+                                    <a href="{{ route('admin.restaurants') }}">Restaurants</a>
+                                </li>
+                                 <li>
+                                    <a href="{{ route('admin.restaurants.create') }}">Add Restaurant</a>
                                 </li>
                             </ul>
                         </li>

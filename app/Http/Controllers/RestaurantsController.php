@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Postcode;
 use Auth;
 use Image;
-
+use Illuminate\Support\Facades\Storage;
 
 
 class RestaurantsController extends Controller
@@ -253,7 +253,7 @@ class RestaurantsController extends Controller
         $requirements = ($request->requirements ?: []);
         $restaurant->requirements()->sync($requirements, false);
 
-        return redirect('admin.restaurants');
+        return redirect('admin/restaurants');
     }
 
     /**
@@ -265,6 +265,9 @@ class RestaurantsController extends Controller
     public function show($id)
     {
         //
+        if($this->isAdminRequest()){
+            return view('admins.restaurants.show', ['restaurant' => Restaurant::findOrFail($id)]);
+        }
         return view('restaurants.show', ['restaurant' => Restaurant::findOrFail($id)]);
 
 
@@ -340,6 +343,58 @@ class RestaurantsController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+         $restaurant = Restaurant::findorfail($id);
+        //store a new restaurant
+        //Restaurant::create($request->all());
+        $restaurant->email = $request->email;
+        $restaurant->business_name = $request->business_name;
+        $restaurant->type = $request->type;
+        $restaurant->cuisine = $request->cuisine;
+        $restaurant->description = $request->description;
+        /* image store*/
+
+        if($request->hasFile('f_img')){
+            //code
+            $image = $request->file('f_img');
+            $filename = 'res_' . time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('uploads/restaurant_imgs/' . $filename);
+            Image::make($image)->resize(800,600)->save($location);
+
+            $oldfilename = $restaurant->featured_img;
+
+            Storage::delete($oldfilename);
+
+            $restaurant->featured_img = $filename;
+        }
+
+
+        $restaurant->business_phone1 = $request->business_phone1;
+        $restaurant->business_phone2 = $request->business_phone2;
+        $restaurant->address = $request->address;
+        $restaurant->street = $request->street;
+        $restaurant->area = $request->area;
+        $restaurant->town = $request->town;
+        $restaurant->county = $request->county;
+        $restaurant->outcode = $request->outcode;
+        $restaurant->incode = $request->incode;
+        $restaurant->website = $request->website;
+        $restaurant->contact_name = $request->contact_name;
+        $restaurant->contact_phone = $request->contact_phone;
+
+        $restaurant->save();
+
+        $requirements = ($request->requirements ?: []);
+
+        //delete all requirements
+        $restaurant->requirements()->detach();
+        // sync all teh requirements
+        $restaurant->requirements()->sync($requirements, false);
+
+
+        return redirect('admin/restaurants');
+
+
     }
 
     /**

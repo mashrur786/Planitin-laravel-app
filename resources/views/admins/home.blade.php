@@ -1,15 +1,17 @@
 @extends('admins.dashboard')
 
+@section('page-title')
+    Home
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    You are logged in as <strong>Admin</strong>!
-                </div>
-            </div>
+
+<div class="col-md-">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            Welcome <strong>Admin</strong>!
         </div>
     </div>
 </div>
+
 @endsection

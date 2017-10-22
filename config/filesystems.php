@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'default' => 'local',
+    /*'default' => 'local',*/
+    //changed by me
+    'default' => 'custom',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +48,11 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+        ],
+
+        'custom' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/restaurant_imgs'),
         ],
 
         'public' => [

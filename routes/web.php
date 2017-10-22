@@ -196,10 +196,7 @@ Route::group(['prefix' => 'admin'],function(){
 
     ]);
 
-    Route::get('restaurants/{restaurant}/edit', [
-        'as' => 'admin.restaurants.edit',
-        'uses' => 'RestaurantsController@edit'
-    ]);
+
 
     Route::put('restaurants/{restaurant}', [
         'as' => 'admin.restaurants.update',
@@ -217,6 +214,10 @@ Route::group(['prefix' => 'admin'],function(){
 
     ]);
 
+    Route::get('restaurants/{restaurant}/edit', [
+        'as' => 'admin.restaurants.edit',
+        'uses' => 'RestaurantsController@edit'
+    ]);
 
 });
 

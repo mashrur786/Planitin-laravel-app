@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 
-<div class="col-md-12">
+<div class="col-md-8">
     <div class="panel panel-default">
         <div class="panel-body">
             <form method="POST" action="{{ route('admin.restaurants') }}" enctype="multipart/form-data">
