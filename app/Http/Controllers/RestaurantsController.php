@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewRestaurant;
 use App\Requirement;
 use Illuminate\Http\Request;
 use App\Restaurant;
@@ -24,7 +25,7 @@ class RestaurantsController extends Controller
 
     public function search(Request $request, Restaurant $restaurant){
 
-       $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
         $res_type = $restaurant->select('type')->groupBy('type')->get();
 
         //set Regex for uk postcode
@@ -33,6 +34,7 @@ class RestaurantsController extends Controller
         //get user location & restaurant type
         $location =  $request->location;
         $type = $request->res_type;
+
 
         //check if the location given is a postcode
         if(preg_match($regex, strtolower($location))){
@@ -54,14 +56,12 @@ class RestaurantsController extends Controller
 
         } else{
 
-            $restaurants = $restaurant->Where('area', '=', $location)
+            $restaurants = $restaurant->Where('area', '=', strtolower($location))
                                         ->Where('type', '=' , $type)
                                         ->get();
 
 
         };
-
-
 
         return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines, 'types' => $res_type ]);
        // dd($restaurants_info);
@@ -253,6 +253,8 @@ class RestaurantsController extends Controller
         $requirements = ($request->requirements ?: []);
         $restaurant->requirements()->sync($requirements, false);
 
+        // fire new restaurant created event
+        event(new NewRestaurant($restaurant));
         return redirect('admin/restaurants');
     }
 
@@ -359,7 +361,9 @@ class RestaurantsController extends Controller
             $image = $request->file('f_img');
             $filename = 'res_' . time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('uploads/restaurant_imgs/' . $filename);
-            Image::make($image)->resize(800,600)->save($location);
+            Image::make($image)->resize(800,800, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                })->save($location);
 
             $oldfilename = $restaurant->featured_img;
 
@@ -405,7 +409,22 @@ class RestaurantsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $restaurant = Restaurant::findOrFail($id);
+
+        //detach
+        $restaurant->requirements()->detach();
+        $restaurant->partner()->delete();
+
+        if($restaurant->delete()){
+            Session::flash('success', 'Campaign deleted');
+            return redirect()->route('admin.restaurants');
+        }
+
+        Session::flash('error', 'Restaurant counld\'t be deleted');
+
+
+
 
     }
 

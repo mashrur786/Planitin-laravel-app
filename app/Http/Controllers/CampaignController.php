@@ -8,6 +8,7 @@ use Session;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
+
 class CampaignController extends Controller
 {
 
@@ -58,16 +59,17 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         //
-        $campaing = new Campaign;
+        $campaign = new Campaign;
         //store a new restaurant
         //Restaurant::create($request->all());
-        $campaing->restaurant_id = $request->restaurant_id ;
-        $campaing->title = $request->title ;
-        $campaing->description = $request->description ;
-        $campaing->expires = $request->expires ;
+        $campaign->restaurant_id = $request->restaurant_id ;
+        $campaign->title = $request->title ;
+        $campaign->description = $request->description ;
+        $campaign->expires = $request->expires ;
+        $campaign->save();
 
-        $campaing->save();
-
+        //trigger NewCampaignCreated event
+        event(new \App\Events\NewCampaignCreated($campaign));
 
         return redirect('/admin/campaigns');
     }
@@ -86,8 +88,16 @@ class CampaignController extends Controller
         $route = explode('.',Route::currentRouteName());
         if(in_array('admin',$route)) {
             return view('admins.campaigns.show')->withCampaign($campaign);
+        } elseif (in_array('partner',$route)){
+
+            return view('partners.campaigns.show')->withCampaign($campaign);
+
+        } else {
+            return view('campaigns.show')->withCampaign($campaign);
         }
-        return view('partners.campaigns.show')->withCampaign($campaign);
+
+
+
 
     }
 

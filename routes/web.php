@@ -133,11 +133,20 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' =>'Admin\AdminController@index'
     ]);
 
+     /* Admin Users */
     Route::get('users', [
 
         'as' => 'admin.users',
         'uses' => 'User\UserController@index'
     ]);
+
+     Route::get('users/{user}', [
+
+        'as' => 'admin.users.show',
+        'uses' => 'User\UserController@show'
+    ]);
+
+    /* Admin Campaigns */
 
     Route::get('campaigns', [
 
@@ -178,7 +187,7 @@ Route::group(['prefix' => 'admin'],function(){
     ]);
 
 
-    /* Restaurant */
+    /* Admin Restaurant */
 
     Route::get('restaurants', [
         'as' => 'admin.restaurants',
@@ -195,7 +204,6 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' =>'RestaurantsController@create'
 
     ]);
-
 
 
     Route::put('restaurants/{restaurant}', [
@@ -219,6 +227,26 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'RestaurantsController@edit'
     ]);
 
+    /* Admin manager */
+    Route::get('admins', [
+        'as' => 'admin.admins',
+        'uses' => 'admin\AdminController@list'
+    ]);
+
+    Route::get('admins/create', [
+        'as' => 'admin.admins.create',
+        'uses' => 'admin\AdminController@create'
+    ]);
+
+    Route::delete('admins/{admin}', [
+
+        'as' => 'admin.admins.destroy',
+        'uses' => 'admin\AdminController@destroy'
+
+    ]);
+
+
+
 });
 
 
@@ -228,12 +256,38 @@ Auth::routes();
 /* User routes */
 Route::get('/home', 'HomeController@index');
 
+
+
+Route::get('home/{user}/edit', [
+    'as' => 'home.user.edit',
+    'uses' => 'User\UserController@edit'
+]);
+
+  Route::put('home/{user}', [
+
+    'as' => 'home.user.update',
+    'uses' => 'User\UserController@update'
+]);
+
 Route::post('get/code', [
 
     'as' => 'get.code',
     'uses' => 'User\UserController@code'
 
 ]);
+
+Route::get('home/campaigns/{campaign}', [
+
+    'as' => 'home.campaings.show',
+    'uses' => 'CampaignController@show'
+
+]);
+
+
+
+Route::get('markNotificationsAsRead','User\UserController@markNotificationsAsRead');
+
+
 
 //requirement routes
 Route::resource('requirements', 'RequirementController', ['except' => ['create']]);

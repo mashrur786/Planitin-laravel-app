@@ -28,7 +28,8 @@
                     <hr>
                 </div>
                 <div class="bottom">
-                    <button class="btn btn-primary">Settings</button>
+
+                    <a href="{{ route('home.user.edit', ['user_id' => Auth::user()->id ]) }}" class="btn btn-primary">My Account</a>
                 </div>
             </div>
 
@@ -93,7 +94,11 @@
                                     </p>
 
                                 </div>
-                                    <div data-value="{{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points  }}" class="circle-progress">
+                                <div data-value="{{ $restaurant->users()
+                                                                ->where('restaurant_id', $restaurant->id)
+                                                                ->where('user_id', Auth::user()->id)
+                                                                ->first()->pivot->points  }}" class="circle-progress">
+                                    {{--<div data-value="{{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points  }}" class="circle-progress">--}}
 
                                      <strong></strong>
                                  </div>
@@ -132,12 +137,15 @@
 
                                 ?>
 
+
                                 <div class="coupon {{ $coupon_status }}">
                                     <span class="label label-warning">{{ $campaign->expires->format('l j F Y')  }}</span>
                                     <span class="pull-right">
                                         <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                                     </span>
-                                    <h4>{{ $campaign->title }}</h4>
+                                     <a href="{{ route('home.campaings.show', $campaign->id) }}">
+                                         <h4>{{ $campaign->title }}</h4>
+                                     </a>
                                     <button data-toggle="modal" data-target="#{{$campaign->id}}" class="btn btn-primary btn-code">Get Code</button>
                                 </div>
 

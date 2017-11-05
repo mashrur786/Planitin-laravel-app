@@ -28,11 +28,10 @@
                 <div class="form-group">
                     <label for="">Business Type</label><br>
                     <select name="type" class="selectpicker">
-                        <option> Restaurant / Dine-in </option>
-                        <option> Takeaway / Fast-food </option>
-                        <option> Café </option>
-                        <option> Drinks </option>
-                        <option > Dessert / treats </option>
+                        <option value="restaurant"> Restaurant / Dine-in </option>
+                        <option value="takeaway"> Takeaway / Fast-food </option>
+                        <option value="cafe"> Café & Bars</option>
+                        <option value="dessert"> Dessert / treats </option>
                     </select>
                 </div>
 

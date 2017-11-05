@@ -57,12 +57,23 @@ p , div, span {
 }
 
 
-
-.btn-primary, .btn, .btn.dropdown-toggle.btn-default, .btn-default {
+.btn-primary, .btn, .btn-default {
   border:1px solid #008dc9 !important;
-  background: white !important;
-  color: black !important;
+  background: #008dc9 !important;
+  color: white !important;
 
+}
+
+.btn.dropdown-toggle.btn-default {
+    border:1px solid #008dc9 !important;
+    background: white !important;
+    color: black !important;
+}
+
+.btn.btn-white {
+    border:1px solid #008dc9 !important;
+    background: white !important;
+    color: black !important;
 }
 
 .glyphicon {
@@ -109,11 +120,45 @@ nav {
    color: white;
 }
 
+/* Notifications dropdown menu  */
+.dropdown-menu.notifications {
+    width: 300px;
+}
 
+.dropdown-menu.notifications li {
+    padding: 8px 15px;
+    border-bottom: 1px solid ghostwhite;
+}
+
+.dropdown-menu.notifications li > div  {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dropdown-menu.notifications li > div:first-child {
+    width: 20%;
+}
+
+.dropdown-menu.notifications li > div:first-child > img{
+    width: 50px;
+    height: 50px;
+}
+
+.dropdown-menu.notifications li > div:last-child {
+    width: 77%;
+    line-height: 1.3em;
+
+}
+
+/* Notification Dropdown-menu */
 main  {
-
     padding-bottom: 150px;
+}
 
+
+/* text align */
+.text-right {
+    text-align: right;
 }
 
 /* Form */
@@ -550,7 +595,10 @@ input:checked + .slider:before {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
+
 }
+
 
 .coupon {
     border: 3px dashed #bcbcbc;
@@ -561,7 +609,7 @@ input:checked + .slider:before {
     display: inline-block;
     padding: 10px;
     margin: 10px;
-    width: 300px;
+    width: 45%;
 
 }
 

@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    {{-- ionic Icon set --}}
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
     @yield('style')
     {{-- Main CSS--}}
     <link rel="stylesheet" href="/css/styles.css">
@@ -66,6 +69,50 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
+                            {{-- notification --}}
+                            <li class="dropdown" onclick="markNotificationsAsRead()">
+                                <a href="#" class="dropdown-toggle notifications-trigger" data-toggle="dropdown" role="button" aria-expanded="false">
+
+                                    <i class="ion-earth"></i>
+                                    Notifications
+                                     <span class="badge">{{ count(Auth::user()->unreadNotifications) }}</span>
+                                </a>
+
+                                <ul class="dropdown-menu notifications" role="menu">
+                                    @forelse(Auth::user()->unreadNotifications as $unreadNotification)
+
+                                        <?php
+
+                                            $restaurant = App\Restaurant::find($unreadNotification->data['campaign']['restaurant_id'])
+
+                                        ?>
+                                        <li>
+                                            <div>
+                                                <img class="img-circle"  src="/uploads/restaurant_imgs/{{ $restaurant->featured_img }}" >
+                                            </div>
+                                            <div>
+                                                <a href="{{ route('home.campaigns.show', $unreadNotification->data['campaign']['id']) }}">
+                                                    <span class="label label-info">
+                                                        {{ $unreadNotification->data['campaign']['title'] }}
+                                                    </span>
+                                                </a>
+                                                <br>
+                                                New deal form <strong>{{ $restaurant->business_name }} </strong>
+                                                Expires:
+
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $unreadNotification->data['campaign']['expires'] )->format('F j, Y , g:i A') }}
+                                            </div>
+                                        </li>
+                                        @empty
+                                        <li>
+                                            No New Notifications
+                                        </li>
+                                    @endforelse
+                                </ul>
+                            </li>
+                            {{--  eof notification --}}
+
+                            {{-- user account --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -88,6 +135,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            {{-- eof user acount --}}
                         @endif
                     </ul>
                 </div>
@@ -114,6 +162,7 @@
             crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript for bootstrap-select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     @yield('script')
 </body>
 </html>

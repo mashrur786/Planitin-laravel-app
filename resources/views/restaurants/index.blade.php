@@ -79,7 +79,11 @@
                                             @endif
                                         @endforeach
                                         </div>
+
+                                    @else
+                                         <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary"> OPT IN</button></a>
                                     @endif
+
 
                                 </div>
                             </div>
