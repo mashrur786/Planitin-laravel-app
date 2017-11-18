@@ -49,6 +49,10 @@
                      <textarea name="description" class="form-control" placeholder=""></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="">Reward Points Capstone</label>
+                     <input type="number" name="capstone" class="form-control" placeholder="1200..">
+                </div>
+                <div class="form-group">
                      <label class="btn btn-default">
                         Upload Featured Image <input name="f_img" class="btn" type="file" hidden>
                     </label>

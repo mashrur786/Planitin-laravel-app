@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
 
+        Barryvdh\Debugbar\ServiceProvider::class,
 	    PhpConsole\Laravel\ServiceProvider::class,
         Codescheme\Postcodes\PostcodeServiceProvider::class,
         Ghanem\Rating\RatingServiceProvider::class,
@@ -232,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Postcode' => Codescheme\Postcodes\Facades\Postcode::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

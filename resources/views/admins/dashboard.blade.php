@@ -10,7 +10,6 @@
     <meta name="author" content="">
 
     <title>Plan It In | Admin</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -100,9 +99,11 @@
                         <li>
                             <a href="{{ url('/admin/') }}"><i class="fa fa-dashboard fa-fw"></i> Admin Dashboard </a>
                         </li>
+
                          <li>
                             <a href="{{ url('/admin/admins') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Admins </a>
                         </li>
+
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Users <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

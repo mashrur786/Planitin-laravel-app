@@ -143,7 +143,7 @@
                                     <span class="pull-right">
                                         <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                                     </span>
-                                     <a href="{{ route('home.campaings.show', $campaign->id) }}">
+                                     <a href="{{ route('home.campaigns.show', $campaign->id) }}">
                                          <h4>{{ $campaign->title }}</h4>
                                      </a>
                                     <button data-toggle="modal" data-target="#{{$campaign->id}}" class="btn btn-primary btn-code">Get Code</button>

@@ -62,6 +62,10 @@
                      <textarea name="description" class="form-control">{{ $restaurant->description }}</textarea>
                 </div>
                 <div class="form-group">
+                    <label for="">Reward Points Capstone</label>
+                     <input type="number" name="capstone" class="form-control" placeholder="{{ $restaurant->capstone }}">
+                </div>
+                <div class="form-group">
                      <label class="btn btn-default">
                         Upload Featured Image <input name="f_img" class="btn" type="file" value="{{ $restaurant->featured_img }}">
                     </label>

@@ -54,12 +54,15 @@ class RestaurantsController extends Controller
                                         ->get();
 
 
-        } else{
-
+        } elseif (!empty($location) || $location != ''){
+            
             $restaurants = $restaurant->Where('area', '=', strtolower($location))
                                         ->Where('type', '=' , $type)
                                         ->get();
+        } else{
 
+            $restaurants = $restaurant->Where('type', '=' , $type)
+                                        ->get();
 
         };
 
@@ -222,6 +225,7 @@ class RestaurantsController extends Controller
         $restaurant->type = $request->type;
         $restaurant->cuisine = $request->cuisine;
         $restaurant->description = $request->description;
+        $restaurant->capstone = $request->capstone;
         /* image store*/
 
         if($request->hasFile('f_img')){
@@ -287,16 +291,28 @@ class RestaurantsController extends Controller
 
         $restaurant = Restaurant::find($id);
 
-        try {
-            $restaurant->users()->attach($user->id);
-        } catch (\Illuminate\Database\QueryException $e) {
-            Session::flash('error', 'You are already subscribed');
+
+        if($user->restaurants()->count() < 7){
+
+            try {
+                $restaurant->users()->attach($user->id);
+            } catch (\Illuminate\Database\QueryException $e) {
+                Session::flash('error', 'You are already subscribed');
+                return redirect('/home');
+            }
+
+            Session::flash('success', 'You are now subscribed');
+
             return redirect('/home');
+
         }
 
-         Session::flash('success', 'You are now subscribed');
+        Session::flash('error', 'Oops! You have reached maximum number of subscriotion');
 
-         return redirect('/home');
+        return redirect('/home');
+
+
+
 
 
     }
@@ -354,6 +370,7 @@ class RestaurantsController extends Controller
         $restaurant->type = $request->type;
         $restaurant->cuisine = $request->cuisine;
         $restaurant->description = $request->description;
+        $restaurant->capstone = $request->capstone;
         /* image store*/
 
         if($request->hasFile('f_img')){

@@ -21,7 +21,13 @@ class UserController extends Controller
 
     }
 
-    // this code generates a unique code for authenticated in user
+
+    /**
+     *  This code generates a unique code for authenticated user
+     *
+     * @param  Object Request
+     * @return ajax record
+     */
      public function code(Request $request)
     {
 
@@ -30,7 +36,7 @@ class UserController extends Controller
         $code = '';
 
 
-
+        // Check if the code already exits for a given campaign
         if ($user->campaigns()
                          ->where('user_id', $user->id )
                         ->where('campaign_id', $campaign_id)
@@ -42,7 +48,9 @@ class UserController extends Controller
 
         } else {
 
-            $code =  $user->id . str_random(5) . $campaign_id ;
+
+            $code =  $campaign_id . str_random(6) ;
+
 
             try {
                 $user->campaigns()->attach($campaign_id, ['code' => $code]);

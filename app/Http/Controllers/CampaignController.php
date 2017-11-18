@@ -16,6 +16,7 @@ class CampaignController extends Controller
     {
         $this->middleware('auth:admin')->except('show');
 
+
     }
 
 
@@ -150,6 +151,8 @@ class CampaignController extends Controller
     {
         //
         $campaign = Campaign::find($id);
+
+        $campaign->users()->detach();
 
         $campaign->delete();
 

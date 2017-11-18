@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Session;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Middleware\SuperAdminCheck;
 
 
 class AdminController extends Controller
@@ -17,6 +20,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware(SuperAdminCheck::class)->except('index');
     }
 
     /**
@@ -47,12 +51,11 @@ class AdminController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
         $admin = new Admin;
         $admin->name = $request->name;
         $admin->email = $request->email;
         $admin->role = 'manager';
-        $admin->password = $request->password;
+        $admin->password = Hash::make($request->password);
 
         $admin->save();
 
@@ -78,9 +81,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destory($id)
+    public function destroy($id)
     {
-         $admin = Admin::find($id);
+        $admin = Admin::find($id);
 
         $admin->delete();
 

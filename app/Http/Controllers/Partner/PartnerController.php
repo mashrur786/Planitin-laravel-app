@@ -26,4 +26,6 @@ class PartnerController extends Controller
     {
         return view('partners.home');
     }
+
+
 }

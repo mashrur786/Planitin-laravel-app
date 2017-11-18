@@ -36,8 +36,8 @@ class Campaign extends Model
 
     public function users(){
 
-        return $this->belongsToMany('App\User', 'campaign_user', 'user_id', 'campaign_id')
-            ->withPivot('code', 'redeem', 'created_At', 'updated_at');;
+        return $this->belongsToMany('App\User', 'campaign_user', 'campaign_id', 'user_id')
+            ->withPivot('code', 'redeem', 'created_At', 'updated_at');
 
     }
 }

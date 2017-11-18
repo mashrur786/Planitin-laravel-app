@@ -27,19 +27,13 @@
                   <td>{{ $admin->role }}</td>
                   <td>{{ $admin->email }}</td>
                   <td>
-                       <a href="admins/{{  $admin->id }}/edit">
-                            <button class="btn btn-sm btn-warning">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                        </a>
-
-                      <form method="post" action="{{ route('admin.admins.destroy', $admin->id) }}"></form>
+                      <form method="post" action="{{ route('admin.admins.destroy', $admin->id) }}">
                              {{ csrf_field() }}
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-sm btn-danger">
                                 <i class="fa  fa-trash-o" aria-hidden="true"></i>
                             </button>
-                        </a>
+                      </form>
                   </td>
               </tr>
           @endforeach

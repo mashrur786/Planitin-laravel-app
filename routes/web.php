@@ -146,6 +146,12 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'User\UserController@show'
     ]);
 
+     Route::get('users/{user}/suspend', [
+
+        'as' => 'admin.users.show',
+        'uses' => 'User\UserController@show'
+    ]);
+
     /* Admin Campaigns */
 
     Route::get('campaigns', [
@@ -238,6 +244,11 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'admin\AdminController@create'
     ]);
 
+    Route::Post('admins/store', [
+        'as' => 'admin.admins.store',
+        'uses' => 'admin\AdminController@store'
+    ]);
+
     Route::delete('admins/{admin}', [
 
         'as' => 'admin.admins.destroy',
@@ -256,7 +267,12 @@ Auth::routes();
 /* User routes */
 Route::get('/home', 'HomeController@index');
 
+Route::get('home/campaigns/{campaign}', [
 
+    'as' => 'home.campaigns.show',
+    'uses' => 'CampaignController@show'
+
+]);
 
 Route::get('home/{user}/edit', [
     'as' => 'home.user.edit',
@@ -273,13 +289,6 @@ Route::post('get/code', [
 
     'as' => 'get.code',
     'uses' => 'User\UserController@code'
-
-]);
-
-Route::get('home/campaigns/{campaign}', [
-
-    'as' => 'home.campaings.show',
-    'uses' => 'CampaignController@show'
 
 ]);
 
