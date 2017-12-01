@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\Log;
+use Session;
 
 
 class UserController extends Controller
@@ -117,13 +118,17 @@ class UserController extends Controller
     }
 
 
-        /**
+    /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
         function markNotificationsAsRead(){
+
             Auth::user()->unreadNotifications->markAsRead();
+
         }
+
+
+
+
+
 }

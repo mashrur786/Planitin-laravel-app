@@ -13,7 +13,7 @@
                             <option value="cafe">Cafés & Bars</option>
                             <option value="dessert">Dessert Parlours</option>
                         </select>
-                        <input name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
+                    <input name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
                     <span class="input-group-btn">
                         <button class="btn btn-white btn-primary" type="submit"> Search </button>
                     </span>

@@ -37,6 +37,24 @@
 
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> Special Requirements</h3>
+                        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body">
+
+                        @foreach ($requirements as $requirement)
+                            <div class="checkbox">
+                                <label>
+                                    <input data-filter-name="requirement" class="filter" type="checkbox" value="{{ ucfirst(trans($requirement->name))  }}">
+                                    {{ ucfirst(trans($requirement->name))  }}
+                                </label>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
 
             </div>
             <div class="col-md-8">
@@ -44,7 +62,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Filter by Name</h3>
                           <div class="panel-body">
-                              <form>
+                              <form onsubmit="event.preventDefault();">
                                   <input id="res-name" name="resName" type="text" class="form-control">
                               </form>
                           </div>
@@ -55,7 +73,6 @@
             <div class="col-md-8 restaurant-item">
                 @if(!$data->isEmpty())
                     @foreach ($data as $restaurant)
-
                     <div class="panel panel-default panel--styled">
                         <div class="panel-body">
                             <div class="col-md-12 panelTop">
@@ -90,23 +107,19 @@
 
                         </div>
                     </div>
-
                     @endforeach
                 @else
-
                 <div class="alert alert-danger">
                     <strong>Oosp!!</strong> We didn't find any restuarants, please try again !!
                 </div>
                     <a href="{{ route('welcome') }}">
-                        <button type="button" class="btn btn-info btn-lg"><< Back</button>
+                        <button type="button" class="btn btn-info btn-lg">Back</button>
                     </a>
-
-
                 @endif
-
             </div>
         </div>
     </div>
+
     <script>
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var url = '{{ route('restaurants.sort') }}';
@@ -114,10 +127,9 @@
 @endsection
 {{-- Script--}}
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.2.0/cjs/react.development.js"></script>
     <script>
-
-
-
+        var generatedHtml;
         // bof function for restaurant name auto-complete search
         // bof get restaurants by id
         $(function(){
@@ -188,7 +200,6 @@
             });
 
         });//end of function*/
-
         // eof get restaurants by id
         // eof function for restaurant name auto-complete search
 
@@ -219,7 +230,6 @@
 
                 }); //eof each
                 //console.log(filters);
-
                  $.ajax({
                         method:'POST',
                         url: url,
@@ -227,44 +237,14 @@
                         //success
                         success: function(data) {
 
-                           console.log(data);
+                           renderHtml(data);
                             $(".restaurant-item").empty();
-
+                            $(".restaurant-item").html(generatedHtml);
                             $.each(data, function(index, value) {
 
                                // console.log(data);
-                                var   output = "<div class='panel panel-default panel--styled'>"
 
-                                    + "<div class='panel-body'>"
-                                    + "<div class='col-md-12 panelTop'>"
-                                    + "<div class='col-md-4'>"
-                                    + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
-                                    + "</div>"
-                                    + "<div class='col-md-8'>"
-                                    + "<small>" + value.cuisine + "</small>"
-                                    + "<h4>" + value.business_name + "</h4>"
-                                    + "<p>" +  value.description + "</p>"
-                                    + "</div>"
-                                    + "</div>"
-
-                                    + "<div class='col-md-12 panelBottom'>"
-                                    + "<div class='col-md-4 text-center'>"
-
-                                    + "<label class='switch'>"
-
-                                    + "<input type='checkbox'>"
-                                    + "<div class='slider round'></div>"
-                                    + "</label>"
-                                    + "</div>"
-                                    + "<div class='col-md-4 text-left'>"
-                                    + "<span class='tel'>" + value.business_phone1 + "</span>"
-                                    + "</div>"
-                                    + "<div class='col-md-4'>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>";
-                                    $(".restaurant-item").append(output);
+                                /*$(".restaurant-item").append(output);*/
                          }); //eof foreach
 
                         },
@@ -294,7 +274,7 @@
                 $this.removeClass('panel-collapsed');
                 $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
             }
-        })
+        });
 
     </script>
 @endsection

@@ -23,10 +23,34 @@ class RestaurantsController extends Controller
 
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Restaurant $restaurant)
+    {
+        $restaurants =  $restaurant->all();
+        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        $types = $restaurant->select('type')->groupBy('type')->get();
+        $requirements = Requirement::all();
+        if($this->isAdminRequest()){
+
+            return view('admins.restaurants.index')->withRestaurants($restaurants);
+
+        } else {
+            return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types, 'requirements' => $requirements ]);
+        }
+
+
+
+    }
+
     public function search(Request $request, Restaurant $restaurant){
 
         $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
         $res_type = $restaurant->select('type')->groupBy('type')->get();
+        $requirements = Requirement::all();
 
         //set Regex for uk postcode
         $regex = '/^(?:gir(?: *0aa)?|[a-pr-uwyz](?:[a-hk-y]?[0-9]+|[0-9][a-hjkstuw]|[a-hk-y][0-9][abehmnprv-y])(?: *[0-9][abd-hjlnp-uw-z]{2})?)$/';
@@ -47,7 +71,6 @@ class RestaurantsController extends Controller
             foreach($data->result as $postcode){
                  $postcodes[] = $postcode->outcode;
             }
-
             //
             $restaurants = $restaurant->whereIn('outcode', $postcodes)
                                         ->Where('type', '=' , $type)
@@ -66,7 +89,7 @@ class RestaurantsController extends Controller
 
         };
 
-        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines, 'types' => $res_type ]);
+        return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines, 'types' => $res_type, 'requirements' => $requirements ]);
        // dd($restaurants_info);
 
     }
@@ -87,7 +110,7 @@ class RestaurantsController extends Controller
     public function sort(Request $request, Restaurant $restaurant){
 
         $filters = $request->filters;
-
+        //Log::info($request->filters);
         if(empty($filters)){
 
                $results = $restaurant->all();
@@ -97,6 +120,7 @@ class RestaurantsController extends Controller
 
         $cuisines = [];
         $types = [];
+        $requirements = [];
 
         foreach($filters as $filter){
 
@@ -104,37 +128,84 @@ class RestaurantsController extends Controller
 
                 $cuisines[] = $filter["filterValue"];
 
-            } else {
+            } elseif($filter["filterName"] == "type") {
 
                 $types[] = $filter["filterValue"];
 
+            } else {
+                $requirements[] = $filter["filterValue"];
             }
 
         }
 
-       if(empty($types)){
+        /*$test = $restaurant::with('requirements')->get();
+        $test2 = $restaurant::whereHas('requirements', function($query) use($requirements) {
+        $query->whereIn('requirements.name', ['Halal']);
+        })->whereIn("cuisine", ['Indian'])->get();
+        Log::info($test2);
+        return $test2;*/
 
-             $results = $restaurant->whereIn("cuisine", $cuisines)
-                                    ->orderBy("cuisine", "asc")
-                                    ->get();
 
+       if(empty($types) && !empty($cuisines) && !empty($requirements)){
+
+             $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
+                        $query->whereIn('requirements.name', $requirements);
+                        })->whereIn("cuisine", $cuisines)->orderBy("cuisine", "asc")->get();
+
+            Log::info('filter1');
              return $results;
 
-        } elseif (empty($cuisines)) {
+        } elseif (empty($cuisines) && !empty($types) && !empty($requirements)) {
 
-             $results = $restaurant->whereIn("type", $types)
-                                    ->orderBy("cuisine", "asc")
-                                   ->get();
+             $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
+                        $query->whereIn('requirements.name', $requirements);
+                        })->whereIn("type", $types)->orderBy("cuisine", "asc")->get();
 
+             Log::info('filter2');
              return $results;
+
+         } elseif (empty($requirements) && !empty($types) && !empty($cuisine)) {
+
+           $results = $restaurant->whereIn("cuisine", $cuisines)
+               ->whereIn("type", $types)->orderBy("cuisine", "asc")
+               ->get();
+
+           Log::info('filter3');
+           return $results;
+
+       } elseif (empty($types) && empty($requirements)  && !empty($cuisines)) {
+
+           $results = $restaurant->whereIn("cuisine", $cuisines)->get();
+
+           Log::info('filter4');
+           return $results;
+
+       } elseif (empty($cuisines) && empty($requirements) && !empty($types)) {
+
+             $results = $restaurant->whereIn("type", $types)->get();
+
+             Log::info('filter5');
+             return $results;
+
+       } elseif (empty($cuisines) && empty($types) && !empty($requirements)) {
+
+         $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
+                        $query->whereIn('requirements.name', $requirements);
+                        })->get();
+
+         Log::info('filter6');
+         return $results;
 
         } else {
 
-            $results = $restaurant->whereIn("cuisine", $cuisines)
-                                  ->whereIn("type", $types)
-                                  ->orderBy("cuisine", "asc")
-                                  ->get();
+            $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
+                            $query->whereIn('requirements.name', $requirements);
+                            })->whereIn("cuisine", $cuisines)
+                              ->whereIn("type", $types)
+                              ->orderBy("cuisine", "asc")
+                              ->get();
 
+            Log::info('filter7');
             return $results;
 
         }
@@ -169,31 +240,7 @@ class RestaurantsController extends Controller
 
 
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Restaurant $restaurant)
-    {
 
-
-        $restaurants =  $restaurant->all();
-
-        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
-        $types = $restaurant->select('type')->groupBy('type')->get();
-
-        if($this->isAdminRequest()){
-
-            return view('admins.restaurants.index')->withRestaurants($restaurants);
-
-        } else {
-            return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types ]);
-        }
-
-
-
-    }
     /**
      * Show the form for creating a new resource.
      *

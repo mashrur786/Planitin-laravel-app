@@ -16,9 +16,10 @@
                     <ul class="list-group">
                     @foreach($user->restaurants as $key => $restaurant)
                     <li class="list-group-item">
-                        <span class="badge"> {{ $key+1 }}</span>
                         <span>{{ $restaurant->business_name }}</span>
-
+                        <span class="label label-primary pull-right">
+                           Subscribed:  {{ Carbon\Carbon::parse($restaurant->users->find($user->id)->pivot->updated_at)->format('M d Y') }}
+                        </span>
                     </li>
                     @endforeach
                     </ul>

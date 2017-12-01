@@ -46,6 +46,15 @@ class User extends Authenticatable
 
     }
 
+    public function isActive(){
+
+        if($this->active == 1)
+            return true;
+
+        return false;
+
+    }
+
     public function restaurants(){
 
         return $this->belongsToMany('App\Restaurant', 'restaurant_user')

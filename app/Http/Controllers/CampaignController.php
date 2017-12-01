@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon ;
 
 
 class CampaignController extends Controller
@@ -65,8 +66,10 @@ class CampaignController extends Controller
         //Restaurant::create($request->all());
         $campaign->restaurant_id = $request->restaurant_id ;
         $campaign->title = $request->title ;
-        $campaign->description = $request->description ;
         $campaign->expires = $request->expires ;
+        $campaign->greeting = 0 ;
+        $campaign->description = $request->description ;
+
         $campaign->save();
 
         //trigger NewCampaignCreated event

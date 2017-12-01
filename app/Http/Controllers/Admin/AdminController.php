@@ -84,14 +84,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $admin = Admin::find($id);
-
         $admin->delete();
 
         Session::flash('success', 'Admin User deleted');
-
-
         return redirect()->route('admin.admins');
 
     }
+
 
 }

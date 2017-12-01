@@ -1,0 +1,118 @@
+/* Commons
+-------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Raleway, sans-serif !important;
+  color: #676767 !important;
+
+
+}
+
+body:before {
+  background: url("../images/pattern17.jpg");
+  background-size: 600px;
+  opacity: 0.111;
+  content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -999999;
+    background-position: 50% 0;
+
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif !important;
+  color: black;
+}
+
+hr {
+  border-color: #dae7f2;
+}
+
+.tel {
+  font-size: 1.5em;
+  line-height: 1.2em;
+}
+
+p , div, span {
+  font-family: Raleway, sans-serif!important;
+  color: #676767 ;
+  line-height: 1.45rem ;
+
+}
+
+
+.btn-primary, .btn, .btn-default {
+  border:1px solid #008dc9 !important;
+  background: #008dc9 !important;
+  color: white !important;
+
+}
+
+.btn.dropdown-toggle.btn-default {
+    border:1px solid #008dc9 !important;
+    background: white !important;
+    color: black !important;
+}
+
+.btn.btn-white {
+    border:1px solid #008dc9 !important;
+    background: white !important;
+    color: black !important;
+}
+
+.inline {
+  display: inline-block !important;
+}
+
+.card .card-info ul {
+
+    list-style: none;
+}
+
+.card .card-info ul li .title {
+
+  font-size: 1.3em;
+}
+
+.card .card-info ul li .value {
+
+  font-size: 1.3em;
+}
+
+/* Switchfield */
+
+.toggle.btn.btn-default {
+  border: 1px solid #c5c5c5 !important;
+}
+
+.toggle.btn.btn-primary {
+
+}
+
+.toggle-handle.btn.btn-default {
+    color: #333!important;
+    background-color: #fff!important;
+    border-color: #ccc!important;
+}
+
+.btn.btn-default.active.toggle-off {
+    color: #333 !important;
+    background-color: #e6e6e6 !important;
+    border-color: #adadad !important;
+}
+

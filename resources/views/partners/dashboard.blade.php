@@ -109,7 +109,7 @@
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img class="" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
+                    <img class="" src="/uploads/restaurant_imgs/{{ !empty(Auth::user()->business->featured_img) ? Auth::user()->business->featured_img : 'default.png' }}" alt=""/>
                 </div>
                 <div class="info">
                     <div class="title">
@@ -122,7 +122,7 @@
                     <hr>
                     <div class="desc">
 
-                        <h4><a href="">Account</a></h4>
+                        <h4><a href="{{ route('partner.account') }}">Account</a></h4>
 
                     </div>
 

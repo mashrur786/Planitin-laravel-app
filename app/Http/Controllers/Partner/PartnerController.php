@@ -27,5 +27,9 @@ class PartnerController extends Controller
         return view('partners.home');
     }
 
+    public function show()
+    {
+        return view('partners.accounts.show');
+    }
 
 }

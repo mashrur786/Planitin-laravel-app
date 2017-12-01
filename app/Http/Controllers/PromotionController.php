@@ -32,7 +32,7 @@ class PromotionController extends Controller
 
     public function redeem(Request $request)
     {
-        $code = $request->code;
+        $code = $request->code; 
         $restaurant_id = '';
         $customer_id = '';
         $increment = 50;

@@ -113,6 +113,12 @@ Route::group(['prefix' => 'partner'], function (){
         'uses' => 'CampaignController@show'
     ]);
 
+    Route::get('/account', [
+
+        'as' => 'partner.account',
+        'uses' => 'Partner\PartnerController@show'
+    ]);
+
 });
 
 /* admin routes*/
@@ -146,10 +152,16 @@ Route::group(['prefix' => 'admin'],function(){
         'uses' => 'User\UserController@show'
     ]);
 
-     Route::get('users/{user}/suspend', [
+     Route::post('users/{user}/deactivate', [
 
-        'as' => 'admin.users.show',
-        'uses' => 'User\UserController@show'
+        'as' => 'admin.users.deactivate',
+        'uses' => 'Admin\AdminUserController@deactivate'
+    ]);
+
+     Route::post('users/{user}/activate', [
+
+        'as' => 'admin.users.activate',
+        'uses' => 'Admin\AdminUserController@activate'
     ]);
 
     /* Admin Campaigns */
