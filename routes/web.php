@@ -50,7 +50,6 @@ Route::post('restaurants/rate', [
     'uses' => 'RestaurantsController@rate'
 ]);
 
-
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/
  * Otherwise 'restaurants/autocompleteSearch/ will never be reached

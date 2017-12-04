@@ -1,8 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container res-search-auto">
+    <div id="header-wrapper" class="header-slider">
+        <div class="container res-search-auto">
         <div class="row">
+            <div class="col-md-12">
+                <div id="main-flexslider" class="flexslider">
+					<ul class="slides">
+						<li>
+						<p class="home-slide-content">
+							Build Your <strong>Appetite </strong>
+						</p>
+						</li>
+						<li>
+						<p class="home-slide-content">
+							Opt in to a <strong>Restaurant</strong>
+						</p>
+						</li>
+						<li>
+						<p class="home-slide-content">
+							 Receive your  <strong> deal</strong>
+						</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end slider -->
+			</div>
+
+            </div>
             <div class="col-md-8 col col-md-offset-2">
                 <form action="{{ route('restaurants.search') }}" method="POST">
                     {{ csrf_field() }}
@@ -22,22 +47,6 @@
             </div><!-- /.col-lg-6 -->
         </div>
     </div>
+    </div>
 @endsection
-@section('script')
-    <script>
 
-   /*     $(function(){
-            $("#term").autocomplete({
-                source: "{{ route("restaurants.autocompleteSearch") }}",
-                minLength: 3,
-                select: function( event, ui ) {
-                    console.log(ui);
-                    $(this).after( "<input type='hidden' name='id' value='"+ ui.item.id +"' >" );
-
-                }
-            });
-
-        });//end of function*/
-
-    </script>
-@endsection

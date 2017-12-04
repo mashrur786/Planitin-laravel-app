@@ -22,11 +22,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     {{-- ionic Icon set --}}
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
+    <link rel="stylesheet" href="/css/flexslider.css">
     @yield('style')
     {{-- Main CSS--}}
     <link rel="stylesheet" href="/css/styles.css">
-
 
     <!-- Scripts -->
     <script>
@@ -162,7 +161,24 @@
             crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript for bootstrap-select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
     @yield('script')
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        // flexslider main
+	$('#main-flexslider').flexslider({
+		animation: "swing",
+		direction: "vertical",
+		slideshow: true,
+		slideshowSpeed: 3500,
+		animationDuration: 1000,
+		directionNav: true,
+		prevText: '<i class="icon-angle-up icon-2x"></i>',
+		nextText: '<i class="icon-angle-down icon-2x active"></i>',
+		controlNav: false,
+		smootheHeight:true,
+		useCSS: false
+	});
+    </script>
 </body>
 </html>

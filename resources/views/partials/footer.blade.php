@@ -1,6 +1,6 @@
 
 
-    <footer class="footer navbar-fixed-bottom">
+    <footer class="footer navbar-bottom">
 
 
         <div class="container">

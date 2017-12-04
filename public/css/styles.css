@@ -150,6 +150,24 @@ nav {
 
 }
 
+/* header */
+#header-wrapper {
+    width: 100%;
+    min-height: 600px;
+    margin-top: -60px;
+    padding-top: 150px;
+    text-align: center;
+}
+
+#header-wrapper.header-slider {
+    background: #444 url(../images/bg.jpg) no-repeat fixed;
+    background-position: top 100px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 /* Notification Dropdown-menu */
 main  {
     padding-bottom: 150px;
@@ -190,6 +208,30 @@ welcome/Search Page
     min-width: 150px;
 }
 
+/* flex slider */
+#main-flexslider.flexslider {
+    margin: 0;
+    background: none;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+}
+
+#main-flexslider ul.slides li p{
+    font-size: 72px;
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 0px;
+    text-align: center;
+    line-height: 1;
+    color: #fff;
+}
 
 /*----------------------
 Restaurants Card Styles
@@ -205,9 +247,8 @@ Restaurants Card Styles
 }
 
 
-
 .res-search-auto  form .input-group {
-  background: #1b8dc8;
+  background: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 5px;
 }
@@ -277,8 +318,44 @@ footer ul li a:hover{
 }
 
 
+/*----------------------
+Restaurants Card listing
+----------------------*/
 
+.panel.panel--styled.restaurant {
+    margin-bottom: 30px;
+}
 
+.panel.panel--styled.restaurant > .panel-body {
+    padding: 0!important;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .image {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-radius: 4px;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .image > img{
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .info {
+        padding: 15px;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .info {
+        padding: 15px;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .info > .rateYo {
+        margin-bottom: 0px;
+}
+
+.panel.panel--styled.restaurant > .panel-body > .info h3 {
+    margin-top: 10px;
+}
 
 /*----------------------
 Restaurants Card Styles
@@ -286,6 +363,7 @@ Restaurants Card Styles
 
 .address p {
     text-transform: capitalize!important;
+    line-height: 1.3em;
 }
 .panel.panel--styled {
   background: white;

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('style')
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+@endsection
 @section('content')
 
     <div class="container">
@@ -52,10 +56,12 @@
                                 </label>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
 
+            </div>
+            <div class="col-md-8" >
+                <h1 style="margin-top: 0">We have found {{  $data->count() }} results</h1>
             </div>
             <div class="col-md-8">
                 <div class="panel panel-default">
@@ -70,41 +76,31 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 restaurant-item">
+            <div class="col-md-8 restaurants">
                 @if(!$data->isEmpty())
                     @foreach ($data as $restaurant)
-                    <div class="panel panel-default panel--styled">
+                    <div class="panel panel-default panel--styled restaurant">
                         <div class="panel-body">
-                            <div class="col-md-12 panelTop">
-                                <div class="col-md-4">
+                                <div class="col-md-4 image">
                                     <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-8 info">
                                     <span class="label label-primary">{{ ucfirst(trans($restaurant->cuisine))  }}</span>
+                                    <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary"> view Deals </button></a>
+                                      {{-- rating --}}
+                                    <div class="rateYo" data-rateyo-rating="{{ $restaurant->isRated() ? $restaurant->avgRating : 0 }}"></div>
+                                    {{-- /rating--}}
                                     <h3><a href="/restaurants/{{ $restaurant->id }}">{{ ucwords($restaurant->business_name) }}</a></h3>
                                     <div class="address">
-                                        <p>{{ $restaurant->address }}, {{ $restaurant->street }}, {{ $restaurant->town }}
+                                        <p><span class="ion-ios-location-outline"></span>
+                                            {{ $restaurant->address }}, {{ $restaurant->street }}, {{ $restaurant->town }}
                                             <br>
                                             {{ $restaurant->outcode . ' ' . $restaurant->incode }}
+
                                         </p>
                                     </div>
-                                     @if(!$restaurant->campaigns->isEmpty())
-                                        <div class="campaing-item">
-                                        @foreach($restaurant->campaigns as $key => $value)
-                                            @if ($loop->first)
-                                            {{ $value->title }} <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary">Get Deals</button></a>
-                                            @endif
-                                        @endforeach
-                                        </div>
-
-                                    @else
-                                         <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary"> OPT IN</button></a>
-                                    @endif
-
 
                                 </div>
-                            </div>
-
                         </div>
                     </div>
                     @endforeach
@@ -124,12 +120,51 @@
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var url = '{{ route('restaurants.sort') }}';
     </script>
+
 @endsection
 {{-- Script--}}
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.2.0/cjs/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    <script id="res-template" type="text/template">
+        <div class="panel panel-default panel--styled restaurant">
+                        <div class="panel-body">
+                                <div class="col-md-4 image">
+                                    @{{#data.featured_img}}
+                                      <img class="img-responsive" src="/uploads/restaurant_imgs/@{{data.featured_img}}" alt=""/>
+                                    @{{/data.featured_img}}
+                                    @{{^data.featured_img}}
+                                      <img class="img-responsive" src="/uploads/restaurant_imgs/default.png" alt=""/>
+                                    @{{/data.featured_img}}
+                                </div>
+                                <div class="col-md-8 info">
+                                    <span class="label label-primary">@{{ data.cuisine  }}</span>
+                                    <a class="pull-right" href="/restaurants/@{{ data.id }}"><button class="btn btn-primary"> view Deals </button></a>
+                                      {{-- rating --}}
+                                      @{{#data.ratings_average}}
+                                      <div class="rateYo" data-rateyo-rating="@{{ data.ratings_average }}"></div>
+                                      @{{/data.ratings_average}}
+                                      @{{^data.ratings_average}}
+                                      <div class="rateYo" data-rateyo-rating="0"></div>
+                                      @{{/data.ratings_average}}
+                                    {{-- /rating--}}
+                                    <h3><a href="/restaurants/@{{ data.id }}"> @{{ data.business_name }} </a></h3>
+                                    <div class="address">
+                                        <p>
+                                            <span class="ion-ios-location-outline"></span>
+                                            @{{ data.address }}, @{{ data.street }}, @{{ data.town }}
+                                            <br>
+                                            @{{ data.outcode }} @{{ data.incode }}
+                                        </p>
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
-        var generatedHtml;
+
+        var template = $("#res-template").html();
         // bof function for restaurant name auto-complete search
         // bof get restaurants by id
         $(function(){
@@ -153,38 +188,10 @@
                         success: function(data) {
 
                             //console.log(data);
-                            $(".restaurant-item").empty();
+                            $(".restaurants").empty();
+                            var html = Mustache.render(template, data);
+                            $(".restaurants").append(html);
 
-                                var   output = "<div class='panel panel-default panel--styled'>"
-
-                                    + "<div class='panel-body'>"
-                                    + "<div class='col-md-12 panelTop'>"
-                                    + "<div class='col-md-4'>"
-                                    + "<img class='img-responsive' src='http://placehold.it/350x350' alt=''/>"
-                                    + "</div>"
-                                    + "<div class='col-md-8'>"
-                                    + "<small>" + data.cuisine + "</small>"
-                                    + "<h4>" + data.business_name + "</h4>"
-                                    + "<p>" +  data.description + "</p>"
-                                    + "</div>"
-                                    + "</div>"
-
-                                    + "<div class='col-md-12 panelBottom'>"
-                                    + "<div class='col-md-4 text-center'>"
-
-                                    + "<label class='switch'>"
-
-                                    + "<input type='checkbox'>"
-                                    + "<div class='slider round'></div>"
-                                    + "</label>"
-                                    + "</div>"
-                                    + "<div class='col-md-4 text-left'>"
-                                    + "<span class='tel'>" + data.business_phone1 + "</span>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>";
-                                    $(".restaurant-item").append(output);
 
                         },
                         //error
@@ -202,8 +209,6 @@
         });//end of function*/
         // eof get restaurants by id
         // eof function for restaurant name auto-complete search
-
-
 
         /* bof ajax call by filter */
         $(function(){
@@ -224,10 +229,7 @@
                         filters.push(filter);
 
                     }// eof if
-
                     //console.log('inside filters each');
-
-
                 }); //eof each
                 //console.log(filters);
                  $.ajax({
@@ -237,16 +239,17 @@
                         //success
                         success: function(data) {
 
-                           renderHtml(data);
-                            $(".restaurant-item").empty();
-                            $(".restaurant-item").html(generatedHtml);
+                            $(".restaurants").empty();
+
                             $.each(data, function(index, value) {
-
-                               // console.log(data);
-
-                                /*$(".restaurant-item").append(output);*/
-                         }); //eof foreach
-
+                                console.log(value);
+                                var data = {
+                                  "data": value
+                                };
+                                var html = Mustache.render(template, data);
+                                //console.log(data);
+                                $(".restaurants").append(html);
+                            }); //eof foreach
                         },
                         //error
                         error : function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -254,7 +257,16 @@
                             console.log(JSON.stringify(jqXHR));
                             console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         }
-                    });
+                 }).done(function(){
+                        $('.rateYo').each(function(){
+                            var $rateYo = $(this).rateYo({
+                                    ratedFill: "#008dc9",
+                                    readOnly: true,
+                                    starWidth: "20px"
+                            });
+
+                        });
+                 });
 
             });
 
@@ -275,6 +287,18 @@
                 $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
             }
         });
+
+        /* rate yo*/
+          $(function(){
+                  $('.rateYo').each(function(){
+                    var $rateYo = $(this).rateYo({
+                            ratedFill: "#008dc9",
+                            readOnly: true,
+                            starWidth: "20px"
+                        });
+                    /* set the option `onChange` */
+                });
+          });
 
     </script>
 @endsection

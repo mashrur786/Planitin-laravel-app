@@ -13,6 +13,7 @@ use Postcode;
 use Auth;
 use Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 
 class RestaurantsController extends Controller
@@ -150,50 +151,73 @@ class RestaurantsController extends Controller
 
              $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
                         $query->whereIn('requirements.name', $requirements);
-                        })->whereIn("cuisine", $cuisines)->orderBy("cuisine", "asc")->get();
+                        })->whereIn("cuisine", $cuisines)
+                        ->with('ratings')
+                        ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                        ->select(array('restaurants.*',
+		                DB::raw('AVG(rating) as ratings_average')))
+	                    ->groupBy('id')
+	                    ->get();;
 
-            Log::info('filter1');
              return $results;
 
         } elseif (empty($cuisines) && !empty($types) && !empty($requirements)) {
 
              $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
                         $query->whereIn('requirements.name', $requirements);
-                        })->whereIn("type", $types)->orderBy("cuisine", "asc")->get();
-
-             Log::info('filter2');
+                        })->whereIn("type", $types)
+                        ->with('ratings')
+                        ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                        ->select(array('restaurants.*',
+		                DB::raw('AVG(rating) as ratings_average')))
+	                    ->groupBy('id')
+	                    ->get();
              return $results;
 
          } elseif (empty($requirements) && !empty($types) && !empty($cuisine)) {
 
-           $results = $restaurant->whereIn("cuisine", $cuisines)
-               ->whereIn("type", $types)->orderBy("cuisine", "asc")
-               ->get();
+               $results = $restaurant->whereIn("cuisine", $cuisines)
+                   ->whereIn("type", $types)->orderBy("cuisine", "asc")
+                   ->with('ratings')
+                   ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                   ->select(array('restaurants.*',
+                    DB::raw('AVG(rating) as ratings_average')))
+                    ->groupBy('id')
+                    ->get();
 
-           Log::info('filter3');
-           return $results;
+                return $results;
 
        } elseif (empty($types) && empty($requirements)  && !empty($cuisines)) {
 
-           $results = $restaurant->whereIn("cuisine", $cuisines)->get();
-
-           Log::info('filter4');
-           return $results;
+               $results = $restaurant->whereIn("cuisine", $cuisines)->with('ratings')
+                   ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                   ->select(array('restaurants.*',
+                    DB::raw('AVG(rating) as ratings_average')))
+                    ->groupBy('id')
+                    ->get();
+                return $results;
 
        } elseif (empty($cuisines) && empty($requirements) && !empty($types)) {
 
-             $results = $restaurant->whereIn("type", $types)->get();
-
-             Log::info('filter5');
+             $results = $restaurant->whereIn("type", $types)->with('ratings')
+               ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+               ->select(array('restaurants.*',
+		        DB::raw('AVG(rating) as ratings_average')))
+	            ->groupBy('id')
+	            ->get();
              return $results;
 
        } elseif (empty($cuisines) && empty($types) && !empty($requirements)) {
 
          $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
                         $query->whereIn('requirements.name', $requirements);
-                        })->get();
+                        })->with('ratings')
+                        ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                        ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+                        ->groupBy('id')
+                        ->get();
 
-         Log::info('filter6');
+
          return $results;
 
         } else {
@@ -201,11 +225,13 @@ class RestaurantsController extends Controller
             $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
                             $query->whereIn('requirements.name', $requirements);
                             })->whereIn("cuisine", $cuisines)
-                              ->whereIn("type", $types)
-                              ->orderBy("cuisine", "asc")
+                              ->whereIn("type", $types)->with('ratings')
+                              ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                              ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+	                          ->groupBy('id')
                               ->get();
 
-            Log::info('filter7');
+
             return $results;
 
         }
@@ -285,7 +311,6 @@ class RestaurantsController extends Controller
             $restaurant->featured_img = $filename;
         }
 
-
         $restaurant->business_phone1 = $request->business_phone1;
         $restaurant->business_phone2 = $request->business_phone2;
         $restaurant->address = $request->address;
@@ -357,9 +382,6 @@ class RestaurantsController extends Controller
         Session::flash('error', 'Oops! You have reached maximum number of subscriotion');
 
         return redirect('/home');
-
-
-
 
 
     }
@@ -475,7 +497,6 @@ class RestaurantsController extends Controller
     {
 
         $restaurant = Restaurant::findOrFail($id);
-
         //detach
         $restaurant->requirements()->detach();
         $restaurant->partner()->delete();
@@ -486,9 +507,6 @@ class RestaurantsController extends Controller
         }
 
         Session::flash('error', 'Restaurant counld\'t be deleted');
-
-
-
 
     }
 

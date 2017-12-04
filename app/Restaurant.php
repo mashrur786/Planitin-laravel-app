@@ -44,6 +44,13 @@ class Restaurant extends Model
         return ucwords($value);
     }
 
+    public function getInCodeAttribute($value){
+        return strtoupper($value);
+    }
+
+    public function getOutCodeAttribute($value){
+        return strtoupper($value);
+    }
 
 
 }
