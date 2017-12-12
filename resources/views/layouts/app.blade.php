@@ -58,7 +58,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -161,24 +161,8 @@
             crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript for bootstrap-select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    @yield('script')
-    <script src="js/jquery.flexslider.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script>
-        // flexslider main
-	$('#main-flexslider').flexslider({
-		animation: "swing",
-		direction: "vertical",
-		slideshow: true,
-		slideshowSpeed: 3500,
-		animationDuration: 1000,
-		directionNav: true,
-		prevText: '<i class="icon-angle-up icon-2x"></i>',
-		nextText: '<i class="icon-angle-down icon-2x active"></i>',
-		controlNav: false,
-		smootheHeight:true,
-		useCSS: false
-	});
-    </script>
+    @yield('script')
+
 </body>
 </html>

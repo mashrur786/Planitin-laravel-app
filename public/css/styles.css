@@ -2,6 +2,9 @@
 -------------------------------------------------- */
 
 @import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+
 
 html {
   position: relative;
@@ -19,7 +22,7 @@ body {
 }
 
 body:before {
-  background: url("../images/pattern17.jpg");
+  /*background: url("../images/pattern17.jpg");*/
   background-size: 600px;
   opacity: 0.111;
   content: ' ';
@@ -38,10 +41,11 @@ body:before {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Lato', sans-serif !important;
   color: black;
+  font-weight: lighter;
 }
 
 hr {
-  border-color: #dae7f2;
+  border-color: #DBDBDB;
 }
 
 .tel {
@@ -53,7 +57,6 @@ p , div, span {
   font-family: Raleway, sans-serif!important;
   color: #676767 ;
   line-height: 1.45rem ;
-
 }
 
 
@@ -76,8 +79,9 @@ p , div, span {
     color: black !important;
 }
 
+
 .glyphicon {
-  color: #1b8dc8;
+
   font-weight: lighter;
 }
 
@@ -87,9 +91,7 @@ p , div, span {
 }
 
 header {
-
   margin-bottom: 100px;
-
 }
 
 nav {
@@ -99,26 +101,32 @@ nav {
 .navbar-default {
 
   background: #008dc9;
-  -webkit-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
+  border: none;
+  box-shadow: none;
+  padding:  10px 0 ;
+/*  -webkit-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
   box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
-  border-color: transparent;
+  border-color: transparent;*/
 
 }
 
 .navbar-default .navbar-brand {
     color: #ffffff;
-      padding: 10px 15px;
+    padding: 10px 15px;
+        background: #008dc9;
 }
 
 .navbar-default .navbar-nav>li>a {
     color: #ffffff;
+
 
 }
 
 .nav.navbar-nav.navbar-right > .dropdown > .dropdown-toggle > .caret {
    color: white;
 }
+
 
 /* Notifications dropdown menu  */
 .dropdown-menu.notifications {
@@ -150,17 +158,30 @@ nav {
 
 }
 
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+        color: white;
+    background-color: rgba(0,0,0,0.25);
+    background-image: none;
+}
+
+.dropdown-menu {
+
+}
+
 /* header */
 #header-wrapper {
     width: 100%;
+    height:100vh;
+    min-height:100vh;
     min-height: 600px;
-    margin-top: -60px;
-    padding-top: 150px;
+    margin-top: -100px;
+    padding-top: 15%;
     text-align: center;
 }
 
 #header-wrapper.header-slider {
-    background: #444 url(../images/bg.jpg) no-repeat fixed;
+    /*background: #444 url(../images/bg.jpg) no-repeat fixed;*/
+    background: #008dc9;
     background-position: top 100px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -168,9 +189,15 @@ nav {
     background-size: cover;
 }
 
+/* restaurant search form */
+.res-search-auto input.form-control, .res-search-auto  .input-group-btn>.btn, .res-search-auto  button{
+    height: 50px;
+    padding-top: 8px;
+}
+
 /* Notification Dropdown-menu */
 main  {
-    padding-bottom: 150px;
+    /*padding-bottom: 150px;*/
 }
 
 
@@ -182,7 +209,7 @@ main  {
 /* Form */
 .form-control {
 
-  border-color: #1b8dc8;
+    border-radius: 2px;
 
 }
 
@@ -191,18 +218,56 @@ main  {
 }*/
 
 /* Panel */
-.panel-default {
-      border-color: #1b8dc8;
 
+.panel-default {
+
+    border-radius: 2px;
 }
 .panel-default>.panel-heading {
   background: white;
 }
+
+.panel-filter .panel-title {
+        border-bottom: 1px solid lightgrey;
+    padding-bottom: 10px;
+}
 /*----------------------
-welcome/Search Page
+welcome/Search Page/index page
 ----------------------*/
 
+.autocomplete-search-form .form-control{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    box-shadow: none;
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif !important;
+}
 
+.autocomplete-search-form .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: 1.3em;
+    font-weight: 100;
+}
+.autocomplete-search-form .form-control::-moz-placeholder { /* Firefox 19+ */
+   font-size: 1.3em;
+    font-weight: 100;
+}
+.autocomplete-search-form .form-control:-ms-input-placeholder { /* IE 10+ */
+   font-size: 1.3em;
+    font-weight: 100;
+}
+.autocomplete-search-form .form-control:-moz-placeholder { /* Firefox 18- */
+   font-size: 1.5em;
+    font-weight: 100;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    color: black;
+    padding: 10px 5px;
+}
 .bootstrap-select {
 
     min-width: 150px;
@@ -233,6 +298,69 @@ welcome/Search Page
     color: #fff;
 }
 
+section.section {
+    padding: 100px 0 80px;
+}
+
+section.spacer {
+    color: #312f2b;
+    background-color: #f2f2f2;
+    padding: 90px 0 90px;
+}
+
+section.quote {
+    color: #312f2b;
+    background-color: white;
+    padding: 0;
+}
+
+section p {
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-weight: lighter;
+    font-size: 19px;
+    line-height: 1.6em;
+}
+
+
+section.section h4 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.hiw {
+    text-align: center;
+}
+
+.hiw p {
+    font-size: 15px;
+    line-height: 1.4em;
+}
+
+.hiw .badge.badge-circled {
+    padding: 6px 10px;
+    -webkit-border-radius: 100em;
+    -moz-border-radius: 100em;
+    border-radius: 100em;
+    background-color: #008dc9;
+}
+
+/* partner business programme */
+#pbp {
+    padding-top: 50px;
+}
+
+.bg-pbp {
+
+
+}
+
+
+
+
+
 /*----------------------
 Restaurants Card Styles
 ----------------------*/
@@ -248,7 +376,7 @@ Restaurants Card Styles
 
 
 .res-search-auto  form .input-group {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0,0,0,0.25);
   padding: 20px;
   border-radius: 5px;
 }
@@ -258,10 +386,33 @@ Footer
 ----------------------*/
 
 footer{
-	background-color: white;
+/* margin-top: 100px;*/
+
+}
+
+footer .before-footer  {
+    background-image: url(/images/quote-bg.jpg);
+    background-position: bottom;
+    background-size: cover;
+    height: 270px;
+}
+
+footer blockquote {
+    text-align: right;
+    margin-top: -50px;
+    border-left: 0;
+
+}
+
+footer blockquote h2 {
+    font-family: Raleway, sans-serif!important;
+    padding-right: 10px;
+}
+
+footer > .footer-wrapper{
+
+    border-top: 1px solid #DBDBDB;
     padding: 20px 0;
-    border-top: 10px solid #1b8dc8;
-    margin-top: 100px;
 }
 
 footer ul{
@@ -287,6 +438,21 @@ footer ul li a:nth-child(1){
 footer ul li a:hover{
 	color:#7dabdb;
 	text-decoration:none;
+}
+
+footer ul.menu {
+    float: left;
+    margin-right: 25px;
+}
+
+footer ul.menu  li{
+    float: none;
+    margin-bottom: 10px;
+}
+
+footer ul.menu h5 {
+    line-height: 1.3em;
+    color: #a8a8a8;
 }
 
 .footer-top{
@@ -317,6 +483,23 @@ footer ul li a:hover{
 	padding:15px 0 10px 0;
 }
 
+.footer ul.social-icon li:last-child {
+    margin-right: 0;
+}
+
+.footer ul li a span {
+    font-size: 1.5em;
+
+}
+
+.footer ul.social-icon li a {
+
+}
+
+
+.footer ul.social-icon li:last-child a {
+    padding-right: 0;
+}
 
 /*----------------------
 Restaurants Card listing
@@ -324,6 +507,7 @@ Restaurants Card listing
 
 .panel.panel--styled.restaurant {
     margin-bottom: 30px;
+    border-radius: 2px;
 }
 
 .panel.panel--styled.restaurant > .panel-body {
@@ -367,7 +551,7 @@ Restaurants Card Styles
 }
 .panel.panel--styled {
   background: white;
-  border: 1px solid #1b8dc8;
+
 }
 .panelTop {
   padding: 30px;
@@ -408,7 +592,72 @@ span.tel {
 }
 
 /* Hide default HTML checkbox */
-.switch input {display:none;}
+    .control {
+
+            display: block;
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 15px;
+            padding-top: 3px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+            .control input {
+                position: absolute;
+                z-index: -1;
+                opacity: 0;
+            }
+        .control_indicator {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background: #e6e6e6;
+            border: 0;
+        }
+        .control-radio .control_indicator {
+            border-radius: 0;
+        }
+
+        .control:hover input ~ .control_indicator,
+        .control input:focus ~ .control_indicator {
+            background: #cccccc;
+        }
+
+        .control input:checked ~ .control_indicator {
+            background: #337ab7;
+        }
+        .control:hover input:not([disabled]):checked ~ .control_indicator,
+        .control input:checked:focus ~ .control_indicator {
+            background: #337ab7;
+        }
+        .control input:disabled ~ .control_indicator {
+            background: #e6e6e6;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .control_indicator:after {
+            box-sizing: unset;
+            content: '';
+            position: absolute;
+            display: none;
+        }
+        .control input:checked ~ .control_indicator:after {
+            display: block;
+        }
+        .control-checkbox .control_indicator:after {
+            left: 8px;
+            top: 3px;
+            width: 4px;
+            height: 9px;
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .control-checkbox input:disabled ~ .control_indicator:after {
+            border-color: #7b7b7b;
+        }
 
 /* The slider */
 .slider {
@@ -478,7 +727,7 @@ input:checked + .slider:before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-   border: 1px solid #008dc9;
+   border: 1px solid #e5e5e5;
 }
 
 .card .card-heading.image img {
@@ -628,7 +877,7 @@ input:checked + .slider:before {
 
 .card .card-info ul li .value p {
     line-height: 1.2em;
-    border: 1px solid D3D3D3;
+    border: 1px solid #D3D3D3;
     border-radius: 4px;
     display: inline-block;
     padding: 20px 80px 20px 10px;
@@ -668,7 +917,7 @@ input:checked + .slider:before {
     box-shadow: 0px 0px 18px -6px rgba(0,0,0,1);
 }
 .brdr {
-    border: 1px solid #008dc9;
+    border: 1px solid #e5e5e5;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -874,6 +1123,8 @@ sup {
     }
 
 /* eof user home/dashboard  page */
+
+
 
 
 

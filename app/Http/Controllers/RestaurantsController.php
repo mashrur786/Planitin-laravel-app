@@ -100,9 +100,14 @@ class RestaurantsController extends Controller
 
         $id = $request->id;
 
-        $result = $restaurant->where("id", $id)->firstOrFail();
+        $result = $restaurant->where("restaurants.id", $id)->with('ratings')
+                        ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                        ->select(array('restaurants.*',
+		                DB::raw('AVG(rating) as ratings_average')))
+	                    ->get();
+            //og::info($result);
 
-        return $result;
+            return response()->json($result);
 
 
     }
@@ -114,8 +119,11 @@ class RestaurantsController extends Controller
         //Log::info($request->filters);
         if(empty($filters)){
 
-               $results = $restaurant->all();
-
+               $results = $restaurant->with('ratings')
+                   ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                   ->select(array('restaurants.*',
+                   DB::raw('AVG(rating) as ratings_average')))->get();
+                   Log::info($results);
                return $results;
         }
 
@@ -157,7 +165,7 @@ class RestaurantsController extends Controller
                         ->select(array('restaurants.*',
 		                DB::raw('AVG(rating) as ratings_average')))
 	                    ->groupBy('id')
-	                    ->get();;
+	                    ->get();
 
              return $results;
 

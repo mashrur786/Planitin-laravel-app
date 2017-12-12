@@ -2,109 +2,137 @@
 
 @section('style')
         <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" href="/css/recipe-card.css">
 @endsection
 @section('content')
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4 filters">
-
-                <a href="" class="btn btn-info btn-block btn-compose-email">Filter Results</a>
+            <div class="col-md-3 filters">
+                <br>
+                <h3 class="">Filter Results</h3>
+                <br>
                 <br/>
-                <div class="panel panel-default">
+                <div class="panel panel-filter">
                     <div class="panel-heading">
                         <h3 class="panel-title">Cuisine</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
+                         <div class="control-group">
                         @foreach ($cuisines as $cuisine)
-                            <div class="checkbox">
-                                <label><input data-filter-name="cuisine" class="filter" type="checkbox" value="{{ ucfirst(trans($cuisine->cuisine))  }}"> {{ ucfirst(trans($cuisine->cuisine))  }}</label>
-                            </div>
+                            <label class="control control-checkbox">
+                               {{ ucfirst(trans($cuisine->cuisine))  }}
+                                <input data-filter-name="cuisine" class="filter" type="checkbox" value="{{ ucfirst(trans($cuisine->cuisine))  }}">
+                                <div class="control_indicator"></div>
+                            </label>
                         @endforeach
+                         </div>
 
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-filter">
                     <div class="panel-heading">
                         <h3 class="panel-title">Restaurants Types</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
 
+                        <div class="control-group">
                         @foreach ($types as $type)
-                            <div class="checkbox">
-                                <label><input data-filter-name="type" class="filter" type="checkbox" value="{{ ucfirst(trans($type->type))  }}"> {{ ucfirst(trans($type->type))  }}</label>
-                            </div>
+                            <label class="control control-checkbox">
+                               {{ ucfirst(trans($type->type))  }}
+                                <input data-filter-name="type" class="filter" type="checkbox" value="{{ ucfirst(trans($type->type))  }}">
+                                <div class="control_indicator"></div>
+                            </label>
                         @endforeach
+                        </div>
 
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-filter">
                     <div class="panel-heading">
                         <h3 class="panel-title"> Special Requirements</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
 
+                        <div class="control-group">
                         @foreach ($requirements as $requirement)
-                            <div class="checkbox">
+                             <label class="control control-checkbox">
+                               {{ ucfirst(trans($requirement->name))  }}
+                                <input data-filter-name="requirement" class="filter" type="checkbox" value="{{ ucfirst(trans($requirement->name))  }}">
+                                <div class="control_indicator"></div>
+                            </label>
+                         {{--   <div class="checkbox">
                                 <label>
-                                    <input data-filter-name="requirement" class="filter" type="checkbox" value="{{ ucfirst(trans($requirement->name))  }}">
+
                                     {{ ucfirst(trans($requirement->name))  }}
                                 </label>
-                            </div>
+                            </div>--}}
                         @endforeach
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-8" >
-                <h1 style="margin-top: 0">We have found {{  $data->count() }} results</h1>
-            </div>
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Filter by Name</h3>
-                          <div class="panel-body">
-                              <form onsubmit="event.preventDefault();">
-                                  <input id="res-name" name="resName" type="text" class="form-control">
-                              </form>
-                          </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8 restaurants">
-                @if(!$data->isEmpty())
-                    @foreach ($data as $restaurant)
-                    <div class="panel panel-default panel--styled restaurant">
-                        <div class="panel-body">
-                                <div class="col-md-4 image">
-                                    <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
-                                </div>
-                                <div class="col-md-8 info">
-                                    <span class="label label-primary">{{ ucfirst(trans($restaurant->cuisine))  }}</span>
-                                    <a class="pull-right" href="{{ route('restaurants.show', $restaurant->id) }}"><button class="btn btn-primary"> view Deals </button></a>
-                                      {{-- rating --}}
-                                    <div class="rateYo" data-rateyo-rating="{{ $restaurant->isRated() ? $restaurant->avgRating : 0 }}"></div>
-                                    {{-- /rating--}}
-                                    <h3><a href="/restaurants/{{ $restaurant->id }}">{{ ucwords($restaurant->business_name) }}</a></h3>
-                                    <div class="address">
-                                        <p><span class="ion-ios-location-outline"></span>
-                                            {{ $restaurant->address }}, {{ $restaurant->street }}, {{ $restaurant->town }}
-                                            <br>
-                                            {{ $restaurant->outcode . ' ' . $restaurant->incode }}
-
-                                        </p>
-                                    </div>
-
-                                </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="col-md-9" >
+                <h1 style="margin-top: 0">We have found {{  $data->count() }} results</h1>
+            </div>
+            <br>
+            <div class="col-md-9">
+
+              <form class="autocomplete-search-form" onsubmit="event.preventDefault();">
+                  <input id="res-name" name="resName" type="text" class="form-control" placeholder="Search restaurant by name">
+              </form>
+
+            </div>
+
+            <div class="col-md-9 restaurants">
+                <div class="row">
+                    @if(!$data->isEmpty())
+                    @foreach ($data as $restaurant)
+                         {{-- CARD --}}
+                         <div class="col-md-6">
+                <div class="recipe-card">
+                    <aside>
+                        <img class="img-responsive" src="/uploads/restaurant_imgs/{{ $restaurant->featured_img or 'default.png' }}" alt=""/>
+                        <p>
+                           <span class="label label-info"> {{ ucfirst(trans($restaurant->cuisine))  }}</span>
+                        </p>
+                        <a href="#" class="btn btn-white">Get Deals</a>
+
+                    </aside>
+                    <article>
+                        <h2>
+                            <a href="/restaurants/{{ $restaurant->id }}">{{ ucwords($restaurant->business_name) }} </a>
+                            <div class="rateYo" data-rateyo-rating="{{ $restaurant->isRated() ? $restaurant->avgRating : 0 }}"></div>
+                        </h2>
+                        <h4> {{ $restaurant->business_phone1}}</h4>
+                        <hr>
+                        <ul>
+                            <li><span class="ion-ios-location-outline"></span> {{ $restaurant->address }},</li>
+                            <li>{{ $restaurant->street }},</li>
+                            <li> {{ $restaurant->town }},</li>
+                            <li>{{ $restaurant->outcode . ' ' . $restaurant->incode }}</li>
+                        </ul>
+                        <hr>
+                        <p>
+                             @foreach($restaurant->requirements as $requirement)
+                                 <span class="label label-white">
+                                     {{ $requirement->name }}
+                                 </span>
+                             @endforeach
+                        </p>
+
+                    </article>
+                </div>
+            </div>
+
                     @endforeach
                 @else
+                </div>
                 <div class="alert alert-danger">
                     <strong>Oosp!!</strong> We didn't find any restuarants, please try again !!
                 </div>
@@ -115,7 +143,6 @@
             </div>
         </div>
     </div>
-
     <script>
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var url = '{{ route('restaurants.sort') }}';
@@ -124,9 +151,56 @@
 @endsection
 {{-- Script--}}
 @section('script')
+    <script src="/js/jquery.matchHeight-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
     <script id="res-template" type="text/template">
-        <div class="panel panel-default panel--styled restaurant">
+          <div class="col-md-6">
+                <div class="recipe-card">
+                    <aside>
+                         @{{#data.featured_img}}
+                          <img class="img-responsive" src="/uploads/restaurant_imgs/@{{data.featured_img}}" alt=""/>
+                         @{{/data.featured_img}}
+                         @{{^data.featured_img}}
+                          <img class="img-responsive" src="/uploads/restaurant_imgs/default.png" alt=""/>
+                         @{{/data.featured_img}}
+                        <p>
+                           <span class="label label-info"> @{{ data.cuisine  }}</span>
+                        </p>
+                        <a href="#" class="btn btn-white">Get Deals</a>
+
+                    </aside>
+                    <article>
+                        <h2>
+                            <a href="/restaurants/@{{ data.id }}"> @{{ data.business_name }} </a>
+                            {{-- rating --}}
+                              @{{#data.ratings_average}}
+                              <div class="rateYo" data-rateyo-rating="@{{ data.ratings_average }}"></div>
+                              @{{/data.ratings_average}}
+                              @{{^data.ratings_average}}
+                              <div class="rateYo" data-rateyo-rating="0"></div>
+                              @{{/data.ratings_average}}
+                            {{-- /rating--}}
+                        </h2>
+                        <h4> @{{ data.business_phone1 }}</h4>
+                        <hr>
+                        <ul>
+                            <li><span class="ion-ios-location-outline"></span> @{{ data.address }},</li>
+                            <li> @{{ data.street }},</li>
+                            <li> @{{ data.town }},</li>
+                            <li> @{{ data.outcode . ' ' . data.incode }}</li>
+                        </ul>
+                        <hr>
+                        <p>
+                            {{-- @foreach($restaurant->requirements as $requirement)
+                                 <span class="label label-white">
+                                     {{ $requirement->name }}
+                                 </span>
+                             @endforeach--}}
+                        </p>
+                    </article>
+                </div>
+            </div>
+        {{--<div class="panel panel-default panel--styled restaurant">
                         <div class="panel-body">
                                 <div class="col-md-4 image">
                                     @{{#data.featured_img}}
@@ -139,14 +213,14 @@
                                 <div class="col-md-8 info">
                                     <span class="label label-primary">@{{ data.cuisine  }}</span>
                                     <a class="pull-right" href="/restaurants/@{{ data.id }}"><button class="btn btn-primary"> view Deals </button></a>
-                                      {{-- rating --}}
+                                      --}}{{-- rating --}}{{--
                                       @{{#data.ratings_average}}
                                       <div class="rateYo" data-rateyo-rating="@{{ data.ratings_average }}"></div>
                                       @{{/data.ratings_average}}
                                       @{{^data.ratings_average}}
                                       <div class="rateYo" data-rateyo-rating="0"></div>
                                       @{{/data.ratings_average}}
-                                    {{-- /rating--}}
+                                    --}}{{-- /rating--}}{{--
                                     <h3><a href="/restaurants/@{{ data.id }}"> @{{ data.business_name }} </a></h3>
                                     <div class="address">
                                         <p>
@@ -159,7 +233,7 @@
 
                                 </div>
                         </div>
-                    </div>
+                    </div>--}}
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
@@ -186,12 +260,13 @@
                         data: { 'id' : id , _token: token },
                         //success
                         success: function(data) {
-
-                            //console.log(data);
+                            //console.log(data[0]);
                             $(".restaurants").empty();
+                            var data = {
+                                  "data": data[0]
+                                };
                             var html = Mustache.render(template, data);
                             $(".restaurants").append(html);
-
 
                         },
                         //error
@@ -200,7 +275,16 @@
                             console.log(JSON.stringify(jqXHR));
                             console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         }
-                    });
+                    }).done(function(){
+                        $('.rateYo').each(function(){
+                            var $rateYo = $(this).rateYo({
+                                    ratedFill: "#008dc9",
+                                    readOnly: true,
+                                    starWidth: "20px"
+                            });
+
+                        });
+                 });
 
                 }
 
@@ -299,6 +383,10 @@
                     /* set the option `onChange` */
                 });
           });
+
+           $(function() {
+                $('.recipe-card').matchHeight();
+            });
 
     </script>
 @endsection
