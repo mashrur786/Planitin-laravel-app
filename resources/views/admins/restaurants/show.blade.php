@@ -12,7 +12,7 @@
          <button type="submit" class="btn btn-sm btn-danger pull-right">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
              Delete
-        </button>
+         </button>
 
       </form>
     <br>

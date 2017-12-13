@@ -1,6 +1,8 @@
 @extends('admins.dashboard')
 @section('styles')
     <link rel="stylesheet" href="/css/select2.css">
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.2/quill.snow.css" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -65,6 +67,14 @@
                     <label for="">Reward Points Capstone</label>
                      <input type="number" name="capstone" class="form-control" placeholder="{{ $restaurant->capstone }}">
                 </div>
+                <div class="form-group">
+                    <label for="">Promotional Text</label>
+                        <div id="ql-editor" style="min-height: 150px">
+
+                        </div>
+                    <input type="hidden" name="promotion_text">
+                </div>
+
                 <div class="form-group">
                      <label class="btn btn-default">
                         Upload Featured Image <input name="f_img" class="btn" type="file" value="{{ $restaurant->featured_img }}">
@@ -137,7 +147,35 @@
 @endsection
 @section('scripts')
     <script  type="text/javascript" src="/js/select2.min.js"></script>
+    <script src="//cdn.quilljs.com/1.3.2/quill.min.js"></script>
     <script type="text/javascript">
+        /* Quill editor */
+
+         /* Quill editor */
+        $(function() {
+
+            var editor = new Quill('#ql-editor', {
+                theme : 'snow',
+                placeholder: 'Promotional text...'
+            });
+
+            editor.clipboard.dangerouslyPasteHTML('{!! $restaurant->promotion_text !!}');
+
+            editor.on('text-change', function(delta, oldDelta, source) {
+                var content = editor.getContents();
+                content = quillGetHTML(content);
+                $('input[name="promotion_text"]').val(content);
+            });
+
+        });
+
+
+        function quillGetHTML(inputDelta) {
+            var tempCont = document.createElement("div");
+            (new Quill(tempCont)).setContents(inputDelta);
+            return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
+        }
+
         $(".select2-multiple").select2(
             {
                 placeholder: "Select a Requirement"

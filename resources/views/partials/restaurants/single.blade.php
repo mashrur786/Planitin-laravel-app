@@ -12,9 +12,10 @@
                         <button type="submit" class="btn btn-success pull-right">OPT OUT</button>
                      </a>
                     @else
-                     <a href="{{ route('restaurants.subscribe',['id' => $restaurant->id]) }}">
-                        <button type="submit" class="btn btn-success pull-right">OPT IN</button>
-                     </a>
+                         <a href="{{ route('restaurants.subscribe',['id' => $restaurant->id]) }}">
+                            <button type="submit" class="btn btn-success pull-right">OPT IN</button>
+                         </a>
+
                     @endif
 
 

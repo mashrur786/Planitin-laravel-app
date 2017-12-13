@@ -105,7 +105,7 @@ class RestaurantsController extends Controller
                         ->select(array('restaurants.*',
 		                DB::raw('AVG(rating) as ratings_average')))
 	                    ->get();
-            //og::info($result);
+            //Log::info($result);
 
             return response()->json($result);
 
@@ -122,7 +122,10 @@ class RestaurantsController extends Controller
                $results = $restaurant->with('ratings')
                    ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
                    ->select(array('restaurants.*',
-                   DB::raw('AVG(rating) as ratings_average')))->get();
+                   DB::raw('AVG(rating) as ratings_average')))
+                   ->groupBy('id')
+                   ->orderBy('business_name')
+                   ->get();
                    Log::info($results);
                return $results;
         }
@@ -307,6 +310,7 @@ class RestaurantsController extends Controller
         $restaurant->cuisine = $request->cuisine;
         $restaurant->description = $request->description;
         $restaurant->capstone = $request->capstone;
+        $restaurant->promotion_text = $request->promotion_text;
         /* image store*/
 
         if($request->hasFile('f_img')){
@@ -425,7 +429,6 @@ class RestaurantsController extends Controller
     {
         //
          return view('admins.restaurants.edit', ['restaurant' => Restaurant::findOrFail($id)]);
-
     }
 
     /**
@@ -448,6 +451,7 @@ class RestaurantsController extends Controller
         $restaurant->cuisine = $request->cuisine;
         $restaurant->description = $request->description;
         $restaurant->capstone = $request->capstone;
+        $restaurant->promotion_text = $request->promotion_text;
         /* image store*/
 
         if($request->hasFile('f_img')){
@@ -510,7 +514,7 @@ class RestaurantsController extends Controller
         $restaurant->partner()->delete();
 
         if($restaurant->delete()){
-            Session::flash('success', 'Campaign deleted');
+            Session::flash('success', 'Restaurant deleted');
             return redirect()->route('admin.restaurants');
         }
 

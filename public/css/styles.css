@@ -3,6 +3,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Megrim');
 
 
 
@@ -103,7 +104,7 @@ nav {
   background: #008dc9;
   border: none;
   box-shadow: none;
-  padding:  10px 0 ;
+  padding:  5px 0 ;
 /*  -webkit-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
   box-shadow: 0px 3px 21px -5px rgba(0,0,0,0.75);
@@ -239,8 +240,8 @@ welcome/Search Page/index page
     border: none;
     border-bottom: 1px solid #ccc;
     box-shadow: none;
-    margin-top: 20px;
-    font-size: 1.3em;
+    margin-top: 27px;
+    font-size: 1em;
     font-weight: 100;
     font-family: 'Lato', sans-serif !important;
 }
@@ -265,9 +266,9 @@ welcome/Search Page/index page
 .ui-menu .ui-menu-item-wrapper {
     font-size: 1.3em;
     line-height: 1.3em;
-    color: black;
     padding: 10px 5px;
 }
+
 .bootstrap-select {
 
     min-width: 150px;
@@ -296,6 +297,7 @@ welcome/Search Page/index page
     text-align: center;
     line-height: 1;
     color: #fff;
+    font-family: 'Megrim', cursive !important;
 }
 
 section.section {

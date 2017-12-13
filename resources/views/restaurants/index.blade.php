@@ -65,12 +65,6 @@
                                 <input data-filter-name="requirement" class="filter" type="checkbox" value="{{ ucfirst(trans($requirement->name))  }}">
                                 <div class="control_indicator"></div>
                             </label>
-                         {{--   <div class="checkbox">
-                                <label>
-
-                                    {{ ucfirst(trans($requirement->name))  }}
-                                </label>
-                            </div>--}}
                         @endforeach
                         </div>
                     </div>
@@ -78,7 +72,7 @@
             </div>
             <br><br>
             <div class="col-md-9" >
-                <h1 style="margin-top: 0">We have found {{  $data->count() }} results</h1>
+                <h1 style="margin-top: 0">We have found <span id="resultNo"> {{  $data->count() }} </span> results</h1>
             </div>
             <br>
             <div class="col-md-9">
@@ -239,6 +233,7 @@
     <script>
 
         var template = $("#res-template").html();
+        var resultCount = 0;
         // bof function for restaurant name auto-complete search
         // bof get restaurants by id
         $(function(){
@@ -249,8 +244,6 @@
                 minLength: 3,
                 select: function( event, ui ) {
 
-                    //$(this).after( "<input type='hidden' name='id' value='"+ ui.item.id +"' >" );
-
                     var id = ui.item.id ;
 
                     $.ajax({
@@ -260,7 +253,8 @@
                         data: { 'id' : id , _token: token },
                         //success
                         success: function(data) {
-                            //console.log(data[0]);
+
+                            resultCount = data.length;
                             $(".restaurants").empty();
                             var data = {
                                   "data": data[0]
@@ -276,6 +270,7 @@
                             console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         }
                     }).done(function(){
+                        $('#resultNo').html(resultCount);
                         $('.rateYo').each(function(){
                             var $rateYo = $(this).rateYo({
                                     ratedFill: "#008dc9",
@@ -296,6 +291,7 @@
 
         /* bof ajax call by filter */
         $(function(){
+
             $('.filter').on('click', function(){
 
                  var filters = []; //filter array
@@ -323,15 +319,15 @@
                         //success
                         success: function(data) {
 
+                            resultCount = data.length;
                             $(".restaurants").empty();
-
                             $.each(data, function(index, value) {
-                                console.log(value);
+
                                 var data = {
                                   "data": value
                                 };
                                 var html = Mustache.render(template, data);
-                                //console.log(data);
+
                                 $(".restaurants").append(html);
                             }); //eof foreach
                         },
@@ -342,6 +338,8 @@
                             console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         }
                  }).done(function(){
+                        $('#resultNo').html(resultCount);
+                        $('.recipe-card').matchHeight();
                         $('.rateYo').each(function(){
                             var $rateYo = $(this).rateYo({
                                     ratedFill: "#008dc9",
