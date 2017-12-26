@@ -95,7 +95,7 @@
                         <p>
                            <span class="label label-info"> {{ ucfirst(trans($restaurant->cuisine))  }}</span>
                         </p>
-                        <a href="#" class="btn btn-white">Get Deals</a>
+
 
                     </aside>
                     <article>
@@ -160,7 +160,7 @@
                         <p>
                            <span class="label label-info"> @{{ data.cuisine  }}</span>
                         </p>
-                        <a href="#" class="btn btn-white">Get Deals</a>
+
 
                     </aside>
                     <article>

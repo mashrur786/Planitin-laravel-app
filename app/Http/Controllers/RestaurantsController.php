@@ -459,7 +459,7 @@ class RestaurantsController extends Controller
             $image = $request->file('f_img');
             $filename = 'res_' . time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('uploads/restaurant_imgs/' . $filename);
-            Image::make($image)->resize(800,800, function ($constraint) {
+            Image::make($image)->resize(800,700, function ($constraint) {
                                     $constraint->aspectRatio();
                                 })->save($location);
 

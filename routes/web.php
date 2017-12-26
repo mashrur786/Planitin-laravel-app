@@ -267,6 +267,10 @@ Route::group(['prefix' => 'admin'],function(){
 
     ]);
 
+    /* admin Requirements */
+    //requirement routes
+    Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
+
 
 
 });
@@ -306,11 +310,6 @@ Route::post('get/code', [
 
 
 Route::get('markNotificationsAsRead','User\UserController@markNotificationsAsRead');
-
-
-
-//requirement routes
-Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
 
 
 

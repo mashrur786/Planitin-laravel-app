@@ -52,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Plan It In</a>
+                <a class="navbar-brand" href="/">Plan It In</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -131,6 +131,15 @@
                             <ul class="nav nav-second-level">
 <li>                            <li>
                                     <a href="{{ route('admin.campaigns') }}"> View Campaigns </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="">
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Requirements <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+<li>                            <li>
+                                    <a href="{{ route('requirements.index') }}"> View Requirements </a>
                                 </li>
                             </ul>
                         </li>

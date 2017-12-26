@@ -97,20 +97,57 @@
                                 <div data-value="{{ $restaurant->users()
                                                                 ->where('restaurant_id', $restaurant->id)
                                                                 ->where('user_id', Auth::user()->id)
-                                                                ->first()->pivot->points  }}" class="circle-progress">
+                                                                ->first()->pivot->points  }}"
+                                     data-capstone="{{ $restaurant->capstone }}"
+                                     class="circle-progress">
                                     {{--<div data-value="{{ $restaurant->users()->where('restaurant_id', $restaurant->id)->first()->pivot->points  }}" class="circle-progress">--}}
 
                                      <strong></strong>
+                                    <br>
+                                    <br>
+                                    <a href="#" data-toggle="modal"  data-target="#res{{$restaurant->id}}">Rewards Points</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="res{{$restaurant->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title inline" id="exampleModalLabel"> Rewards Points</h5>
+                                          </div>
+                                          <div class="modal-body">
+                                            <h3> You've collected
+                                                <span>
+                                                    {{ $restaurant->users()
+                                                                ->where('restaurant_id', $restaurant->id)
+                                                                ->where('user_id', Auth::user()->id)
+                                                                ->first()->pivot->points  }}
+                                                </span>
+
+                                                Points out of
+                                                <span>
+                                                    {{ $restaurant->capstone }}
+                                                </span>
+                                            </h3>
+                                              <hr class="dotted">
+                                            {!! $restaurant->promotion_text !!}
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {{-- eof modal --}}
                                  </div>
+
                             </div>
-                            <hr>
+                            <hr class="dotted">
                             <p>
 
                               {{ $restaurant->description }}
 
                             </p>
 
-                            <hr>
+                            <hr class="dotted">
                             <div class="coupon-wrapper">
 
                             @foreach($restaurant->campaigns as $campaign)
@@ -233,12 +270,18 @@
         /* rewards points */
         $('.circle-progress').each(function () {
             var value = $(this).data('value');
-
+            var capstone = $(this).data('capstone');
+            var circleValue;
+            if(value > 0 && capstone > 0) {
+                circleValue = value/capstone;
+            } else {
+                 circleValue = 0;
+            }
              $(this).circleProgress({
-            value: value/1000,
-            fill: {gradient: [['#0681c4', .5], ['#4ac5f8', .5]], gradientAngle: Math.PI / 4}
+                value: circleValue,
+                fill: {gradient: [['#0681c4', .5], ['#4ac5f8', .5]], gradientAngle: Math.PI / 4}
             }).on('circle-animation-progress', function(event, progress, stepValue) {
-                $(this).find('strong').text(stepValue.toFixed(2).substr(2));
+                $(this).find('strong').text(stepValue.toFixed(3).substr(3));
             });
         });
 

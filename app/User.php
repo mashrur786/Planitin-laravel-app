@@ -30,8 +30,10 @@ class User extends Authenticatable
 
     public function isSubscribed($restaurant_id){
 
-        if($this->restaurants()->whereIn('restaurant_id', $restaurant_id)->first())
+        //dd($restaurant_id);
+        if($this->restaurants()->where('restaurant_id', $restaurant_id)->exists()) {
             return true;
+        }
 
         return false;
 

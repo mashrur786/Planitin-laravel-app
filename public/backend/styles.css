@@ -116,3 +116,222 @@ p , div, span {
     border-color: #adadad !important;
 }
 
+/* Restaurant view single */
+.restaurant-single h1 {
+    margin-top: 0;
+}
+
+.restaurant-single h3 {
+
+    color: #1a8cce;
+    margin: 0;
+    text-transform: uppercase;
+
+}
+
+.restaurant-single .tel {
+    margin-bottom: 10px;
+}
+
+.restaurant-single .cuisine-req {
+     border-top: 1px dotted #ddd;
+    border-bottom: 1px dotted #ddd;
+     margin-bottom: 20px;
+    padding: 10px 0;
+    vertical-align: middle;
+}
+
+.restaurant-single .cuisine-req span.label {
+
+    line-height: normal;
+    display: inline-block;
+    margin: -10px 0 0 10px;
+}
+
+.restaurant-single .requirements {
+    vertical-align: super;
+}
+.restaurant-single .label.label-white {
+    border: 1px solid #5bc0de;
+    margin: 0 10px 10px 0;
+    color: black;
+}
+
+
+
+.restaurant-single .address {
+    margin-bottom: 20px;
+}
+
+
+.restaurant-single .address span {
+    padding-right: 10px;
+    margin-right: 8px;
+}
+
+.address span:not(:first-child){
+
+    border-right: 1px solid #ddd;
+
+}
+
+.address span:last-child {
+    border-right: none;
+}
+
+.btn-wrapper {
+    border-top: 1px dotted #ddd;
+    border-bottom: 1px dotted #ddd;
+    padding: 10px 0;
+}
+
+p.description {
+    margin-top: 20px;
+}
+
+
+/* tab */
+.tab {
+    margin-top: 40px;
+}
+.tab section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+  min-height: 300px;
+}
+
+.tab input {
+  display: none;
+    font-size: 1.3em;
+}
+
+.tab label i {
+    padding-right: 5px;
+}
+
+.tab label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+.tab label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+
+
+.tab label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+.tab input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid #1a8cce;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  .tab label {
+    font-size: 0;
+  }
+  .tab label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .tab label {
+    padding: 15px;
+  }
+}
+
+
+/* coupon */
+.coupon-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+}
+
+
+.coupon {
+    border: 3px dashed #bcbcbc;
+    border-radius: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+
+}
+
+.coupon h4 {
+  margin: 25px 0;
+}
+
+.coupon.redeemed h4 , .coupon.expired h4{
+  color: #e8e8e8;
+}
+
+.coupon.redeemed,  .coupon.expired {
+    background: #d6d6d6;
+    color: #7d7d7d;
+    position: relative;
+
+}
+
+.coupon.redeemed::after{
+    content: 'Redeemed';
+}
+
+.coupon.expired::after {
+    content: 'Expired';
+}
+.coupon.redeemed::after, .coupon.expired::after{
+
+    position: absolute;
+    z-index: 111;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 55px;
+    font-size: 2em;
+    color: #eceaea;
+    background: rgba(119, 119, 119, 0.34);
+    border-radius: 6px;
+}
+
+.coupon.redeemed button, .coupon.expired button {
+    visibility: hidden;
+}
+
+.coupon.redeemed .label.label-warning , .coupon.expired .label.label-warning {
+    background-color: gray;
+    color: #a8a8a8;;
+}
+
