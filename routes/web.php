@@ -125,12 +125,12 @@ Route::group(['prefix' => 'admin'],function(){
 
     Route::get('login', [
     'as' => 'admin.login',
-    'uses' => 'Auth\AdminLoginController@showLoginForm'
+    'uses' => 'Auth\AdminLogInController@showLoginForm'
     ]);
 
     Route::post('login', [
     'as' => 'admin.login.submit',
-    'uses' => 'Auth\AdminLoginController@login'
+    'uses' => 'Auth\AdminLogInController@login'
     ]);
 
     Route::get('/', [
