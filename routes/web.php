@@ -247,23 +247,23 @@ Route::group(['prefix' => 'admin'],function(){
     /* Admin manager */
     Route::get('admins', [
         'as' => 'admin.admins',
-        'uses' => 'admin\AdminController@list'
+        'uses' => 'Admin\AdminController@list'
     ]);
 
     Route::get('admins/create', [
         'as' => 'admin.admins.create',
-        'uses' => 'admin\AdminController@create'
+        'uses' => 'Admin\AdminController@create'
     ]);
 
     Route::Post('admins/store', [
         'as' => 'admin.admins.store',
-        'uses' => 'admin\AdminController@store'
+        'uses' => 'Admin\AdminController@store'
     ]);
 
     Route::delete('admins/{admin}', [
 
         'as' => 'admin.admins.destroy',
-        'uses' => 'admin\AdminController@destroy'
+        'uses' => 'Admin\AdminController@destroy'
 
     ]);
 
