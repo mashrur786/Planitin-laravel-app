@@ -23,7 +23,7 @@
                         <ul class="menu">
                                 <h5>PARTNER</h5>
                                 <li>
-                                    <a href="{{ route('partner.login') }}">Partners Login</a>
+                                    <a href="{{route('partner.login')/**/}}">Partners Login</a>
                                 </li>
                                 <li>
                                      <a href="#">Become a partner</a>

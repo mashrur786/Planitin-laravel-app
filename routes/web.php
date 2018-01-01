@@ -87,11 +87,13 @@ Route::resource('campaigns', 'CampaignController', ['only' => [
     'index', 'show'
 ]]);
 
+/* Partner Routes  */
+
 Route::group(['prefix' => 'partner'], function (){
 
     Route::get('login', [
     'as' => 'partner.login',
-    'uses' => 'Auth\PartnerLoginController@showLoginForm'
+    'uses' => 'Auth\PartnerLogInController@showLoginForm'
     ]);
 
     Route::post('login', [
