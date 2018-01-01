@@ -183,11 +183,11 @@
                                      <a href="{{ route('home.campaigns.show', $campaign->id) }}">
                                          <h4>{{ $campaign->title }}</h4>
                                      </a>
-                                    <button data-toggle="modal" data-target="#{{$campaign->id}}" class="btn btn-primary btn-code">Get Code</button>
+                                    <button data-toggle="modal" data-target="#coupon{{$campaign->id}}" class="btn btn-primary btn-code">Get Code</button>
                                 </div>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="{{ $campaign->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" data-id="{{$campaign->id}}" id="coupon{{$campaign->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -289,7 +289,7 @@
         $('.btn-code').click(function(){
 
             var container = $(this).parent('.coupon').next('.modal').find('.well.code');
-            var campaign_id = $(this).parent('.coupon').next('.modal').attr('id');
+            var campaign_id = $(this).parent('.coupon').next('.modal').data('id');
             var CSRF_TOKEN =  '{{ \Illuminate\Support\Facades\Session::token() }}';
 
                 $.ajax({

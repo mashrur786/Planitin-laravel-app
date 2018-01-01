@@ -36,7 +36,6 @@ class UserController extends Controller
         $campaign_id = $request->campaign_id;
         $code = '';
 
-
         // Check if the code already exits for a given campaign
         if ($user->campaigns()
                          ->where('user_id', $user->id )

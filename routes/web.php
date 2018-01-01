@@ -271,8 +271,6 @@ Route::group(['prefix' => 'admin'],function(){
     //requirement routes
     Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
 
-
-
 });
 
 
