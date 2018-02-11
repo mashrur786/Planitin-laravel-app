@@ -41,5 +41,27 @@
 
             </div>
         </div>
+         @if(Auth::guard('admin')->check())
+            <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th> Redeemed </th>
+            </tr>
+        </thead>
+        <tbody>
 
+                 <tr>
+
+
+                    <td>
+                        {{ \App\Http\Controllers\CampaignController::getRedeemCount($campaign->id) }}
+
+                    </td>
+
+                 </tr>
+
+        </tbody>
+
+    </table>
+        @endif
     </div>

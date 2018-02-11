@@ -14,6 +14,7 @@ use Auth;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 
 class RestaurantsController extends Controller
@@ -43,8 +44,6 @@ class RestaurantsController extends Controller
             return view('restaurants.index',[ 'data' => $restaurants, 'cuisines' =>  $cuisines,  'types' => $types, 'requirements' => $requirements ]);
         }
 
-
-
     }
 
     public function search(Request $request, Restaurant $restaurant){
@@ -60,22 +59,34 @@ class RestaurantsController extends Controller
         $location =  $request->location;
         $type = $request->res_type;
 
-
         //check if the location given is a postcode
         if(preg_match($regex, strtolower($location))){
 
            //the the postcode and get nearest postcode within within 3 miles radius.
             $data = Postcode::wardsByOutcode($location);
 
-            //get outcodes of all the nearest postcodes
-            $postcodes = [];
-            foreach($data->result as $postcode){
-                 $postcodes[] = $postcode->outcode;
+            if ($data) {
+
+                //get outcodes of all the nearest postcodes
+                $postcodes = [];
+                foreach($data->result as $postcode){
+                     $postcodes[] = $postcode->outcode;
+
+                }
+
+                //
+                $restaurants = $restaurant->whereIn('outcode', $postcodes)
+                                            ->Where('type', '=' , $type)
+                                            ->get();
+
+            } else {
+
+
+                return redirect()->back()->withInput(Input::all())->withErrors(['please provide a valid postcode']);
+
             }
-            //
-            $restaurants = $restaurant->whereIn('outcode', $postcodes)
-                                        ->Where('type', '=' , $type)
-                                        ->get();
+
+
 
 
         } elseif (!empty($location) || $location != ''){
@@ -83,7 +94,8 @@ class RestaurantsController extends Controller
             $restaurants = $restaurant->Where('area', '=', strtolower($location))
                                         ->Where('type', '=' , $type)
                                         ->get();
-        } else{
+
+        } else {
 
             $restaurants = $restaurant->Where('type', '=' , $type)
                                         ->get();
@@ -108,7 +120,6 @@ class RestaurantsController extends Controller
             //Log::info($result);
 
             return response()->json($result);
-
 
     }
 

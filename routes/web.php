@@ -12,6 +12,7 @@
 */
 
 
+
 /* Restaurants routes */
 Route::get('/', [
     'as' => 'welcome',
@@ -272,6 +273,11 @@ Route::group(['prefix' => 'admin'],function(){
     /* admin Requirements */
     //requirement routes
     Route::resource('requirements', 'RequirementController', ['except' => ['create']]);
+
+    Route::get('/sendMails', [
+        'as' => 'admin.sendTestMail',
+        'uses' => 'Admin\AdminController@sendTestMail'
+    ]);
 
 });
 

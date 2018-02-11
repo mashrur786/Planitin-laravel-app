@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Middleware\SuperAdminCheck;
+use Mail;
+use Auth;
+use App\Mail\WelcomeUser;
+use App\User;
 
 
 class AdminController extends Controller
@@ -88,6 +92,17 @@ class AdminController extends Controller
 
         Session::flash('success', 'Admin User deleted');
         return redirect()->route('admin.admins');
+
+    }
+
+    public function sendTestMail(){
+
+        $user = User::find(1);
+        //Email the registered user
+        Mail::to('mashru_uk@hotmail.com')->send(new WelcomeUser($user));
+
+        return redirect()->route('admin.dashboard');
+
 
     }
 

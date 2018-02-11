@@ -28,7 +28,14 @@
 			</div>
 
             </div>
-            <div class="col-md-8 col col-md-offset-2">
+            <div class="col-xs-12 col-md-8 col col-md-offset-2">
+				@if($errors->any())
+					<div class="alert alert-danger alert-dismissable">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					  <strong>Error! </strong>{{$errors->first()}}
+					</div>
+
+				@endif
                 <form action="{{ route('restaurants.search') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="input-group">
@@ -38,7 +45,7 @@
                             <option value="cafe">Cafés & Bars</option>
                             <option value="dessert">Dessert Parlours</option>
                         </select>
-                    <input name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
+                    <input value="{{ old('location') }}" name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
                     <span class="input-group-btn">
                         <button class="btn btn-white btn-primary" type="submit"> Search </button>
                     </span>
