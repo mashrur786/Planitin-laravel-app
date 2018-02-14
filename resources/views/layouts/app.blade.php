@@ -66,7 +66,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <li><a href="{{ url('/blog') }}">blog</a></li>
+                        <li><a href="{{ route('blog') }}">Blog</a></li>
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
