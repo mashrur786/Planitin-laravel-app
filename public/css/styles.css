@@ -64,10 +64,18 @@ hr.dotted {
   line-height: 1.2em;
 }
 
-p , div, span {
+div, span {
   font-family: Raleway, sans-serif!important;
   color: #676767 ;
   line-height: 1.45rem ;
+
+}
+
+p {
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-weight: lighter;
+    font-size: 19px;
+    line-height: 1.6em;
 }
 
 .margin-bottom-100px {
@@ -332,7 +340,7 @@ section.quote {
     padding: 0;
 }
 
-section p {
+section p, p {
     font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
     font-weight: lighter;
     font-size: 19px;

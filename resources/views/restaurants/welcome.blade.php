@@ -108,7 +108,7 @@
 
 				</p>
 				<p class="text-center">
-					<a class="btn btn-white" href="/about.html">Find out more..</a>
+					<a class="btn btn-white" href="{{ route('about') }}">Find out more..</a>
 				</p>
 
 			</div>

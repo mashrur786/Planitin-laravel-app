@@ -51,6 +51,11 @@ Route::post('restaurants/rate', [
     'uses' => 'RestaurantsController@rate'
 ]);
 
+Route::get('/about', [
+    'as' => 'about',
+    'uses' => 'PageController@about'
+]);
+
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/
  * Otherwise 'restaurants/autocompleteSearch/ will never be reached
