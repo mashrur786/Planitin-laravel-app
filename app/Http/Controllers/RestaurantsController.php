@@ -522,6 +522,7 @@ class RestaurantsController extends Controller
         $restaurant = Restaurant::findOrFail($id);
         //detach
         $restaurant->requirements()->detach();
+        $restaurant->users()->detach();
         $restaurant->partner()->delete();
 
         if($restaurant->delete()){
