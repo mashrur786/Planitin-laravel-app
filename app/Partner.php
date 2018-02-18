@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\PartnerResetPasswordNotification;
 
 class Partner extends Authenticatable
 {
@@ -28,6 +29,11 @@ class Partner extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PartnerResetPasswordNotification($token));
+    }
 
     public function business(){
 

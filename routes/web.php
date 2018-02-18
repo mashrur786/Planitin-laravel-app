@@ -131,6 +131,16 @@ Route::group(['prefix' => 'partner'], function (){
         'uses' => 'Partner\PartnerController@show'
     ]);
 
+    //partner password reset routes
+ Route::post('password/email', 'Auth\PartnerForgotPasswordController@sendResetLinkEmail')
+     ->name('partner.password.email');
+ Route::get('password/reset', 'Auth\PartnerForgotPasswordController@showLinkRequestForm')
+     ->name('partner.password.request');
+ Route::post('password/reset', 'Auth\PartnerResetPasswordController@reset');
+ Route::get('password/reset/{token} ', 'Auth\PartnerResetPasswordController@showResetForm')
+     ->name('partner.password.reset');
+
+
 });
 
 /* admin routes*/
