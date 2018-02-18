@@ -328,7 +328,6 @@ Route::post('get/code', [
 Route::get('markNotificationsAsRead','User\UserController@markNotificationsAsRead');
 
 
-
 // testing
 /*Route::get('/postcode', function(){
     $data = Postcode::postcodeLookup('n15 6jd');
