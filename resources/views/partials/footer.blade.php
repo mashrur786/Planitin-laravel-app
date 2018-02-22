@@ -52,19 +52,19 @@
                     <div class="col-md-6">
                         <ul class="pull-right social-icon">
                             <li>
-                                <a href="">
+                                <a href="https://www.facebook.com/PLANITIN/">
                                     <span class="ion-social-facebook"></span>
                                 </a>
 
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://twitter.com/PlanitinUk">
                                     <span class="ion-social-twitter"></span>
                                 </a>
 
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://www.instagram.com/planitinuk/">
                                     <span class="ion-social-instagram"></span>
                                 </a>
                             </li>
