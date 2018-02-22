@@ -25,7 +25,7 @@ class ContactController extends Controller
         $contact['message'] = $request->get('message');
 
         // Mail delivery logic goes here
-        Mail::to('mashru_uk@hotmail.com')->send(new ContactEmail($contact));
+        Mail::to('sharifrahmanuk@gmail.com')->send(new ContactEmail($contact));
 
         Session::flash('success', 'Thank you for contacting planitin. We will get back to you soon');
 
