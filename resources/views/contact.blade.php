@@ -17,6 +17,7 @@
 			<br> info@planitin.com
 			<br>
 			<br>..........<br><br>
+
 			<i style="font-size: 1.5em" class="ion-ios-telephone-outline">
 			</i>
 			<br>+44 7930 261131
