@@ -26,7 +26,7 @@
                                     <a href="{{route('partner.login')/**/}}">Partners Login</a>
                                 </li>
                                 <li>
-                                     <a href="#">Become a partner</a>
+                                     <a href="{{ route('partner-programme') }}">Become a partner</a>
                                 </li>
 
                                 <li>

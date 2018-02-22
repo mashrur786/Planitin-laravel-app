@@ -19,4 +19,8 @@ class PageController extends Controller
         return view('blog');
     }
 
+    public function partner_programme(){
+        return view('partner-programme');
+    }
+
 }

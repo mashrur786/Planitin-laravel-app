@@ -61,8 +61,15 @@ Route::get('/blog', [
     'uses' => 'PageController@blog'
 ]);
 
+Route::get('partner-programme', [
+    'as' => 'partner-programme',
+    'uses' => 'PageController@partner_programme'
+]);
+
 Route::get('contact', 'ContactController@create')->name('contact.create');
 Route::post('contact', 'ContactController@store')->name('contact.store');
+
+
 
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/
