@@ -1,0 +1,61 @@
+/* Portrait tablets and small desktops */
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .search-form-wrapper {
+        margin-top: 30%;
+
+    }
+
+    .search-form-wrapper form .bootstrap-select{
+        display: block;
+        width: 100%;
+    }
+
+    .search-form-wrapper .input-group-btn {
+      display: unset;
+    }
+
+    .res-search-auto form .input-group {
+        width: 100%;
+    }
+    .res-search-auto input.form-control {
+        margin: 20px 0;
+        border: 1px solid #008dc9 !important;
+        background: white !important;
+        color: black !important;
+        border-radius: 2px;
+
+    }
+
+    .res-search-auto input.form-control, .res-search-auto .input-group-btn>.btn, .res-search-auto button {
+        width: 100%;
+
+    }
+
+    /* footer */
+    footer blockquote {
+        text-align: left;
+        margin-top: -70px;
+    }
+
+    /* Restaurant view single */
+    .restaurant-single h1 {
+        margin-top: 15px;
+    }
+
+    /* user home page */
+    #property-listings .property-listing .media-body {
+        width: 100%;
+    }
+
+    /* Reward points */
+
+    .circle-progress {
+        width: 100%;
+    }
+
+    .circle-progress strong {
+            left: 42%;
+    }
+
+}

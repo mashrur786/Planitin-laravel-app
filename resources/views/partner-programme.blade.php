@@ -2,13 +2,13 @@
 
 @section('style')
 <style type="text/css">
-  ul {list-style:none;} /* you should use a css reset too... ;) */
-    ul li {
+  ul.bullet-points {list-style:none;} /* you should use a css reset too... ;) */
+    ul.bullet-points li {
         margin-bottom: 30px;
         font-size: 1.2em;
     }
 
-    ul li i.ion-android-radio-button-on {
+    ul.bullet-points li i.ion-android-radio-button-on {
         color: #337ab7;
         margin-right: 15px;
     }
@@ -16,7 +16,7 @@
 </style>
 @endsection
 @section('content')
-    <br>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -45,7 +45,7 @@
             <br>
             <h3>5 TOP REASONS TO USE OUR SERVICE: </h3>
             <br>
-            <ul>
+            <ul class="bullet-points">
 
                 <li> <i class="ion-android-radio-button-on"></i> Invite more customers on the less busier days</li>
                 <li><i class="ion-android-radio-button-on"></i> Build a loyalty programme to keep old customers happy!</li>

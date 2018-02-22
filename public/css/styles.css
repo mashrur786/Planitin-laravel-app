@@ -1234,7 +1234,7 @@ sup {
 
 @media screen and (max-width: 650px) {
   .tab label {
-    font-size: 0;
+    /*font-size: 0;*/
   }
   .tab label:before {
     margin: 0;

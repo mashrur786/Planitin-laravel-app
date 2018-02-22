@@ -4,7 +4,7 @@
     <div id="header-wrapper" class="header-slider">
         <div class="container res-search-auto">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 hidden-xs">
                 <div id="main-flexslider" class="flexslider">
 					<ul class="slides">
 						<li>
@@ -28,7 +28,8 @@
 			</div>
 
             </div>
-            <div class="col-xs-12 col-md-8 col col-md-offset-2">
+
+            <div class="col-xs-12 col-md-8 col col-md-offset-2 search-form-wrapper">
 				@if($errors->any())
 					<div class="alert alert-danger alert-dismissable">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
