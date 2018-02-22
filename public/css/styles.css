@@ -1323,6 +1323,13 @@ p.description {
 }
 
 
+/* contact page */
+.validation {
+    color: #ff1133;
+    font-size: 1.2;
+    display: none;
+}
+
 
 
 

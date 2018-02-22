@@ -61,6 +61,9 @@ Route::get('/blog', [
     'uses' => 'PageController@blog'
 ]);
 
+Route::get('contact', 'ContactController@create')->name('contact.create');
+Route::post('contact', 'ContactController@store')->name('contact.store');
+
 /*
  * Keep this route top of any route with ::get restaurants/{anything}/
  * Otherwise 'restaurants/autocompleteSearch/ will never be reached
