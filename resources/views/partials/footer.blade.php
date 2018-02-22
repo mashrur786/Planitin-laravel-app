@@ -11,7 +11,7 @@
                                     <a href="#"> Our Story</a>
                                 </li>
                                 <li>
-                                    <a href="#">Contact</a>
+                                    <a href="{{ route('contact.create') }}">Contact</a>
                                 </li>
                                 <li>
                                     <a href="#"> Privacy Policy</a>

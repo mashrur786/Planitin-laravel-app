@@ -140,7 +140,7 @@
 						{{--Contact us at:
 						<strong><a href="mailto:info@planitin.co.ukSubject=Partner%20Business%20Programme" target="_top">info@planitin.co.uk</a></strong>--}}
 					</p>
-					<Button class="btn btn-white">Contact Us</Button>
+					<Button class="btn btn-white"><a href="{{ route('contact.create') }}">Contact Us</a></Button>
 				</div>
 			</div>
 			<div class="col-md-5">
