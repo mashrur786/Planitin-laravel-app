@@ -16,7 +16,7 @@
                 <br/>
                 <div class="panel panel-filter">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Cuisine</h3>
+                        <h3 class="panel-title">Cuisines</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="panel panel-filter">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Restaurants Types</h3>
+                        <h3 class="panel-title">Restaurants</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="panel panel-filter">
                     <div class="panel-heading">
-                        <h3 class="panel-title"> Special Requirements</h3>
+                        <h3 class="panel-title">Requirements</h3>
                         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body">
