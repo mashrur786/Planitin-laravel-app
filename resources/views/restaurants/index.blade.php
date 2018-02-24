@@ -21,10 +21,12 @@
                     </div>
                     <div class="panel-body">
                          <div class="control-group">
-                        @foreach ($cuisines as $cuisine)
+
+                        @foreach ($cuisines as $cuisine => $total)
+
                             <label class="control control-checkbox">
-                               {{ ucfirst(trans($cuisine->cuisine))  }}
-                                <input data-filter-name="cuisine" class="filter" type="checkbox" value="{{ ucfirst(trans($cuisine->cuisine))  }}">
+                               {{ ucfirst(trans($cuisine)) }}  ( {{ $total }} )
+                                <input data-filter-name="cuisine" class="filter" type="checkbox" value="{{ ucfirst(trans($cuisine))  }}">
                                 <div class="control_indicator"></div>
                             </label>
                         @endforeach

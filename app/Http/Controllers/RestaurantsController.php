@@ -48,7 +48,10 @@ class RestaurantsController extends Controller
 
     public function search(Request $request, Restaurant $restaurant){
 
-        $cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        //$cuisines = $restaurant->select('cuisine')->groupBy('cuisine')->get();
+        $cuisines = $restaurant->select('cuisine', DB::raw('count(*) as total'))
+             ->groupBy('cuisine')
+             ->pluck('total','cuisine')->all();
         $res_type = $restaurant->select('type')->groupBy('type')->get();
         $requirements = Requirement::all();
 
