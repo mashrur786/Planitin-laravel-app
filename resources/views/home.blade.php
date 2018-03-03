@@ -67,6 +67,7 @@
 
                                     <h4 class="media-heading">
                                         <a class="res-name" href="{{ route('restaurants.show', [$restaurant->id]) }}" target="_parent">{{ $restaurant->business_name }}
+                                            <i class="visible-xs-block hidden-lg hidden-md hidden-sm"></i>
                                           <small class="label label-primary">{{ $restaurant->cuisine }}</small>
                                         </a>
                                     </h4>

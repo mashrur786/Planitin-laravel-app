@@ -28,6 +28,9 @@
     @yield('style')
     {{-- Main CSS--}}
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/@media-max1199px-min992px.css">
+    <link rel="stylesheet" href="/css/@media-max991px-min768px.css">
+    <link rel="stylesheet" href="/css/@media-max767px-min481px.css">
     <link rel="stylesheet" href="/css/@media-max480px-min320px.css">
 
     <!-- Scripts -->

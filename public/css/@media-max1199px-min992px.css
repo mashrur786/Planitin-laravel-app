@@ -1,0 +1,9 @@
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    /* index page */
+    #header-wrapper {
+        height: 10vh;
+    }
+
+}
