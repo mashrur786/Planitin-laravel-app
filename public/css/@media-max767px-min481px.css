@@ -1,7 +1,7 @@
 /* Portrait tablets and small desktops */
 @media (min-width: 481px) and (max-width: 767px) {
 
-    .search-form-wrapper {
+/*    .search-form-wrapper {
         margin-top: 30%;
 
     }
@@ -30,7 +30,7 @@
     .res-search-auto input.form-control, .res-search-auto .input-group-btn>.btn, .res-search-auto button {
         width: 100%;
 
-    }
+    }*/
 
     /* footer */
     footer blockquote {
