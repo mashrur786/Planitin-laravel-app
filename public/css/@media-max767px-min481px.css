@@ -1,6 +1,14 @@
 /* Portrait tablets and small desktops */
 @media (min-width: 481px) and (max-width: 767px) {
 
+#header-wrapper {
+        height: 20vh;
+    }
+
+    .container.res-search-auto {
+        margin-top: 70px;
+    }
+
 /*    .search-form-wrapper {
         margin-top: 30%;
 

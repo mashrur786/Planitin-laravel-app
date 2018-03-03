@@ -4,7 +4,7 @@
     <div id="header-wrapper" class="header-slider">
         <div class="container res-search-auto">
         <div class="row">
-            <div class="col-md-12 hidden-xs">
+            <div class="col-md-12 hidden-xxs">
                 <div id="main-flexslider" class="flexslider">
 					<ul class="slides">
 						<li>

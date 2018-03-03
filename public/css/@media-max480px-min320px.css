@@ -1,6 +1,9 @@
 /* Portrait tablets and small desktops */
 @media (min-width: 320px) and (max-width: 480px) {
 
+      .hidden-xxs {
+        display: none;
+    }
     .search-form-wrapper {
         margin-top: 30%;
 
