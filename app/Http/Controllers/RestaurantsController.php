@@ -507,6 +507,11 @@ class RestaurantsController extends Controller
         // sync all teh requirements
         $restaurant->requirements()->sync($requirements, false);
 
+        //update partner account email
+        if($restaurant->partner()->exists()){
+            $restaurant->partner->email = $request->email;
+            $restaurant->partner->update();
+        }
 
         return redirect('admin/restaurants');
 
