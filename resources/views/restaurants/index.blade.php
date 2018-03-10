@@ -44,7 +44,7 @@
                         <div class="control-group">
                         @foreach ($types as $type)
                             <label class="control control-checkbox">
-                               {{ ucfirst(trans($type->type))  }}
+                               {{ ucfirst(trans($type->type))  }}s
                                 <input data-filter-name="type" class="filter" type="checkbox" value="{{ ucfirst(trans($type->type))  }}">
                                 <div class="control_indicator"></div>
                             </label>
