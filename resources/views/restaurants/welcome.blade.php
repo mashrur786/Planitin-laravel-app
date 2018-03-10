@@ -43,8 +43,9 @@
                         <select name="res_type" class="selectpicker">
                             <option value="restaurant">Restaurants</option>
                             <option value="takeaway">Takeaways</option>
-                            <option value="cafe">Cafés & Bars</option>
-                            <option value="dessert">Dessert Parlours</option>
+                            <option value="cafe">Cafés</option>
+                            <option value="dessert">Desserts</option>
+							<option value="drink">Drinks</option>
                         </select>
                     <input value="{{ old('location') }}" name="location" type="text" class="form-control" placeholder="Search for restaurants by area or postcode...">
                     <span class="input-group-btn">
