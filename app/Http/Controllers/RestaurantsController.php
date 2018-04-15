@@ -455,7 +455,6 @@ class RestaurantsController extends Controller
     public function update(Request $request, $id)
     {
         //
-
          $restaurant = Restaurant::findorfail($id);
         //store a new restaurant
         //Restaurant::create($request->all());
@@ -483,7 +482,6 @@ class RestaurantsController extends Controller
 
             $restaurant->featured_img = $filename;
         }
-
 
         $restaurant->business_phone1 = $request->business_phone1;
         $restaurant->business_phone2 = $request->business_phone2;
@@ -532,6 +530,13 @@ class RestaurantsController extends Controller
         $restaurant->requirements()->detach();
         $restaurant->users()->detach();
         $restaurant->partner()->delete();
+
+        // detach all the compaing related to the restaurant
+        /*foreach($restaurant->campaigns() as $campaign){
+        /*foreach($restaurant->campaigns() as $campaign){
+            dd($campaign);
+        }*/
+        $restaurant->campaigns()->delete();
 
         if($restaurant->delete()){
             Session::flash('success', 'Restaurant deleted');

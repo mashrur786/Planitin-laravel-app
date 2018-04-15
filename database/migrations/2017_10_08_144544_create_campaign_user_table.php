@@ -17,10 +17,10 @@ class CreateCampaignUserTable extends Migration
 
             $table->increments('id');
             $table->integer('campaign_id')->unsigned();
-            $table->foreign('campaign_id')->references('id')->on('campaigns');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
 
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('code')->unique();;
             $table->boolean('redeem')->default(0);

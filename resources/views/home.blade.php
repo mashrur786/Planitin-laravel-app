@@ -46,7 +46,7 @@
                   <div class="col-md-12">
                     <h1 style="margin-top: 0">Parks & Deals</h1>
                     <p>
-                        Get your latest parks and deals from your favourite restaurant
+                        Get your latest perks and deals from your favourite restaurant
                     </p>
                       <br>
                   </div>
