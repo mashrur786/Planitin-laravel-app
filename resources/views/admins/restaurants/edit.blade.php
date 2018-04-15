@@ -66,14 +66,14 @@
                 </div>
                 <div class="form-group">
                     <label for="">Reward Points Capstone</label>
-                     <input type="number" name="capstone" class="form-control" placeholder="{{ $restaurant->capstone }}">
+                     <input type="number" name="capstone" class="form-control" value="{{ $restaurant->capstone }}">
                 </div>
                 <div class="form-group">
                     <label for="">Promotional Text</label>
                         <div id="ql-editor" style="min-height: 150px">
 
                         </div>
-                    <input type="hidden" name="promotion_text">
+                    <input type="hidden" name="promotion_text" value="{!! $restaurant->promotion_text !!}">
                 </div>
 
                 <div class="form-group">

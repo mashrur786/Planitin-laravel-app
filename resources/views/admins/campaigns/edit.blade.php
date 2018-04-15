@@ -27,30 +27,28 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="">Title</label>
-                        <input type="text" class="form-control" required value="{{ isset($campaign->title) ? $campaign->title : old('title') }}" name="title">
-                    </div>
+                    <label for="">Title</label>
+                    <input type="text" class="form-control" required value="{{ isset($campaign->title) ? $campaign->title : old('title') }}" name="title">
                 </div>
+
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="">Description</label>
-                        <div id="ql-editor">
+                    <label for="">Expiry Date</label>
+                    <input data-date-format="yyyy-mm-dd hh:ii:ss" class="form_datetime form-control" name="expires" size="16" type="text" value="{{ isset($campaign->expires) ? $campaign->expires : old('expires') }}">
 
-                        </div>
-                        <input type="hidden" required name="description">
-
-                    </div>
                 </div>
+
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="">Expiry Date</label>
-                        <input data-date-format="yyyy-mm-dd hh:ii:ss" class="form_datetime form-control" name="expires" size="16" type="text" value="{{ isset($campaign->expires) ? $campaign->expires : old('expires') }}">
+                    <label for="">Description</label>
+                    <div id="ql-editor">
 
                     </div>
+                    <input type="hidden" required name="description" value="{!! $campaign->description !!}">
                 </div>
+
+
+
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Edit</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
                 </div>
 
             </form>
