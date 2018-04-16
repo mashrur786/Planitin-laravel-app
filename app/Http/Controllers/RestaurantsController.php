@@ -140,7 +140,7 @@ class RestaurantsController extends Controller
                    ->groupBy('id')
                    ->orderBy('business_name')
                    ->get();
-                   Log::info($results);
+                   //Log::info($results);
                return $results;
         }
 
@@ -164,28 +164,46 @@ class RestaurantsController extends Controller
 
         }
 
-        /*$test = $restaurant::with('requirements')->get();
-        $test2 = $restaurant::whereHas('requirements', function($query) use($requirements) {
+        /*$test = $restaurant::with('requirements')->get();*/
+
+      /*  $test2 = $restaurant::whereHas('requirements', function($query) use($requirements) {
         $query->whereIn('requirements.name', ['Halal']);
-        })->whereIn("cuisine", ['Indian'])->get();
-        Log::info($test2);
-        return $test2;*/
+        })->whereIn("cuisine", ['Indian'])->get();*/
+
+        /*$test3 = $restaurant::whereHas('requirements', function($query) use($requirements) {
+                            $query->whereIn('requirements.name', ['Halal']);
+                            })->whereIn("cuisine", ['Indian'])
+                            ->with('ratings')
+                            ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                            ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+                            ->get();*/
+
+        /*$test3 = $restaurant->whereIn("cuisine", ['Burger'])
+                            ->whereIn("type", ['restaurant'])
+                            ->with('ratings')
+                            ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                            ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+                            ->get();*/
+
+        //Log::info($test3);
+        //return $test3;
 
 
+        //only restaurant types selected
        if(empty($types) && !empty($cuisines) && !empty($requirements)){
 
              $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
                         $query->whereIn('requirements.name', $requirements);
                         })->whereIn("cuisine", $cuisines)
-                        ->with('ratings')
-                        ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
-                        ->select(array('restaurants.*',
-		                DB::raw('AVG(rating) as ratings_average')))
-	                    ->groupBy('id')
-	                    ->get();
+                 ->with('ratings')
+                 ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
+                 ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+                 ->groupBy('id')
+                 ->get();
 
              return $results;
 
+            //only restaurant types selected and requirements selected
         } elseif (empty($cuisines) && !empty($types) && !empty($requirements)) {
 
              $results = $restaurant::whereHas('requirements', function($query) use($requirements) {
@@ -193,41 +211,43 @@ class RestaurantsController extends Controller
                         })->whereIn("type", $types)
                         ->with('ratings')
                         ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
-                        ->select(array('restaurants.*',
-		                DB::raw('AVG(rating) as ratings_average')))
+                        ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
 	                    ->groupBy('id')
 	                    ->get();
+
              return $results;
 
-         } elseif (empty($requirements) && !empty($types) && !empty($cuisine)) {
+             //only restaurant types selected and cuisines selected
+         } elseif (empty($requirements) && !empty($types) && !empty($cuisines)) {
 
                $results = $restaurant->whereIn("cuisine", $cuisines)
-                   ->whereIn("type", $types)->orderBy("cuisine", "asc")
+                   ->whereIn("type", $types)
+                   ->orderBy("cuisine", "asc")
                    ->with('ratings')
                    ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
-                   ->select(array('restaurants.*',
-                    DB::raw('AVG(rating) as ratings_average')))
-                    ->groupBy('id')
-                    ->get();
+                   ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
+                   ->groupBy('id')
+                   ->get();
+
 
                 return $results;
 
+           // only cuisine selected
        } elseif (empty($types) && empty($requirements)  && !empty($cuisines)) {
 
                $results = $restaurant->whereIn("cuisine", $cuisines)->with('ratings')
                    ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
-                   ->select(array('restaurants.*',
-                    DB::raw('AVG(rating) as ratings_average')))
+                   ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
                     ->groupBy('id')
                     ->get();
                 return $results;
 
+                // only restaurant types selected
        } elseif (empty($cuisines) && empty($requirements) && !empty($types)) {
 
              $results = $restaurant->whereIn("type", $types)->with('ratings')
                ->leftJoin('ratings', 'ratings.ratingable_id', '=', 'restaurants.id')
-               ->select(array('restaurants.*',
-		        DB::raw('AVG(rating) as ratings_average')))
+               ->select(array('restaurants.*', DB::raw('AVG(rating) as ratings_average')))
 	            ->groupBy('id')
 	            ->get();
              return $results;
@@ -276,7 +296,7 @@ class RestaurantsController extends Controller
 
         //$resName =   $request->resName;
         $resName =    $request->term;
-        Log::info('restaurant_name_ajax: '. $resName);
+        //Log::info('restaurant_name_ajax: '. $resName);
 
         $data = array();
 
