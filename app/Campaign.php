@@ -40,4 +40,24 @@ class Campaign extends Model
             ->withPivot('code', 'redeem', 'created_At', 'updated_at');
 
     }
+
+    // this is a recommended way to declare event handlers
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function($campaign)
+        {
+
+            foreach ($campaign->users as $user) {
+                $user->detach();
+                }
+               // dd('test');
+               // $model->users()->detach();
+        });
+    }
 }

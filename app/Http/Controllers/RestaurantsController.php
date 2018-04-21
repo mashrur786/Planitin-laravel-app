@@ -552,10 +552,10 @@ class RestaurantsController extends Controller
         $restaurant->partner()->delete();
 
         // detach all the compaing related to the restaurant
-        /*foreach($restaurant->campaigns() as $campaign){
-        /*foreach($restaurant->campaigns() as $campaign){
-            dd($campaign);
-        }*/
+
+        foreach($restaurant->campaigns as  $campaign){
+            $campaign->users()->detach();
+        }
         $restaurant->campaigns()->delete();
 
         if($restaurant->delete()){
