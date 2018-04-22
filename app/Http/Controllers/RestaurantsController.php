@@ -548,13 +548,18 @@ class RestaurantsController extends Controller
         $restaurant = Restaurant::findOrFail($id);
         //detach
         $restaurant->requirements()->detach();
+            foreach($restaurant->users as $user){
+                $user->notifications()->where('type', 'App\Notifications\NewCampaignCreated')->where('notifiable_id', $user->id)->delete();
+            }
         $restaurant->users()->detach();
         $restaurant->partner()->delete();
 
         // detach all the compaing related to the restaurant
 
         foreach($restaurant->campaigns as  $campaign){
+
             $campaign->users()->detach();
+
         }
         $restaurant->campaigns()->delete();
 
@@ -563,7 +568,7 @@ class RestaurantsController extends Controller
             return redirect()->route('admin.restaurants');
         }
 
-        Session::flash('error', 'Restaurant counld\'t be deleted');
+        //Session::flash('error', 'Restaurant counld\'t be deleted');
 
     }
 

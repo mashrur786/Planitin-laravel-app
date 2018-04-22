@@ -190,6 +190,7 @@
                         </ul>
                         <hr>
                         <p>
+                            @{{ data.requirements }}
                             {{-- @foreach($restaurant->requirements as $requirement)
                                  <span class="label label-white">
                                      {{ $requirement->name }}
